@@ -38,7 +38,7 @@ const MobileProductCard = ({ product }) => {
         <button className="w-full bg-black text-white py-2 rounded-lg text-sm font-medium hover:bg-gray-800 transition-colors duration-300">
           Add to Cart
         </button>
-        <Link to="/shop-list" className="w-full border py-2 rounded-lg text-sm font-medium hover:bg-gray-800 transition-colors duration-300 mt-2 inline-block text-center">
+        <Link to="/product-default" className="w-full border py-2 rounded-lg text-sm font-medium hover:bg-gray-800 transition-colors duration-300 mt-2 inline-block text-center">
           View Details
         </Link>
       </div>

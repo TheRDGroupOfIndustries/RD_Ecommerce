@@ -1,31 +1,43 @@
-import Slider from "react-slick";
 import React, { useState } from "react";
+import Slider from "react-slick";
 import { Minus, Plus } from "lucide-react";
-import { RiArrowGoBackLine, RiShipLine } from "react-icons/ri";
+import { LuTruck, LuRotateCcw } from "react-icons/lu"; // Consistent Lucide icons
 import { MdArrowBackIos, MdArrowForwardIos } from "react-icons/md";
+
+// Ensure you have react-slick and slick-carousel installed:
+// npm install react-slick slick-carousel
+// Also, import their CSS in your main entry file (e.g., App.js or index.js):
+// import "slick-carousel/slick/slick.css";
+// import "slick-carousel/slick/slick-theme.css";
 
 const images = [
   "/details/product1.webp",
   "/details/product2.webp",
   "/details/product3.webp",
+  "https://images.unsplash.com/photo-1596752765352-87063d8ff436?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", // Added another image for better demo
 ];
 
-const sizes = ["S", "M", "L"];
-const colors = ["gray", "black", "green", "pink"];
+const sizes = ["XS", "S", "M", "L", "XL"];
+const colors = ["gray", "black", "green", "pink", "blue"]; // Added blue
 const colorClasses = {
   gray: "bg-gray-300",
   black: "bg-black",
   green: "bg-green-500",
   pink: "bg-pink-300",
+  blue: "bg-blue-500",
 };
 
 const NextArrow = ({ onClick }) => {
   return (
     <button
       onClick={onClick}
-      className="absolute right-0 -top-5 z-10 border rounded-lg border-black text-black px-4 py-1  hover:text-zinc-900 capitalize font-bold cursor-pointer flex items-center justify-center"
+      className="absolute right-2 top-1/2 transform -translate-y-1/2 z-10 
+                 bg-white/80 text-gray-800 rounded-full h-10 w-10 
+                 flex items-center justify-center shadow-md hover:bg-white 
+                 transition-colors duration-200 hidden sm:flex" // Hide on xs, show on sm+
+      aria-label="Next image"
     >
-      prev
+      <MdArrowForwardIos size={24} />
     </button>
   );
 };
@@ -34,9 +46,13 @@ const PrevArrow = ({ onClick }) => {
   return (
     <button
       onClick={onClick}
-      className="absolute right-20 -top-5 z-10 border rounded-lg border-black text-black px-4 py-1  hover:text-zinc-900 capitalize font-bold cursor-pointer flex items-center justify-center"
+      className="absolute left-2 top-1/2 transform -translate-y-1/2 z-10 
+                 bg-white/80 text-gray-800 rounded-full h-10 w-10 
+                 flex items-center justify-center shadow-md hover:bg-white 
+                 transition-colors duration-200 hidden sm:flex" // Hide on xs, show on sm+
+      aria-label="Previous image"
     >
-      Next
+      <MdArrowBackIos size={24} />
     </button>
   );
 };
@@ -45,65 +61,108 @@ const CarouselDetailsSection = () => {
   const [quantity, setQuantity] = useState(1);
   const [selectedSize, setSelectedSize] = useState("S");
   const [selectedColor, setSelectedColor] = useState("gray");
+
+  const productPrice = 999; // Example base price in INR
+  const discountedPrice = 799; // Example discounted price in INR
+
   const settings = {
     dots: true,
     infinite: true,
     speed: 500,
-    slidesToShow: 3,
+    slidesToShow: 1, // Show one main image at a time
     slidesToScroll: 1,
-    arrows: true,
+    arrows: true, // Enable custom arrows
     nextArrow: <NextArrow />,
     prevArrow: <PrevArrow />,
+    // Responsive settings for the main image carousel (if you want to show more on large screens)
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 1, // Still 1 on large screens for main product image
+        },
+      },
+      {
+        breakpoint: 768,
+        settings: {
+          slidesToShow: 1, // Still 1 on medium screens
+          arrows: false, // Hide arrows on smaller screens for touch swipe
+        },
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 1, // Always 1 on mobile
+          arrows: false, // Hide arrows on smaller screens
+        },
+      },
+    ],
   };
 
   return (
-    <section className=" px-20 py-10 gap-10">
-      {/* Images */}
-      <div className="">
-        <div className="slider-container relative">
+    <section className="container mx-auto px-4 py-8 md:px-6 md:py-10 lg:px-8 lg:py-12 flex flex-col lg:flex-row gap-8 lg:gap-16">
+      {/* Images Carousel */}
+      <div className="w-full lg:w-1/2"> {/* Take full width on small, half on large */}
+        <div className="slider-container relative ">
           <Slider {...settings}>
-            {images.map((image) => (
-              <div className="p-4">
-                <img src={image} className="rounded-md  " />
+            {images.map((image, index) => (
+              <div key={index} className="p-1"> {/* Minimal padding here for images themselves */}
+                <img
+                  src={image}
+                  alt={`Product image ${index + 1}`}
+                  className="w-full h-80 md:h-[600px] object-cover rounded-lg shadow-md object-top"
+                />
               </div>
             ))}
           </Slider>
         </div>
       </div>
-      {/* Details */}
-      <div className="w-full space-y-10 relative">
-        <span className="text-sm bg-black text-white px-2 py-1 rounded-md font-semibold">
+
+      {/* Details Section */}
+      <div className="flex-1 space-y-4 md:space-y-6 lg:space-y-8 text-center lg:text-left">
+        <span className="inline-block text-sm bg-black text-white px-3 py-1 rounded-md font-semibold mb-2">
           SALE 20% OFF
         </span>
-        <h1 className="text-3xl font-bold mt-2">Curly Girl Beautiful Dress</h1>
+        <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 leading-tight">
+          Curly Girl Beautiful Dress
+        </h1>
 
-        <div className="flex items-center text-sm text-gray-600 space-x-2">
+        <div className="flex items-center justify-center lg:justify-start text-sm text-gray-600 space-x-2">
           <div className="flex text-yellow-500">★★★★☆</div>
           <span>4.7 Rating (5 customer reviews)</span>
         </div>
 
-        <p className="text-gray-700">
+        {/* Price Display */}
+        <div className="flex items-baseline justify-center lg:justify-start space-x-3 text-gray-900">
+          <span className="text-3xl font-bold">₹{discountedPrice.toFixed(2)}</span>
+          <span className="text-lg text-gray-500 line-through">₹{productPrice.toFixed(2)}</span>
+        </div>
+
+        <p className="text-gray-700 leading-relaxed text-base">
           Lorem Ipsum is simply dummy text of the printing and typesetting
           industry. Lorem Ipsum has been the industry's standard dummy text ever
           since the 1500s, when an unknown printer took a galley of type and
           scrambled it to make a type specimen book.
         </p>
 
-        <div className="flex items-center gap-16 w-full">
+        {/* Quantity, Size, Colors Options */}
+        <div className="flex flex-col sm:flex-row items-center gap-6 sm:gap-10 justify-center lg:justify-start w-full mt-6 pt-6 border-t border-gray-100">
           {/* Quantity */}
-          <div className="space-y-4">
-            <h2 className="font-semibold">Quantity</h2>
+          <div className="space-y-3">
+            <h2 className="font-semibold text-gray-800">Quantity</h2>
             <div className="flex items-center gap-2">
               <button
                 onClick={() => setQuantity(Math.max(quantity - 1, 1))}
-                className="p-2 bg-black text-white rounded-full"
+                className="p-2 bg-gray-200 text-gray-800 rounded-full hover:bg-gray-300 transition-colors duration-200"
+                aria-label="Decrease quantity"
               >
                 <Minus size={16} />
               </button>
-              <span>{quantity}</span>
+              <span className="font-medium text-lg w-8 text-center">{quantity}</span>
               <button
                 onClick={() => setQuantity(quantity + 1)}
-                className="p-2 bg-black text-white rounded-full"
+                className="p-2 bg-gray-200 text-gray-800 rounded-full hover:bg-gray-300 transition-colors duration-200"
+                aria-label="Increase quantity"
               >
                 <Plus size={16} />
               </button>
@@ -111,16 +170,16 @@ const CarouselDetailsSection = () => {
           </div>
 
           {/* Size */}
-          <div className="space-y-4">
-            <h4 className="font-semibold">Size</h4>
+          <div className="space-y-3">
+            <h4 className="font-semibold text-gray-800">Size</h4>
             <div className="flex items-center gap-2">
               {sizes.map((size) => (
                 <button
                   key={size}
                   onClick={() => setSelectedSize(size)}
-                  className={`w-8 h-8 rounded-full border flex items-center justify-center ${
-                    selectedSize === size ? "bg-black text-white" : ""
-                  }`}
+                  className={`w-9 h-9 rounded-full border border-gray-300 flex items-center justify-center text-sm font-medium transition-all duration-200
+                    ${selectedSize === size ? "bg-black text-white shadow-md border-black ring-2 ring-black" : "text-gray-700 hover:bg-gray-100"}`}
+                  aria-pressed={selectedSize === size}
                 >
                   {size}
                 </button>
@@ -129,57 +188,62 @@ const CarouselDetailsSection = () => {
           </div>
 
           {/* Colors */}
-          <div className="space-y-4">
-            <h4 className="font-semibold">Color</h4>
+          <div className="space-y-3">
+            <h4 className="font-semibold text-gray-800">Color</h4>
             <div className="flex items-center gap-2">
               {colors.map((color) => (
                 <button
                   key={color}
                   onClick={() => setSelectedColor(color)}
-                  className={`w-6 h-6 rounded-full border-2 ${
-                    colorClasses[color]
-                  } ${selectedColor === color ? "ring-2 ring-black" : ""}`}
+                  className={`w-7 h-7 rounded-full border-2 border-white shadow-sm cursor-pointer transition-all duration-200
+                    ${colorClasses[color]} ${selectedColor === color ? "ring-2 ring-offset-1 ring-blue-500" : ""}`}
+                  aria-label={`Select ${color} color`}
+                  aria-pressed={selectedColor === color}
                 ></button>
               ))}
             </div>
           </div>
         </div>
 
-        <div className="border-b w-full pb-10 flex items-center gap-5">
-          <button className="border-[1px] w-fit px-4 font-bold bg-black text-white rounded-lg uppercase py-2">
+        {/* Add to Cart / Wishlist Buttons */}
+        <div className="flex flex-col sm:flex-row gap-4 w-full pt-6 pb-6 border-b border-gray-200">
+          <button className="w-full px-6 py-3 font-bold bg-blue-600 text-white rounded-lg uppercase hover:bg-blue-700 transition-colors duration-200 shadow-md">
             Add To Cart
           </button>
-          <button className="border-[1px] w-fit px-4 font-bold border-black rounded-lg uppercase py-2">
+          <button className="w-full px-6 py-3 font-bold border border-gray-300 text-gray-800 rounded-lg uppercase hover:bg-gray-100 transition-colors duration-200 shadow-sm">
             Add To Wishlist
           </button>
         </div>
 
-        <div className="text-lg flex gap-5 text-gray-700 space-y-1">
+        {/* Product Meta Info */}
+        <div className="text-base text-gray-700 space-y-2 py-4">
           <div>
-            <span className="font-bold">SKU:</span> PRT584E63A
+            <span className="font-semibold">SKU:</span> PRT584E63A
           </div>
           <div>
-            <span className="font-bold">Category:</span> Dresses, Jeans,
+            <span className="font-semibold">Category:</span> Dresses, Jeans,
             Swimwear, Summer
           </div>
           <div>
-            <span className="font-bold">Tags:</span> Casual, Workwear,
+            <span className="font-semibold">Tags:</span> Casual, Workwear,
             Accessories
           </div>
-          <div className="flex gap-3 mt-2"></div>
         </div>
 
-        <div className="absolute top-0 right-0">
-          <div className=" flex gap-6 items-center">
-            <RiShipLine size={30} />
+        {/* Shipping & Returns Info */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
+          <div className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg shadow-sm">
+            <LuTruck size={24} className="text-blue-600 flex-shrink-0" />
             <div className="flex flex-col">
-              <span>FREE</span>
-              <span className="font-bold">Shiping</span>
+              <span className="font-semibold text-gray-800">FREE Shipping</span>
+              <span className="text-sm text-gray-600">On all orders above ₹500</span>
             </div>
-            <RiArrowGoBackLine size={30} />
+          </div>
+          <div className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg shadow-sm">
+            <LuRotateCcw size={24} className="text-blue-600 flex-shrink-0" />
             <div className="flex flex-col">
-              <span>Easy Return</span>
-              <span className="font-bold">30 Days</span>
+              <span className="font-semibold text-gray-800">Easy Returns</span>
+              <span className="text-sm text-gray-600">30 Days hassle-free return</span>
             </div>
           </div>
         </div>
