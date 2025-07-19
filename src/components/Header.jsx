@@ -39,8 +39,8 @@ const shopNavigations = {
     { title: "Standard", path: "/shop-standard" },
     { title: "List", path: "/shop-list" },
     { title: "With Category", path: "/shop-with-category" },
-    { title: "Filters Top Bar", path: "/shop-filters-top-bar" },
-    { title: "Sidebar", path: "/shop-sidebar" },
+    // { title: "Filters Top Bar", path: "/shop-filters-top-bar" },
+    // { title: "Sidebar", path: "/shop-sidebar" },
     { title: "Style 1", path: "/shop-style-1" },
     { title: "Style 2", path: "/shop-style-2" },
   ],
@@ -68,7 +68,7 @@ const blogNavigations = {
     { title: "Blog 2 Column", path: "/blog-dark-2-colomn" },
     { title: "Blog 2 Column Sidebar", path: "/blog-dark-2-colomn-sidebar" },
     { title: "Blog 3 Column", path: "/blog-dark-3-colomn" },
-    { title: "Blog Half Image", path: "/blog-dark-half-image" },
+    // { title: "Blog Half Image", path: "/blog-dark-half-image" },
   ],
   "Blog List Sidebar": [
     { title: "No Sidebar", path: "/blog-list-no-sidebar" },
@@ -85,8 +85,8 @@ const blogNavigations = {
   "Blog Light Style": [
     { title: "Blog 2 Column", path: "/blog-light-2-colomn" },
     { title: "Blog 2 Column Sidebar", path: "/blog-light-2-colomn-sidebar" },
-    { title: "Blog Half Image", path: "/blog-light-half-image" },
-    { title: "Blog Exclusive", path: "/blog-light-exclusive" },
+    // { title: "Blog Half Image", path: "/blog-light-half-image" },
+    // { title: "Blog Exclusive", path: "/blog-light-exclusive" },
   ],
   "Blog Grid Sidebar": [
     { title: "No Sidebar", path: "/blog-grid-no-sidebar" },
