@@ -3,7 +3,7 @@ import { Link, Outlet } from "react-router-dom";
 import ShopTopBanner from "../../components/ShopTopBanner";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../store/authSlice";
-import { Menu, X } from "lucide-react"; // Importing icons for mobile menu toggle
+import { Menu, X } from "lucide-react";
 import { IoClose } from "react-icons/io5";
 
 const navItems = [
@@ -32,11 +32,11 @@ const Account = () => {
       userData.first_name.slice(0, 1) + userData.last_name.slice(0, 1)
     ).toUpperCase();
 
-  const dispatch = useDispatch(); // Uncomment this line if you're using Redux logout
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false); // State to manage mobile sidebar visibility
+  const dispatch = useDispatch();
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   const handleLogout = () => {
-    dispatch(logout()); // Uncomment this line to dispatch the logout action
+    dispatch(logout());
   };
 
   return (
@@ -49,8 +49,7 @@ const Account = () => {
             onClick={() => setIsSidebarOpen(!isSidebarOpen)}
             className="w-full flex items-center justify-center gap-2 py-2 px-4 bg-gray-100 text-gray-800 rounded-md font-semibold focus:outline-none focus:ring-2 focus:ring-blue-500"
           >
-            
-                <Menu className="w-5 h-5" /> Show Menu
+            <Menu className="w-5 h-5" /> Show Menu
           </button>
         </div>
 
@@ -61,7 +60,10 @@ const Account = () => {
           } lg:translate-x-0`}
         >
           <aside className="w-full h-full bg-white rounded-xl shadow-lg lg:shadow-md overflow-y-auto pt-20 md:pt-0">
-            <button onClick={()=>setIsSidebarOpen(false)} className="absolute md:hidden top-20 right-8 bg-black p-2 text-white rounded-full">
+            <button
+              onClick={() => setIsSidebarOpen(false)}
+              className="absolute md:hidden top-20 right-8 bg-black p-2 text-white rounded-full"
+            >
               <IoClose className="w-5 h-5" />{" "}
             </button>
             {/* Profile */}

@@ -1,14 +1,7 @@
 import React, { useState } from "react";
 import Slider from "react-slick";
 import { Minus, Plus } from "lucide-react";
-// Using Lucide icons for consistency with other components
 import { LuTruck, LuRotateCcw } from "react-icons/lu";
-
-// Ensure you have react-slick and slick-carousel installed:
-// npm install react-slick slick-carousel
-// Also, import their CSS in your main entry file (e.g., App.js or index.js):
-// import "slick-carousel/slick/slick.css";
-// import "slick-carousel/slick/slick-theme.css";
 
 const images = [
   "/details/product1.webp",
@@ -31,8 +24,8 @@ const FullWidthDetailsSection = () => {
   const [selectedSize, setSelectedSize] = useState("S");
   const [selectedColor, setSelectedColor] = useState("gray");
 
-  const productPrice = 999; // Example base price in INR
-  const discountedPrice = 799; // Example discounted price in INR
+  const productPrice = 999; 
+  const discountedPrice = 799; 
 
   const settings = {
     customPaging: function (i) {
@@ -47,12 +40,12 @@ const FullWidthDetailsSection = () => {
       );
     },
     dots: true,
-    dotsClass: "slick-dots slick-thumb", // Using standard slick-thumb class for better default styling
+    dotsClass: "slick-dots slick-thumb", 
     infinite: true,
     speed: 500,
-    slidesToShow: 1, // Show one main image at a time
+    slidesToShow: 1,
     slidesToScroll: 1,
-    arrows: false, // Arrows are generally not needed when using custom thumbnail dots
+    arrows: false, 
   };
 
   return (

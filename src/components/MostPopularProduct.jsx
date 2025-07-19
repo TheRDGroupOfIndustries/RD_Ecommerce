@@ -1,12 +1,7 @@
 import React, { useRef, useState, useEffect } from "react";
-// Import slick-carousel CSS
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
-import Slider from "react-slick";
 import ProductCard from "./ProductCard";
 import MobileProductCard from "./MobileProductCard";
 
-// MostPopularProduct component (as provided and enhanced for responsiveness)
 const MostPopularProduct = () => {
   const categories = ["All", "Dresses", "Tops", "Outerwear", "Jacket"];
   const [activeCategory, setActiveCategory] = useState("All");

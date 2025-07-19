@@ -96,7 +96,6 @@ const UserViewsSection = () => {
               Checked Out These Similar Profiles
             </h2>
 
-            {/* Circular Button */}
           </div>
 
           {/* Product Cards */}

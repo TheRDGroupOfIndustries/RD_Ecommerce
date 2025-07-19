@@ -201,10 +201,18 @@ const OrderDetails = () => {
               <h2 className="text-lg text-green-600 my-2 font-semibold">
                 Thank you Your order has been received
               </h2>
-              <h3><strong>Order Number: </strong>#17493</h3>
-              <h3><strong>Date: </strong>17/04/2025, 02:34pm</h3>
-              <h3><strong>Total: </strong>$95</h3>
-              <h3><strong>Payment Methods: </strong>Cash on Delivery</h3>
+              <h3>
+                <strong>Order Number: </strong>#17493
+              </h3>
+              <h3>
+                <strong>Date: </strong>17/04/2025, 02:34pm
+              </h3>
+              <h3>
+                <strong>Total: </strong>$95
+              </h3>
+              <h3>
+                <strong>Payment Methods: </strong>Cash on Delivery
+              </h3>
             </div>
           ) : null}
         </div>

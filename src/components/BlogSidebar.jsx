@@ -66,7 +66,10 @@ export default function BlogSidebar() {
         <h3 className="mb-4 text-xl font-semibold">Category</h3>
         <ul className="space-y-3">
           {categories.map((cat) => (
-            <li key={cat.name} className="flex items-center justify-between text-sm">
+            <li
+              key={cat.name}
+              className="flex items-center justify-between text-sm"
+            >
               <div className="flex items-center gap-2">
                 <span className="text-rose-600">→</span>
                 <span>{cat.name}</span>

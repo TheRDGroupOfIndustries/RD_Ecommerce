@@ -1,15 +1,10 @@
 import React, { useRef, useState, useEffect } from "react";
-// Import slick-carousel CSS
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 
-// Main App component to render the HeroSection
 export default function App() {
   return (
-    // Tailwind CSS setup for the entire app.
-    // The font-inter class ensures the Inter font is used throughout.
-    // The bg-gray-50 provides a light background for better contrast.
     <div className="font-sans antialiased bg-gray-50 min-h-screen">
       <HeroSection />
     </div>
@@ -22,11 +17,9 @@ const HeroSection = () => {
   const leftSliderRef = useRef(null);
   const rightSliderRef = useRef(null);
 
-  // 🔁 Sync sliders using `asNavFor`
   const [nav1, setNav1] = useState(undefined);
   const [nav2, setNav2] = useState(undefined);
 
-  // Set initial nav states on component mount
   useEffect(() => {
     setNav1(leftSliderRef.current || undefined);
     setNav2(rightSliderRef.current || undefined);
@@ -42,29 +35,29 @@ const HeroSection = () => {
     ref: (slider) => (rightSliderRef.current = slider),
     infinite: true,
     focusOnSelect: true,
-    slidesToShow: 2, // Default for larger screens
+    slidesToShow: 2, 
     slidesToScroll: 1,
     arrows: false,
     afterChange: (current) => setActiveIndex(current),
     responsive: [
       {
-        breakpoint: 1024, // For large screens (lg)
+        breakpoint: 1024, 
         settings: {
           slidesToShow: 2,
           slidesToScroll: 1,
         },
       },
       {
-        breakpoint: 768, // For medium screens (md) and smaller
+        breakpoint: 768, 
         settings: {
-          slidesToShow: 1, // Show 1 slide on tablets and smaller
+          slidesToShow: 1, 
           slidesToScroll: 1,
         },
       },
       {
-        breakpoint: 640, // For small screens (sm) and smaller
+        breakpoint: 640,
         settings: {
-          slidesToShow: 1, // Show 1 slide on mobile
+          slidesToShow: 1,
           slidesToScroll: 1,
         },
       },
@@ -161,12 +154,7 @@ const HeroSection = () => {
                 className="w-full h-[400px] md:h-[550px] p-2 md:p-6 transition-all duration-500 flex items-center justify-center"
               >
                 <div className="relative h-full flex items-center justify-center w-full">
-                  {/* The commented out text overlay can be re-enabled if desired */}
-                  {/* {activeIndex !== index && (
-                    <h2 className="uppercase stroke text-3xl md:text-7xl absolute top-1/2 -left-20 md:-left-40 -translate-y-1/2 -rotate-90 z-30 font-bold text-white">
-                      {item.text}
-                    </h2>
-                  )} */}
+                  
                   <img
                     src={item.image}
                     alt="Banner image"
@@ -175,7 +163,6 @@ const HeroSection = () => {
                         ? "scale-110 md:scale-120"
                         : "scale-100"
                     } transition-all duration-300 rounded-xl z-10 relative object-cover w-full h-full shadow-lg`}
-                    // Fallback for image loading errors
                     onError={(e) => {
                       e.target.onerror = null;
                       e.target.src =
@@ -199,7 +186,6 @@ const HeroSection = () => {
         </div>
       </div>
 
-      {/* Star SVGs - Decorative elements, hidden on smaller screens */}
       <svg
         className="star-1 absolute top-5 md:top-10 left-[10%] transform -translate-x-1/2 animate-pulse hidden lg:block"
         xmlns="http://www.w3.org/2000/svg"

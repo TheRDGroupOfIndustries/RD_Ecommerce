@@ -1,6 +1,14 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+} from "recharts";
 
 // Sample Data
 const countries = [
@@ -24,18 +32,35 @@ const chartData = [
 ];
 
 const Dashboard = () => {
-  const {userData} = useSelector(state => state.auth)
+  const { userData } = useSelector((state) => state.auth);
   return (
     <div className=" md:p-6">
       <p className="mb-4 text-gray-800 capitalize">
-        Hello <strong> {userData.first_name } {userData.last_name} </strong> (not {userData.first_name } {userData.last_name}?{" "}
-        <a href="#" className="text-blue-500 underline">Log out</a>)
+        Hello{" "}
+        <strong>
+          {" "}
+          {userData.first_name} {userData.last_name}{" "}
+        </strong>{" "}
+        (not {userData.first_name} {userData.last_name}?{" "}
+        <a href="#" className="text-blue-500 underline">
+          Log out
+        </a>
+        )
       </p>
       <p className="text-gray-700 mb-6">
         From your account dashboard you can view your{" "}
-        <a href="#" className="underline">recent orders</a>, manage your{" "}
-        <a href="#" className="underline">shipping and billing addresses</a>, and{" "}
-        <a href="#" className="underline">edit your password and account details</a>.
+        <a href="#" className="underline">
+          recent orders
+        </a>
+        , manage your{" "}
+        <a href="#" className="underline">
+          shipping and billing addresses
+        </a>
+        , and{" "}
+        <a href="#" className="underline">
+          edit your password and account details
+        </a>
+        .
       </p>
 
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
@@ -72,7 +97,9 @@ const Dashboard = () => {
           <ul className="space-y-2">
             {countries.map((country, idx) => (
               <li key={idx} className="flex justify-between items-center">
-                <span>{country.flag} {country.name}</span>
+                <span>
+                  {country.flag} {country.name}
+                </span>
                 <span className="font-medium">{country.amount}</span>
               </li>
             ))}

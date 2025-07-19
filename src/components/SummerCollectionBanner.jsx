@@ -7,7 +7,7 @@ const SummerCollectionBanner = () => {
         {/* Left Section */}
         <div className="w-full md:w-1/2 relative h-[450px]">
           <img
-            src="/banner-media2.webp" // replace with your actual image
+            src="/banner-media2.webp"
             alt="Summer Women"
             className="w-full h-full object-cover object-top"
           />
@@ -30,7 +30,7 @@ const SummerCollectionBanner = () => {
         {/* Right Section */}
         <div className="w-full md:w-1/2 relative h-[450px]">
           <img
-            src="/banner-media5.webp" // replace with your actual image
+            src="/banner-media5.webp" 
             alt="New Summer Collection"
             className="w-full h-full object-cover object-top"
           />

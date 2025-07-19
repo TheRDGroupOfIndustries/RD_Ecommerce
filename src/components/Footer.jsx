@@ -11,7 +11,9 @@ const Footer = () => {
           <p>E-mail : example@info.com</p>
           <p>Phone : (064) 332-1233</p>
           <div>
-            <p className="font-semibold mt-4 mb-2">Subscribe To Our Newsletter</p>
+            <p className="font-semibold mt-4 mb-2">
+              Subscribe To Our Newsletter
+            </p>
             <div className="flex items-center bg-yellow-300 rounded-md overflow-hidden">
               <input
                 type="email"
@@ -62,16 +64,24 @@ const Footer = () => {
         {/* Our Stores */}
         <div>
           <h3 className="font-semibold text-lg mb-4">Our Stores</h3>
-           <ul className="space-y-2 text-sm text-gray-700">
-            {["new-york", "london-sf", "edinburgh", "los-angeles", "chicago", "las-vegas"].map(
-              (city) => (
-                <li key={city}>
-                  <Link to="#" className="text-gray-600 hover:text-black capitalize font-semibold">
-                    {city.replace("-", " ")}
-                  </Link>
-                </li>
-              )
-            )}
+          <ul className="space-y-2 text-sm text-gray-700">
+            {[
+              "new-york",
+              "london-sf",
+              "edinburgh",
+              "los-angeles",
+              "chicago",
+              "las-vegas",
+            ].map((city) => (
+              <li key={city}>
+                <Link
+                  to="#"
+                  className="text-gray-600 hover:text-black capitalize font-semibold"
+                >
+                  {city.replace("-", " ")}
+                </Link>
+              </li>
+            ))}
           </ul>
         </div>
 
@@ -87,7 +97,10 @@ const Footer = () => {
               "Latest News",
               "Our Sitemap",
             ].map((link) => (
-              <li key={link} className="text-gray-600 hover:text-black capitalize font-semibold">
+              <li
+                key={link}
+                className="text-gray-600 hover:text-black capitalize font-semibold"
+              >
                 <Link to="#">{link}</Link>
               </li>
             ))}
@@ -105,7 +118,10 @@ const Footer = () => {
               "Contact Us",
               "Latest News",
             ].map((link) => (
-              <li key={link} className="text-gray-600 hover:text-black capitalize font-semibold">
+              <li
+                key={link}
+                className="text-gray-600 hover:text-black capitalize font-semibold"
+              >
                 <Link to="#">{link}</Link>
               </li>
             ))}
@@ -116,12 +132,16 @@ const Footer = () => {
       {/* Bottom Bar */}
       <div className="mt-12 border-t border-gray-300 py-6 text-sm flex flex-col md:flex-row justify-between items-center max-w-screen-xl mx-auto px-6 gap-4">
         <p>
-          © 2025 <span className="text-red-600 font-semibold">DexignZone</span> Theme. All Rights
-          Reserved.
+          © 2025 <span className="text-red-600 font-semibold">DexignZone</span>{" "}
+          Theme. All Rights Reserved.
         </p>
         <div className="flex items-center gap-2">
           <span className="font-semibold">We Accept:</span>
-          <img src="/footer-pay-img.webp" alt="footer-pay-img" className="h-4" />
+          <img
+            src="/footer-pay-img.webp"
+            alt="footer-pay-img"
+            className="h-4"
+          />
         </div>
       </div>
     </footer>

@@ -30,7 +30,7 @@ const Cart = () => {
       image: "https://placehold.co/80x80/F3F4F6/1F2937?text=Product4",
       name: "Plaid Wool Winter Coat",
       price: 42.0,
-      quantity: 2, // Example with more than 1 quantity
+      quantity: 2,
     },
     {
       id: 5,
@@ -50,7 +50,7 @@ const Cart = () => {
 
   const [couponCode, setCouponCode] = useState("");
   const [discount, setDiscount] = useState(0);
-  const [couponMessage, setCouponMessage] = useState(""); // State for coupon feedback
+  const [couponMessage, setCouponMessage] = useState("");
 
   const calculateSubtotal = (item) => item.price * item.quantity;
   const calculateTotalPrice = () =>
@@ -73,7 +73,7 @@ const Cart = () => {
 
   const handleCouponCodeChange = (e) => {
     setCouponCode(e.target.value);
-    setCouponMessage(""); // Clear message on input change
+    setCouponMessage("");
   };
 
   const applyCoupon = () => {
@@ -89,14 +89,12 @@ const Cart = () => {
 
   const handleProceedToCheckout = () => {
     console.log("Proceeding to Checkout!");
-    // In a real application, you'd navigate to the checkout page here
     alert("Proceeding to Checkout!");
   };
 
   return (
     <div className="">
       {" "}
-      {/* Responsive padding and container styling */}
       <h2 className="text-xl sm:text-2xl font-semibold mb-6 text-gray-800">
         Your Shopping Cart
       </h2>
@@ -303,7 +301,7 @@ const Cart = () => {
               </p>
             )}
             <button
-              onClick={handleProceedToCheckout} // Changed from updateCart for clarity
+              onClick={handleProceedToCheckout}
               className="bg-blue-600 text-white px-8 py-3 rounded-lg shadow-md hover:bg-blue-700 transition-colors duration-200 w-full sm:w-auto text-base sm:text-lg font-semibold"
             >
               Proceed to Checkout

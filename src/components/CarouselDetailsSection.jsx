@@ -1,24 +1,17 @@
 import React, { useState } from "react";
 import Slider from "react-slick";
 import { Minus, Plus } from "lucide-react";
-import { LuTruck, LuRotateCcw } from "react-icons/lu"; // Consistent Lucide icons
+import { LuTruck, LuRotateCcw } from "react-icons/lu";
 import { MdArrowBackIos, MdArrowForwardIos } from "react-icons/md";
-
-// Ensure you have react-slick and slick-carousel installed:
-// npm install react-slick slick-carousel
-// Also, import their CSS in your main entry file (e.g., App.js or index.js):
-// import "slick-carousel/slick/slick.css";
-// import "slick-carousel/slick/slick-theme.css";
 
 const images = [
   "/details/product1.webp",
   "/details/product2.webp",
   "/details/product3.webp",
-  "https://images.unsplash.com/photo-1596752765352-87063d8ff436?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", // Added another image for better demo
 ];
 
 const sizes = ["XS", "S", "M", "L", "XL"];
-const colors = ["gray", "black", "green", "pink", "blue"]; // Added blue
+const colors = ["gray", "black", "green", "pink", "blue"];
 const colorClasses = {
   gray: "bg-gray-300",
   black: "bg-black",
@@ -33,8 +26,8 @@ const NextArrow = ({ onClick }) => {
       onClick={onClick}
       className="absolute right-2 top-1/2 transform -translate-y-1/2 z-10 
                  bg-white/80 text-gray-800 rounded-full h-10 w-10 
-                 flex items-center justify-center shadow-md hover:bg-white 
-                 transition-colors duration-200 hidden sm:flex" // Hide on xs, show on sm+
+                 md:flex items-center justify-center shadow-md hover:bg-white 
+                 transition-colors duration-200 hidden sm:flex"
       aria-label="Next image"
     >
       <MdArrowForwardIos size={24} />
@@ -48,8 +41,8 @@ const PrevArrow = ({ onClick }) => {
       onClick={onClick}
       className="absolute left-2 top-1/2 transform -translate-y-1/2 z-10 
                  bg-white/80 text-gray-800 rounded-full h-10 w-10 
-                 flex items-center justify-center shadow-md hover:bg-white 
-                 transition-colors duration-200 hidden sm:flex" // Hide on xs, show on sm+
+                 md:flex items-center justify-center shadow-md hover:bg-white 
+                 transition-colors duration-200 hidden sm:flex"
       aria-label="Previous image"
     >
       <MdArrowBackIos size={24} />
@@ -62,38 +55,37 @@ const CarouselDetailsSection = () => {
   const [selectedSize, setSelectedSize] = useState("S");
   const [selectedColor, setSelectedColor] = useState("gray");
 
-  const productPrice = 999; // Example base price in INR
-  const discountedPrice = 799; // Example discounted price in INR
+  const productPrice = 999;
+  const discountedPrice = 799;
 
   const settings = {
     dots: true,
     infinite: true,
     speed: 500,
-    slidesToShow: 1, // Show one main image at a time
+    slidesToShow: 1,
     slidesToScroll: 1,
-    arrows: true, // Enable custom arrows
+    arrows: true,
     nextArrow: <NextArrow />,
     prevArrow: <PrevArrow />,
-    // Responsive settings for the main image carousel (if you want to show more on large screens)
     responsive: [
       {
         breakpoint: 1024,
         settings: {
-          slidesToShow: 1, // Still 1 on large screens for main product image
+          slidesToShow: 1,
         },
       },
       {
         breakpoint: 768,
         settings: {
-          slidesToShow: 1, // Still 1 on medium screens
-          arrows: false, // Hide arrows on smaller screens for touch swipe
+          slidesToShow: 1,
+          arrows: false,
         },
       },
       {
         breakpoint: 480,
         settings: {
-          slidesToShow: 1, // Always 1 on mobile
-          arrows: false, // Hide arrows on smaller screens
+          slidesToShow: 1,
+          arrows: false,
         },
       },
     ],
@@ -102,11 +94,13 @@ const CarouselDetailsSection = () => {
   return (
     <section className="container mx-auto px-4 py-8 md:px-6 md:py-10 lg:px-8 lg:py-12 flex flex-col lg:flex-row gap-8 lg:gap-16">
       {/* Images Carousel */}
-      <div className="w-full lg:w-1/2"> {/* Take full width on small, half on large */}
+      <div className="w-full lg:w-1/2">
+        {" "}
         <div className="slider-container relative ">
           <Slider {...settings}>
             {images.map((image, index) => (
-              <div key={index} className="p-1"> {/* Minimal padding here for images themselves */}
+              <div key={index} className="p-1">
+                {" "}
                 <img
                   src={image}
                   alt={`Product image ${index + 1}`}
@@ -134,8 +128,12 @@ const CarouselDetailsSection = () => {
 
         {/* Price Display */}
         <div className="flex items-baseline justify-center lg:justify-start space-x-3 text-gray-900">
-          <span className="text-3xl font-bold">₹{discountedPrice.toFixed(2)}</span>
-          <span className="text-lg text-gray-500 line-through">₹{productPrice.toFixed(2)}</span>
+          <span className="text-3xl font-bold">
+            ₹{discountedPrice.toFixed(2)}
+          </span>
+          <span className="text-lg text-gray-500 line-through">
+            ₹{productPrice.toFixed(2)}
+          </span>
         </div>
 
         <p className="text-gray-700 leading-relaxed text-base">
@@ -158,7 +156,9 @@ const CarouselDetailsSection = () => {
               >
                 <Minus size={16} />
               </button>
-              <span className="font-medium text-lg w-8 text-center">{quantity}</span>
+              <span className="font-medium text-lg w-8 text-center">
+                {quantity}
+              </span>
               <button
                 onClick={() => setQuantity(quantity + 1)}
                 className="p-2 bg-gray-200 text-gray-800 rounded-full hover:bg-gray-300 transition-colors duration-200"
@@ -178,7 +178,11 @@ const CarouselDetailsSection = () => {
                   key={size}
                   onClick={() => setSelectedSize(size)}
                   className={`w-9 h-9 rounded-full border border-gray-300 flex items-center justify-center text-sm font-medium transition-all duration-200
-                    ${selectedSize === size ? "bg-black text-white shadow-md border-black ring-2 ring-black" : "text-gray-700 hover:bg-gray-100"}`}
+                    ${
+                      selectedSize === size
+                        ? "bg-black text-white shadow-md border-black ring-2 ring-black"
+                        : "text-gray-700 hover:bg-gray-100"
+                    }`}
                   aria-pressed={selectedSize === size}
                 >
                   {size}
@@ -196,7 +200,11 @@ const CarouselDetailsSection = () => {
                   key={color}
                   onClick={() => setSelectedColor(color)}
                   className={`w-7 h-7 rounded-full border-2 border-white shadow-sm cursor-pointer transition-all duration-200
-                    ${colorClasses[color]} ${selectedColor === color ? "ring-2 ring-offset-1 ring-blue-500" : ""}`}
+                    ${colorClasses[color]} ${
+                    selectedColor === color
+                      ? "ring-2 ring-offset-1 ring-blue-500"
+                      : ""
+                  }`}
                   aria-label={`Select ${color} color`}
                   aria-pressed={selectedColor === color}
                 ></button>
@@ -236,14 +244,18 @@ const CarouselDetailsSection = () => {
             <LuTruck size={24} className="text-blue-600 flex-shrink-0" />
             <div className="flex flex-col">
               <span className="font-semibold text-gray-800">FREE Shipping</span>
-              <span className="text-sm text-gray-600">On all orders above ₹500</span>
+              <span className="text-sm text-gray-600">
+                On all orders above ₹500
+              </span>
             </div>
           </div>
           <div className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg shadow-sm">
             <LuRotateCcw size={24} className="text-blue-600 flex-shrink-0" />
             <div className="flex flex-col">
               <span className="font-semibold text-gray-800">Easy Returns</span>
-              <span className="text-sm text-gray-600">30 Days hassle-free return</span>
+              <span className="text-sm text-gray-600">
+                30 Days hassle-free return
+              </span>
             </div>
           </div>
         </div>

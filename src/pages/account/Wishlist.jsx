@@ -25,7 +25,7 @@ const Wishlist = () => {
       name: "Athletic Mesh Sports Leggings",
       originalPrice: 56.0,
       currentPrice: 20.0,
-      stockStatus: "Out of Stock", // Example: Out of Stock
+      stockStatus: "Out of Stock",
     },
     {
       id: 4,
@@ -39,7 +39,6 @@ const Wishlist = () => {
 
   const handleAddToCart = (productId) => {
     console.log(`Product with ID ${productId} added to cart!`);
-    // In a real app, you would dispatch an action to add to cart
     alert(`Product with ID ${productId} added to cart!`);
   };
 
@@ -106,7 +105,10 @@ const Wishlist = () => {
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
                 {products.map((product) => (
-                  <tr key={product.id} className="hover:bg-gray-50 transition-colors duration-150">
+                  <tr
+                    key={product.id}
+                    className="hover:bg-gray-50 transition-colors duration-150"
+                  >
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div className="flex items-center space-x-4">
                         <img

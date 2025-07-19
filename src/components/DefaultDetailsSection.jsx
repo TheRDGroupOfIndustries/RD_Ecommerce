@@ -1,20 +1,14 @@
-import { Minus, Plus } from "lucide-react"; // Assuming Minus and Plus are from lucide-react
+import { Minus, Plus } from "lucide-react";
 import React, { useState } from "react";
 import Slider from "react-slick";
-import { LuPackage } from "react-icons/lu"; // Changed from RiShipLine for consistency with lucide-react style if possible
-
-// Remember to add react-slick and slick-carousel to your project:
-// npm install react-slick slick-carousel
-// npm install --save-dev @types/react-slick (if using TypeScript)
-// import "slick-carousel/slick/slick.css";
-// import "slick-carousel/slick/slick-theme.css";
+import { LuPackage } from "react-icons/lu";
 
 const images = [
   "/details/product1.webp",
   "/details/product2.webp",
   "/details/product3.webp",
 ];
-const sizes = ["S", "M", "L", "XL"]; // Added XL for more options
+const sizes = ["S", "M", "L", "XL"];
 const colors = ["gray", "black", "green", "pink"];
 const colorClasses = {
   gray: "bg-gray-300",
@@ -46,11 +40,11 @@ const DefaultDetailsSection = () => {
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
-    arrows: false, // Often hidden for detail pages with custom dots
+    arrows: false,
   };
 
-  const productPrice = 750; // Example base price
-  const discountPercentage = 0.20; // 20% off
+  const productPrice = 750;
+  const discountPercentage = 0.2;
   const discountedPrice = productPrice * (1 - discountPercentage);
   const savings = productPrice * discountPercentage;
 
@@ -88,8 +82,12 @@ const DefaultDetailsSection = () => {
         </div>
 
         <div className="flex items-baseline justify-center lg:justify-start space-x-3 text-gray-900">
-          <span className="text-3xl font-bold">₹{discountedPrice.toFixed(2)}</span>
-          <span className="text-lg text-gray-500 line-through">₹{productPrice.toFixed(2)}</span>
+          <span className="text-3xl font-bold">
+            ₹{discountedPrice.toFixed(2)}
+          </span>
+          <span className="text-lg text-gray-500 line-through">
+            ₹{productPrice.toFixed(2)}
+          </span>
         </div>
 
         <p className="text-gray-700 leading-relaxed text-base">
@@ -112,7 +110,9 @@ const DefaultDetailsSection = () => {
               >
                 <Minus size={16} />
               </button>
-              <span className="font-medium text-lg w-8 text-center">{quantity}</span>
+              <span className="font-medium text-lg w-8 text-center">
+                {quantity}
+              </span>
               <button
                 onClick={() => setQuantity(quantity + 1)}
                 className="p-2 bg-gray-200 text-gray-800 rounded-full hover:bg-gray-300 transition-colors duration-200"
@@ -132,7 +132,11 @@ const DefaultDetailsSection = () => {
                   key={size}
                   onClick={() => setSelectedSize(size)}
                   className={`w-9 h-9 rounded-full border border-gray-300 flex items-center justify-center text-sm font-medium transition-all duration-200
-                    ${selectedSize === size ? "bg-black text-white shadow-md border-black" : "text-gray-700 hover:bg-gray-100"}`}
+                    ${
+                      selectedSize === size
+                        ? "bg-black text-white shadow-md border-black"
+                        : "text-gray-700 hover:bg-gray-100"
+                    }`}
                   aria-pressed={selectedSize === size}
                 >
                   {size}
@@ -150,7 +154,11 @@ const DefaultDetailsSection = () => {
                   key={color}
                   onClick={() => setSelectedColor(color)}
                   className={`w-7 h-7 rounded-full border-2 border-white shadow-sm cursor-pointer transition-all duration-200
-                    ${colorClasses[color]} ${selectedColor === color ? "ring-2 ring-offset-1 ring-blue-500" : ""}`}
+                    ${colorClasses[color]} ${
+                    selectedColor === color
+                      ? "ring-2 ring-offset-1 ring-blue-500"
+                      : ""
+                  }`}
                   aria-label={`Select ${color} color`}
                   aria-pressed={selectedColor === color}
                 ></button>
@@ -177,7 +185,7 @@ const DefaultDetailsSection = () => {
 
       {/* Actions Section */}
       <div className="lg:col-span-1">
-        <div className="w-full md:border md:border-gray-300 md:rounded-lg flex flex-col p-5 space-y-6 h-full"> {/* Added h-full */}
+        <div className="w-full md:border md:border-gray-300 md:rounded-lg flex flex-col p-5 space-y-6 h-full">
           <div className="border border-green-300 bg-green-50 text-green-700 px-4 py-3 rounded-lg flex items-center justify-center text-sm font-medium">
             Bank offer: Get 5% Off!
           </div>
@@ -186,27 +194,36 @@ const DefaultDetailsSection = () => {
             <LuPackage size={24} className="text-gray-600 flex-shrink-0" />
             <div className="flex flex-col">
               <span className="font-semibold text-gray-800">Easy Returns</span>
-              <span className="text-sm text-gray-600">30 Days hassle-free return policy.</span>
+              <span className="text-sm text-gray-600">
+                30 Days hassle-free return policy.
+              </span>
             </div>
           </div>
 
           <div className="border border-gray-200 rounded-lg flex items-center p-4 space-x-4">
-            <LuPackage size={24} className="text-gray-600 flex-shrink-0" /> {/* Reused icon for demo */}
+            <LuPackage size={24} className="text-gray-600 flex-shrink-0" />{" "}
+            {/* Reused icon for demo */}
             <div className="flex flex-col">
-              <span className="font-semibold text-gray-800">Premium Quality</span>
+              <span className="font-semibold text-gray-800">
+                Premium Quality
+              </span>
               <span className="text-sm text-gray-600">
                 Experience superior comfort and durability.
               </span>
             </div>
           </div>
 
-          <div className="border border-gray-200 rounded-lg flex flex-col p-5 mt-auto"> {/* mt-auto to push to bottom */}
+          <div className="border border-gray-200 rounded-lg flex flex-col p-5 mt-auto">
+            {" "}
+            {/* mt-auto to push to bottom */}
             <div className="border-b border-gray-200 w-full pb-3 mb-3 text-center text-sm text-green-600 font-semibold">
               You will save ₹{savings.toFixed(2)} on this order!
             </div>
             <div className="w-full font-bold flex items-center justify-between">
               <h2 className="text-lg text-gray-800">Total</h2>
-              <h2 className="text-2xl text-gray-900">₹{(discountedPrice * quantity).toFixed(2)}</h2>
+              <h2 className="text-2xl text-gray-900">
+                ₹{(discountedPrice * quantity).toFixed(2)}
+              </h2>
             </div>
           </div>
 

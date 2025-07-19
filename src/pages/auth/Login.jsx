@@ -1,10 +1,8 @@
-// src/pages/Login.jsx
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Eye, EyeOff } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { login } from "../../store/authSlice";
 import { BtnLoader } from "../../components";
 
 const Login = () => {
@@ -104,7 +102,7 @@ const Login = () => {
               type="submit"
               className="bg-black text-white px-6 py-2 rounded-md w-full cursor-pointer"
             >
-              {loading ? <BtnLoader/> :"SIGN IN"}
+              {loading ? <BtnLoader /> : "SIGN IN"}
             </button>
           </div>
         </form>

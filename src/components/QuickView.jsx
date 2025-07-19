@@ -17,7 +17,6 @@ import React, { useEffect, useState } from "react";
       "/details/lady-2.webp",
       "/details/lady-3.webp",
     ],
-    // Dummy icons for social media and actions - replace with actual SVGs or icons if preferred
     cartIcon: "/icons/cart-icon.svg",
     heartIcon: "/icons/heart-icon.svg",
     facebookIcon: "/icons/facebook.svg",

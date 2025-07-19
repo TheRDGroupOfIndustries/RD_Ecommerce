@@ -3,7 +3,7 @@ import { Outlet, useLocation } from "react-router-dom";
 
 const AuthLayout = () => {
   const { pathname } = useLocation();
-  const route = pathname.split("/")[2] || "login"; // fallback if no [2]
+  const route = pathname.split("/")[2] || "login";
 
   return (
     <div className="min-h-screen grid grid-cols-1 md:grid-cols-2 bg-[#fffaf5]">

@@ -1,16 +1,16 @@
 import React, { useState } from "react";
 import { Minus, Plus } from "lucide-react";
-import { LuTruck, LuRotateCcw } from "react-icons/lu"; // Changed from RiShipLine, RiArrowGoBackLine for consistency
+import { LuTruck, LuRotateCcw } from "react-icons/lu"; 
 
 const images = [
   "/details/product1.webp",
   "/details/product2.webp",
   "/details/product3.webp",
-  "/details/product1.webp", // Assuming this is intentional for a 2x2 grid
+  "/details/product1.webp", 
 ];
 
-const sizes = ["XS", "S", "M", "L", "XL"]; // Added more sizes for variety
-const colors = ["gray", "black", "green", "pink", "blue"]; // Added blue color
+const sizes = ["XS", "S", "M", "L", "XL"]; 
+const colors = ["gray", "black", "green", "pink", "blue"];
 const colorClasses = {
   gray: "bg-gray-300",
   black: "bg-black",
@@ -24,8 +24,8 @@ const GridMediaDetailsSection = () => {
   const [selectedSize, setSelectedSize] = useState("S");
   const [selectedColor, setSelectedColor] = useState("gray");
 
-  const productPrice = 999; // Example base price in INR
-  const discountedPrice = 799; // Example discounted price in INR
+  const productPrice = 999;
+  const discountedPrice = 799; 
 
   return (
     <section className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 p-4 md:p-8 lg:p-12 mx-auto mt-6">

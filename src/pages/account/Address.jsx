@@ -51,34 +51,28 @@ const Address = () => {
     email: "johndoe@example.com",
   });
 
-  // Placeholder for editing an address
   const handleEditAddress = (type) => {
     console.log(`Editing ${type} address`);
-    // In a real application, this would open a modal or navigate to an edit form
     alert(`Simulating edit for ${type} address.`);
   };
 
-  // Placeholder for removing an address
   const handleRemoveAddress = (type) => {
     console.log(`Removing ${type} address`);
-    // In a real application, this would confirm and then clear/delete the address
     const confirmRemove = window.confirm(
       `Are you sure you want to remove the ${type} address?`
     );
     if (confirmRemove) {
       if (type === "billing") {
-        setBillingAddress(null); // Or set to a default empty state
+        setBillingAddress(null);
       } else if (type === "shipping") {
-        setShippingAddress(null); // Or set to a default empty state
+        setShippingAddress(null);
       }
       alert(`${type} address removed.`);
     }
   };
 
-  // Placeholder for adding a new address
   const handleAddNewAddress = () => {
     console.log("Adding new address");
-    // In a real application, this would open a form to add a new address
     alert("Simulating adding a new address.");
   };
 

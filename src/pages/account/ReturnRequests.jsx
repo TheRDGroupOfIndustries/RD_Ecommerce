@@ -47,10 +47,10 @@ const ReturnRequests = () => {
   const getStatusClass = (status) => {
     switch (status) {
       case "Return Made":
-        return "bg-green-100 text-green-800"; // Light green background, dark green text
+        return "bg-green-100 text-green-800";
       case "Request Submitted":
-        return "bg-orange-100 text-orange-800"; // Light orange background, dark orange text
-      case "Processing": // Example for future status
+        return "bg-orange-100 text-orange-800";
+      case "Processing":
         return "bg-blue-100 text-blue-800";
       default:
         return "bg-gray-100 text-gray-800";
@@ -59,12 +59,11 @@ const ReturnRequests = () => {
 
   const handleViewDetails = (requestNo) => {
     console.log(`Viewing details for return request: #${requestNo}`);
-    // In a real application, you'd navigate to a details page
     alert(`Navigating to details for return request #${requestNo}`);
   };
 
   return (
-    <div className=""> 
+    <div className="">
       <h2 className="text-xl sm:text-2xl font-semibold mb-6 text-gray-800">
         Your Return Requests ({returnRequests.length})
       </h2>
@@ -74,26 +73,32 @@ const ReturnRequests = () => {
           No return requests found.
         </p>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"> {/* Responsive grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {" "}
+          {/* Responsive grid */}
           {returnRequests.map((request) => (
             <div
               key={request.id}
-              className="p-4 rounded-lg border border-gray-200 shadow-sm flex flex-col bg-white" // Added shadow-sm and flex-col
+              className="p-4 rounded-lg border border-gray-200 shadow-sm flex flex-col bg-white"
             >
-              <div className="flex justify-between items-center mb-4 pb-3 border-b border-gray-100"> {/* Added bottom border */}
+              <div className="flex justify-between items-center mb-4 pb-3 border-b border-gray-100">
+                {" "}
+                {/* Added bottom border */}
                 <span className="text-sm text-gray-700 font-medium">
                   Request No:{" "}
-                  <span className="text-blue-600 font-bold"> {/* Changed to blue, bold */}
+                  <span className="text-blue-600 font-bold">
                     #{request.requestNo}
                   </span>
                 </span>
                 <span
-                  className={`px-3 py-1 rounded-full text-xs font-semibold whitespace-nowrap ${getStatusClass(request.status)}`} 
+                  className={`px-3 py-1 rounded-full text-xs font-semibold whitespace-nowrap ${getStatusClass(
+                    request.status
+                  )}`}
                 >
                   {request.status}
                 </span>
               </div>
-              <div className="flex items-center space-x-4 flex-grow mb-4"> {/* flex-grow to push button to bottom */}
+              <div className="flex items-center space-x-4 flex-grow mb-4">
                 <img
                   src={request.image}
                   alt={request.name}
@@ -106,14 +111,15 @@ const ReturnRequests = () => {
                 />
                 <div className="flex-1">
                   <p className="text-gray-600 text-sm mb-1">{request.date}</p>
-                  <p className="font-semibold text-gray-900 text-base mb-1"> {/* Increased font size */}
+                  <p className="font-semibold text-gray-900 text-base mb-1">
                     {request.name}
                   </p>
                   <p className="text-gray-700 text-sm mb-1">
-                    Quantity: <span className="font-medium">{request.quantity}</span> {/* Bold quantity */}
+                    Quantity:{" "}
+                    <span className="font-medium">{request.quantity}</span>
                   </p>
-                  <p className="font-bold text-gray-900 text-lg"> {/* Consistent bold and size */}
-                    ₹{request.price.toFixed(2)} {/* Using Rupee symbol */}
+                  <p className="font-bold text-gray-900 text-lg">
+                    ₹{request.price.toFixed(2)}
                   </p>
                 </div>
               </div>

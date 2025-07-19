@@ -18,7 +18,6 @@ const TestimonialCard = ({ testimonial }) => (
           {testimonial.name}
         </p>
         <div className="flex mt-1">
-          {/* Render stars based on rating */}
           {[...Array(5)].map((_, i) => (
             <FaStar size={16} className="text-yellow-400" />
           ))}
@@ -62,7 +61,6 @@ const Reviews = () => {
   ]);
   return (
     <div className="w-full">
-
       {testimonials.length === 0 ? (
         <p className="text-center text-gray-600">No testimonials available.</p>
       ) : (

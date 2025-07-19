@@ -6,7 +6,7 @@ const Downloads = () => {
       id: 1,
       image: "https://placehold.co/80x80/F3F4F6/1F2937?text=Shirt1",
       name: "Collar Casual Shirt",
-      downloadLink: "#", // Replace with actual download link
+      downloadLink: "#",
     },
     {
       id: 2,
@@ -30,8 +30,6 @@ const Downloads = () => {
 
   const handleDownload = (productName, downloadLink) => {
     console.log(`Downloading ${productName} from: ${downloadLink}`);
-    // In a real application, you would trigger the actual file download here.
-    // For demonstration, we'll open the link in a new tab.
     window.open(downloadLink, "_blank");
   };
 
@@ -80,7 +78,10 @@ const Downloads = () => {
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
                 {products.map((product, index) => (
-                  <tr key={product.id} className="hover:bg-gray-50 transition-colors duration-150">
+                  <tr
+                    key={product.id}
+                    className="hover:bg-gray-50 transition-colors duration-150"
+                  >
                     <td className="pl-6 pr-2 py-4 whitespace-nowrap text-sm text-gray-700">
                       {index + 1}
                     </td>
