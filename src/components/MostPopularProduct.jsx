@@ -92,7 +92,7 @@ const MostPopularProduct = () => {
       : products.filter((p) => p.category === activeCategory);
 
   return (
-    <section className="w-full px-2 md:px-20 py-10 bg-[#FFFCF5] rounded-t-xl shadow-inner mt-10">
+    <section className="w-full px-2 md:px-20 py-10  mt-10">
       <div className="flex flex-col sm:flex-row items-center justify-between mb-8 gap-">
         <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-6 md:mb-0">
           Most Popular Products

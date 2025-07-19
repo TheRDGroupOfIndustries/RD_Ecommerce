@@ -78,7 +78,7 @@ const UserViewsSection = () => {
   return (
     <section className="w-full px-4 md:px-20 py-20 bg-[#fdf7ef] flex flex-col lg:flex-row gap-10 items-center justify-center">
         {/* Left Hover Image */}
-        <div className="relative group w-[400px] h-[500px] shrink-0">
+        <div className="relative group w-[380px] h-[500px] shrink-0">
           <div className="absolute h-full w-full left-0 bottom-0 group-hover:-left-2 group-hover:-bottom-2 duration-300 border border-black rounded-[200px_200px_0_0] pointer-events-none"></div>
           <img
             src="/banner-media2.webp"
