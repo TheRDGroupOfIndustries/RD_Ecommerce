@@ -46,7 +46,7 @@ function App() {
   };
 
   return (
-      <div className="bg-white p-6 rounded-lg shadow-lg h-full w-full">
+      <div className="">
         {/* Profile Header Section */}
         <div className="flex items-center space-x-4 mb-6">
           <div className="relative">

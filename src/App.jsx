@@ -31,7 +31,7 @@ function App() {
       <header className="w-full bg-base-ground shadow-md fixed top-0 z-50">
         <Header />
       </header>
-      <main className="flex-1 min-h-screen bg-base-100 mt-20 bg-base-ground relative">
+      <main className="flex-1 min-h-screen bg-base-100 mt-16 bg-base-ground relative">
         <Outlet />
       </main>
       <footer className="w-full bg-base-ground border-t border-gray-600">

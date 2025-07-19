@@ -10,6 +10,7 @@ import GridMediaDetailsSection from "./GridMediaDetailsSection";
 import Header from "./Header";
 import HeroSection from "./HeroSection";
 import ListProductCard from "./ListProductCard";
+import MobileProductCard from "./MobileProductCard";
 import MostPopularProduct from "./MostPopularProduct";
 import ProductCard from "./ProductCard";
 import QuickView from "./QuickView";
@@ -24,8 +25,8 @@ import UserViewsSection from "./UserViewsSection";
 
 
 
-
 export {
+  MobileProductCard,
   BlogSidebar,
   BlogProductCard,
   BtnLoader,

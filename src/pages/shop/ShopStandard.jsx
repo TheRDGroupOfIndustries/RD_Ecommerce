@@ -1,7 +1,7 @@
 import { Filter, Grid, Heart, List, Search } from "lucide-react";
 import { useState } from "react";
 import Slider from "react-slick";
-import { CategorySection, ListProductCard, ProductCard, ShopTopBanner } from "../../components";
+import { CategorySection, ListProductCard, MobileProductCard, ProductCard, ShopTopBanner } from "../../components";
 import { useNavigate } from "react-router-dom";
 
 const products = [
@@ -187,7 +187,7 @@ const ShopStandard = ({ viewMode, categorySection = false }) => {
       <div className="container mx-auto px-4 py-8">
         <div className="flex flex-col lg:flex-row gap-8">
           {/* Sidebar Filters */}
-          <div className="lg:w-72 flex-shrink-0">
+          <div className="hidden md:block lg:w-72 flex-shrink-0">
             <div className="sticky top-8 space-y-6 bg-white lg:bg-transparent p-4 lg:p-0 rounded-lg lg:rounded-none border lg:border-none">
               {/* Filter Header */}
               <div className="flex items-center gap-2 text-lg font-semibold">
@@ -299,7 +299,7 @@ const ShopStandard = ({ viewMode, categorySection = false }) => {
           </div>
 
           {/* Main Content */}
-          <div className="flex-1">
+          <div className="">
             {/* Category Section */}
              {categorySection && <CategorySection categories={categories} />}
 
@@ -322,7 +322,7 @@ const ShopStandard = ({ viewMode, categorySection = false }) => {
                 </span>
               </div>
 
-              <div className="flex flex-wrap items-center gap-2 lg:gap-4">
+              <div className="flex flex-wrap items-end gap-4">
                 <div className="flex items-center gap-4">
                   {/* Sort Select */}
                   <div>
@@ -368,7 +368,7 @@ const ShopStandard = ({ viewMode, categorySection = false }) => {
                   </div>
                 </div>
 
-                <div className="flex border border-gray-200 rounded">
+                <div className="flex items-center border border-gray-200 rounded">
                   <button
                     onClick={() => navigate("/shop-standard")}
                     className={`p-2 cursor-pointer ${
@@ -399,7 +399,14 @@ const ShopStandard = ({ viewMode, categorySection = false }) => {
             >
               {products.map((product) =>
                 viewMode === "grid" ? (
-                  <ProductCard key={product.id} product={product} />
+                  <>
+                  <div className="hidden md:block">
+                    <ProductCard key={product.id} product={product} />
+                  </div>
+                  <div className="md:hidden">
+                    <MobileProductCard key={product.id} product={product} />
+                  </div>
+                  </>
                 ) : viewMode === "list" ? (
                   <ListProductCard product={product} />
                 ) : null

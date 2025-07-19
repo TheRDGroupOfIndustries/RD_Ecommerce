@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 const Footer = () => {
   return (
     <footer className="bg-[#fff9f1] text-[#111] pt-16 px-6">
-      <div className="max-w-screen-xl mx-auto grid grid-cols-1 md:grid-cols-5 gap-10">
+      <div className="max-w-screen-xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-10">
         {/* Brand & Contact */}
         <div className="space-y-4">
           <img src="/logo.svg" alt="Pixio Logo" className="h-10" />

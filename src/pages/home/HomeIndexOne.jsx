@@ -1,7 +1,7 @@
-import { HeroSection } from "@/components";
 import { FaArrowLeftLong, FaArrowRightLong } from "react-icons/fa6";
 import { useState } from "react";
 import {
+  HeroSection,
   MostPopularProduct,
   ProductCard,
   ShirtHoverCard,
@@ -326,7 +326,7 @@ const HomeIndexOne = () => {
             ))}
           </div>
         </div>
-        <div className="w-full lg:w-[30%] bg-black relative">
+        <div className="w-full hidden md:block lg:w-[30%] bg-black relative">
           {/* <div className="rotating-circle bg-white rounded-full hidden lg:block absolute top-1/2 -translate-1/2 left-0 ">
             <svg viewBox="0 0 200 200" className="rotating-text font-semibold">
               <defs>
@@ -431,8 +431,8 @@ const HomeIndexOne = () => {
 
       <UserViewsSection />
 
-      <section className="w-full bg-[#fdf7ef] px-20 py-10">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-32">
+      <section className="w-full bg-[#fdf7ef] px-4 md:px-20 py-10">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 md:gap-32">
           {/* LEFT: Products */}
           <div className=" grid grid-cols-1 md:grid-cols-2 gap-6 relative">
             {products.slice(0, 4).map((item, idx) => (
@@ -443,7 +443,7 @@ const HomeIndexOne = () => {
                 <img
                   src={item.image}
                   alt={item.title}
-                  className="w-full h-80 object-cover"
+                  className="w-full h-80 object-cover object-top"
                 />
                 <div className="absolute bottom-3 left-3 right-3 bg-white rounded-xl px-2 py-1 flex justify-between shadow border">
                   <div className="">
@@ -494,7 +494,7 @@ const HomeIndexOne = () => {
         </div>
       </section>
 
-      <section className="bg-[#fdf7ef] px-20 py-10">
+      <section className="bg-[#fdf7ef] px-4 md:px-20 py-10">
         <div className="flex items-center justify-between">
           <h2 className="text-2xl font-bold">Blockbuster Deals</h2>
           <button className="text-sm font-medium hover:underline flex items-center gap-1">
@@ -509,7 +509,7 @@ const HomeIndexOne = () => {
         </Slider>
       </section>
 
-      <section className="bg-[#fdf7ef] px-20 py-10">
+      <section className="bg-[#fdf7ef] px-4 md:px-10 lg:px-20 py-10">
         <div className="flex items-center justify-between mb-6">
           <h2 className="text-2xl font-bold">Featured Offer For You</h2>
           <button className="text-sm font-medium hover:underline flex items-center gap-1">
@@ -545,7 +545,7 @@ const HomeIndexOne = () => {
         </Slider>
       </section>
 
-      <section className="bg-[#fdf7ef] px-20 py-10">
+      <section className="bg-[#fdf7ef] px-4 md:px-10 lg:px-20 py-10">
         <div className="flex justify-between items-center mb-6">
           <h2 className="text-2xl font-bold">Featured Now</h2>
           <button className="text-sm font-medium hover:underline flex items-center gap-1">
@@ -591,7 +591,7 @@ const HomeIndexOne = () => {
         </Slider>
       </section>
 
-      <section className="w-full bg-[#fdf7ef] px-20 py-10">
+      <section className="w-full bg-[#fdf7ef] px-4 md:px-10 lg:px-20 py-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-32">
           {/* LEFT: Products */}
           <div
@@ -656,7 +656,7 @@ const HomeIndexOne = () => {
 
       <SponsoredSection />
 
-      <section className=" py-10 px-20 ">
+      <section className=" py-10 px-4 md:px-10 lg:px-20">
         <div className=" mx-auto">
           <div className="flex justify-between items-start mb-12">
             <h2 className="text-5xl font-bold text-gray-900 leading-tight">

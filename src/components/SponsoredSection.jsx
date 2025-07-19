@@ -59,7 +59,7 @@ const SponsoredSection = () => {
   };
 
   return (
-    <section className="bg-[#fdf7ef] py-5 px-20">
+    <section className="bg-[#fdf7ef] py-5 px-4 md:px-10 lg:px-20">
         <div className="flex justify-between items-center mb-6">
           <h2 className="text-2xl font-bold">Sponsored</h2>
           <button className="text-sm font-medium hover:underline flex items-center gap-1">

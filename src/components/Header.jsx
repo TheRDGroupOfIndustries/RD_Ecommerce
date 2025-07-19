@@ -5,9 +5,11 @@ import { useState } from "react";
 import { CgProfile } from "react-icons/cg";
 import { useSelector } from "react-redux";
 
+// ContentWrapper remains largely the same for desktop dropdowns,
+// but for mobile, the navigation will be a separate overlay.
 const ContentWrapper = ({ children }) => {
   return (
-    <div className=" fixed top-14 left-1/2 -translate-x-1/2 invisible opacity-0 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 transition-all duration-300 translate-y-6 p-4">
+    <div className="fixed top-14 left-1/2 -translate-x-1/2 invisible opacity-0 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 transition-all duration-300 translate-y-6 p-4 z-20 hidden md:block">
       {children}
     </div>
   );
@@ -39,8 +41,6 @@ const shopNavigations = {
     { title: "Standard", path: "/shop-standard" },
     { title: "List", path: "/shop-list" },
     { title: "With Category", path: "/shop-with-category" },
-    // { title: "Filters Top Bar", path: "/shop-filters-top-bar" },
-    // { title: "Sidebar", path: "/shop-sidebar" },
     { title: "Style 1", path: "/shop-style-1" },
     { title: "Style 2", path: "/shop-style-2" },
   ],
@@ -68,7 +68,6 @@ const blogNavigations = {
     { title: "Blog 2 Column", path: "/blog-dark-2-colomn" },
     { title: "Blog 2 Column Sidebar", path: "/blog-dark-2-colomn-sidebar" },
     { title: "Blog 3 Column", path: "/blog-dark-3-colomn" },
-    // { title: "Blog Half Image", path: "/blog-dark-half-image" },
   ],
   "Blog List Sidebar": [
     { title: "No Sidebar", path: "/blog-list-no-sidebar" },
@@ -85,8 +84,6 @@ const blogNavigations = {
   "Blog Light Style": [
     { title: "Blog 2 Column", path: "/blog-light-2-colomn" },
     { title: "Blog 2 Column Sidebar", path: "/blog-light-2-colomn-sidebar" },
-    // { title: "Blog Half Image", path: "/blog-light-half-image" },
-    // { title: "Blog Exclusive", path: "/blog-light-exclusive" },
   ],
   "Blog Grid Sidebar": [
     { title: "No Sidebar", path: "/blog-grid-no-sidebar" },
@@ -271,35 +268,43 @@ const dashboardLinks = [
 
 const Header = () => {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+  // Uncomment the line below if you're using Redux for authentication
   const { isAuthenticated } = useSelector((state) => state.auth);
+  const [openMenu, setOpenMenu] = useState(false);
 
   const openSearchPannel = () => {
     setIsSearchOpen(true);
   };
 
   return (
-    <div className="w-full py-4 px-20 flex items-center justify-between gap-4">
+    <div className="w-full py-4 px-4 md:px-20 flex items-center justify-between gap-4  z-50 bg-white shadow-sm fixed top-0">
       <div className="">
         <Link to="/">
-          <img src="/logo.svg" alt="logo" className="cursor-pointer" />
+          <img src="/logo.svg" alt="logo" className="cursor-pointer h-8 md:h-10" />
         </Link>
       </div>
-      <nav className="flex gap-2">
+
+      {/* Desktop Navigation */}
+      <nav className="hidden md:flex gap-2">
         <div className="group">
-          <li className="px-4 py-2 font-semibold cursor-pointer">Home</li>
+          <li className="px-4 py-2 font-semibold cursor-pointer list-none">
+            Home
+          </li>
           <ContentWrapper>
-            <div className="p-10 bg-white flex gap-5 items-center shadow rounded-sm ">
+            <div className="p-10 bg-white flex flex-col md:flex-row gap-5 items-center shadow rounded-sm ">
               {homeNavigations.map((page) => (
                 <Link key={page.id} to={page.path}>
                   <div className="space-y-2">
-                    <div className="h-56 w-56 overflow-hidden">
+                    <div className="h-40 w-40 md:h-56 md:w-56 overflow-hidden">
                       <img
                         src={page.image}
                         alt={page.title}
-                        className="object-cover"
+                        className="object-cover w-full h-full"
                       />
                     </div>
-                    <h3 className="text-center font-semibold ">{page.title}</h3>
+                    <h3 className="text-center font-semibold ">
+                      {page.title}
+                    </h3>
                   </div>
                 </Link>
               ))}
@@ -307,95 +312,80 @@ const Header = () => {
           </ContentWrapper>
         </div>
         <div className="group">
-          <li className="px-4 py-2 font-semibold cursor-pointer">Shop</li>
+          <li className="px-4 py-2 font-semibold cursor-pointer list-none">
+            Shop
+          </li>
           <ContentWrapper>
-            <div className="bg-white p-10 flex flex-nowrap gap-10 shadow rounded-sm">
-              {/* Shop Structure */}
-              <div className="space-y-6">
-                <div className="flex gap-32 whitespace-nowrap">
-                  {Object.entries(shopNavigations).map(([section, items]) => (
-                    <div key={section}>
-                      <h3 className="text-lg font-semibold mb-3">{section}</h3>
-                      <ul className="space-y-2 text-gray-600">
-                        {items.map((item) => (
-                          <li
-                            key={`${item.title}jfslhfjgs`}
-                            className="hover:text-black cursor-pointer whitespace-nowrap"
-                          >
-                            <Link to={item.path}>{item.title}</Link>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  ))}
+            <div className="bg-white p-6 md:p-10 flex flex-col md:flex-row flex-nowrap gap-5 md:gap-10 shadow rounded-sm">
+              {Object.entries(shopNavigations).map(([section, items]) => (
+                <div key={section}>
+                  <h3 className="text-lg font-semibold mb-3">{section}</h3>
+                  <ul className="space-y-2 text-gray-600">
+                    {items.map((item) => (
+                      <li
+                        key={`${item.title}jfslhfjgs`}
+                        className="hover:text-black cursor-pointer whitespace-nowrap"
+                      >
+                        <Link to={item.path}>{item.title}</Link>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+              <div className="border border-gray-400 p-4 w-full md:w-80 flex flex-col justify-between rounded-sm gap-4">
+                <div className="">
+                  <h4 className="text-lg font-bold mb-2">Deal of the month</h4>
+                  <p className="text-sm text-gray-600 mb-2 ">
+                    Yes! Send me exclusive offers, personalized, and unique gift
+                    ideas, tips for shopping on Pixio
+                  </p>
+                  <button className="text-blue-500 font-medium hover:underline mb-4">
+                    View All Products
+                  </button>
                 </div>
 
-                <div className="border border-gray-400 p-4 w-full flex items-center rounded-sm gap-10">
+                <div className="flex justify-center gap-2 md:gap-3 text-sm font-medium text-center">
                   <div className="">
-                    <h4 className="text-lg font-bold mb-2">
-                      Deal of the month
-                    </h4>
-                    <p className="text-sm text-gray-600 mb-2 ">
-                      Yes! Send me exclusive offers, personalised, and unique
-                      gift ideas, tips for shopping on Pixio
-                    </p>
-                    <button className="text-blue-500 font-medium hover:underline mb-4">
-                      View All Products
-                    </button>
+                    <div className="bg-gray-300 p-2 rounded-sm text-xl">
+                      179
+                    </div>
+                    <p className="font-bold">DAYS</p>
                   </div>
-
-                  {/* Countdown */}
-                  <div className="flex justify-center gap-3 text-sm font-medium text-center">
-                    <div className="">
-                      <div className="bg-gray-300 p-2 rounded-sm text-xl">
-                        179
-                      </div>
-                      <p className="font-bold">DAYS</p>
+                  <div className="">
+                    <div className="bg-gray-300 p-2 rounded-sm text-xl">
+                      17
                     </div>
-                    <div className="">
-                      <div className="bg-gray-300 p-2 rounded-sm text-xl">
-                        17
-                      </div>
-                      <p className="font-bold">HOURS</p>
+                    <p className="font-bold">HOURS</p>
+                  </div>
+                  <div className="">
+                    <div className="bg-gray-300 p-2 rounded-sm text-xl">
+                      21
                     </div>
-                    <div className="">
-                      <div className="bg-gray-300 p-2 rounded-sm text-xl">
-                        21
-                      </div>
-                      <p className="font-bold">MINUTES</p>
+                    <p className="font-bold">MINUTES</p>
+                  </div>
+                  <div className="">
+                    <div className="bg-gray-300 p-2 rounded-sm text-xl">
+                      33
                     </div>
-                    <div className="">
-                      <div className="bg-gray-300 p-2 rounded-sm text-xl">
-                        33
-                      </div>
-                      <p className="font-bold">SECOND</p>
-                    </div>
+                    <p className="font-bold">SECOND</p>
                   </div>
                 </div>
-              </div>
-
-              <div className="">
-                {/* Image + Deal of the Month */}
-                <div className="flex flex-col items-center w-80">
-                  {/* Image */}
-                  <img
-                    src="/adv-1.webp"
-                    alt="Fashion"
-                    className="rounded-2xl mb-4 w-full object-cover"
-                  />
-                </div>
-
-                {/* Deal of the Month */}
+                <img
+                  src="/adv-1.webp"
+                  alt="Fashion"
+                  className="rounded-2xl w-full object-cover mt-4"
+                />
               </div>
             </div>
           </ContentWrapper>
         </div>
         <div className="group">
-          <li className="px-4 py-2 font-semibold cursor-pointer">Blog</li>
+          <li className="px-4 py-2 font-semibold cursor-pointer list-none">
+            Blog
+          </li>
           <ContentWrapper>
-            <div className="bg-white p-10 flex flex-nowrap gap-10 shadow rounded-sm">
-              {/* Blog columns */}
-              <div className="w-2xl grid grid-cols-3 gap-10 whitespace-nowrap">
+            <div className="bg-white p-6 md:p-10 flex flex-col md:flex-row flex-nowrap gap-5 md:gap-10 shadow rounded-sm">
+              <div className="w-full md:w-2xl grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-10 whitespace-nowrap">
                 {Object.entries(blogNavigations).map(([section, items]) => (
                   <div key={section}>
                     <h3 className="text-lg font-semibold mb-3">{section}</h3>
@@ -440,11 +430,11 @@ const Header = () => {
           </ContentWrapper>
         </div>
         <div className="group">
-          <li className="px-4 py-2 font-semibold cursor-pointer">
+          <li className="px-4 py-2 font-semibold cursor-pointer list-none">
             Post Layout
           </li>
           <ContentWrapper>
-            <div className="bg-white p-10 flex flex-nowrap gap-10 shadow rounded-sm">
+            <div className="bg-white p-6 md:p-10 flex flex-col md:flex-row flex-nowrap gap-5 md:gap-10 shadow rounded-sm">
               {/* Post Types */}
               <div>
                 <h3 className="text-lg font-semibold mb-4">Post Types</h3>
@@ -467,7 +457,9 @@ const Header = () => {
                     </li>
                   ))}
                 </ul>
-                <h3 className="text-lg font-semibold mb-4">Post Layout Type</h3>
+                <h3 className="text-lg font-semibold mb-4">
+                  Post Layout Type
+                </h3>
                 <ul className="space-y-2 text-gray-600">
                   {postSections["Post Layout Type"].map((item) => (
                     <li key={item} className="hover:text-black cursor-pointer">
@@ -492,10 +484,12 @@ const Header = () => {
           </ContentWrapper>
         </div>
         <div className="group">
-          <li className="px-4 py-2 font-semibold cursor-pointer">Portfolio</li>
+          <li className="px-4 py-2 font-semibold cursor-pointer list-none">
+            Portfolio
+          </li>
           <ContentWrapper>
-            <div className="w-full bg-white p-10 shadow rounded-sm flex gap-5">
-              <div className="w-3xl grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+            <div className="w-full bg-white p-6 md:p-10 shadow rounded-sm flex flex-col md:flex-row gap-5">
+              <div className="w-full md:w-3xl grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
                 {portfolioItems.map((item) => (
                   <Link
                     key={`${item.path}dfjgslfg`}
@@ -506,7 +500,7 @@ const Header = () => {
                       key={item.title}
                       className="flex flex-col items-center"
                     >
-                      <div className="w-32">
+                      <div className="w-24 h-24 md:w-32 md:h-32">
                         <img
                           src={item.image}
                           alt={item.title}
@@ -520,7 +514,7 @@ const Header = () => {
                   </Link>
                 ))}
               </div>
-              <div className="whitespace-nowrap px-10 flex-col flex gap-1">
+              <div className="whitespace-nowrap px-0 md:px-10 flex-col flex gap-1">
                 <h2 className="font-bold text-lg mb-1">Portfolio Details</h2>
                 <Link
                   to="/portfolio-details-1"
@@ -557,9 +551,11 @@ const Header = () => {
           </ContentWrapper>
         </div>
         <div className="group">
-          <li className="px-4 py-2 font-semibold cursor-pointer">Pages</li>
+          <li className="px-4 py-2 font-semibold cursor-pointer list-none">
+            Pages
+          </li>
           <ContentWrapper>
-            <div className="bg-white p-10 flex flex-nowrap gap-10 shadow rounded-sm">
+            <div className="bg-white p-6 md:p-10 flex flex-col md:flex-row flex-nowrap gap-5 md:gap-10 shadow rounded-sm">
               {Object.entries(pageNavigations).map(([section, items]) => (
                 <div key={section} className="whitespace-nowrap">
                   <h3 className="text-lg font-semibold mb-4">{section}</h3>
@@ -587,11 +583,11 @@ const Header = () => {
         </div>
         {/* {isAuthenticated && ( */}
           <div className="group">
-            <li className="px-4 py-2 font-semibold cursor-pointer">
+            <li className="px-4 py-2 font-semibold cursor-pointer list-none">
               My Account
             </li>
             <ContentWrapper>
-              <div className="bg-white p-10 flex flex-nowrap gap-10 shadow rounded-sm">
+              <div className="bg-white p-6 md:p-10 flex flex-nowrap gap-5 md:gap-10 shadow rounded-sm">
                 <ul className="space-y-3 text-gray-600 text-sm">
                   {dashboardLinks.map((item) => (
                     <li key={item.name}>
@@ -609,33 +605,265 @@ const Header = () => {
           </div>
         {/* )} */}
       </nav>
-      <div className="flex items-center gap-10 justify-between">
-        <div className="flex items-center gap-8">
-          <button onClick={openSearchPannel} className="cursor-pointer">
+
+      <div className="flex items-center gap-4 md:gap-10 justify-between">
+        <div className="flex items-center gap-4 md:gap-8">
+          <button onClick={openSearchPannel} className="cursor-pointer ">
             <Search style={{ width: "20px", height: "20px" }} />
           </button>
-          {/* {isAuthenticated ? ( */}
-          <>
-            <Link to={"/account/wishlist"} className="">
-              <Heart style={{ width: "20px", height: "20px" }} />
+          {isAuthenticated ? (
+            <div className="flex items-center gap-4 md:gap-8 ">
+              <Link to={"/account/wishlist"} className="">
+                <Heart style={{ width: "20px", height: "20px" }} />
+              </Link>
+              <Link to={"/account/cart"} className="relative">
+                <div className="absolute -right-3 -top-3 rounded-full bg-red-500 text-white text-xs w-4 h-4 flex items-center justify-center">
+                  5
+                </div>
+                <ShoppingCart style={{ width: "20px", height: "20px" }} />
+              </Link>
+              <Link to={"/account"}>
+                <CgProfile size={30} />
+              </Link>
+            </div>
+          ) : (
+            <Link className="border px-3 py-1 text-sm rounded-lg hover:bg-gray-100 hidden md:block" to={"/auth/login"}>
+              Login
             </Link>
-            <Link to={"/account/cart"} className="relative">
-              <div className="absolute -right-3 -top-3 rounded-full">5</div>
-              <ShoppingCart style={{ width: "20px", height: "20px" }} />
-            </Link>
-            <Link to={"/account"}>
-              <CgProfile size={30} />
-            </Link>
-          </>
-          {/* ) : ( */}
-          <button>
-            <Link to={"/auth/login"}>Login/Register</Link>
-          </button>
-          {/* )} */}
+          )}
         </div>
+
+        {/* Mobile Menu Button */}
+        <button
+          className="md:hidden flex items-center"
+          onClick={() => setOpenMenu(!openMenu)}
+        >
+          <Menu style={{ width: "24px", height: "24px" }} />
+        </button>
       </div>
 
       {isSearchOpen && <SearchProduct setIsSearchOpen={setIsSearchOpen} />}
+
+      {/* Mobile Menu Overlay */}
+      <div
+        className={`fixed inset-0 bg-white z-40 transform ${
+          openMenu ? "translate-x-0" : "-translate-x-full"
+        } transition-transform duration-300 ease-in-out md:hidden overflow-y-auto`}
+      >
+        <div className="flex justify-between items-center p-4 border-b">
+          <Link to="/">
+            <img src="/logo.svg" alt="logo" className="cursor-pointer h-8" />
+          </Link>
+          <button onClick={() => setOpenMenu(false)} className="text-2xl">
+            &times;
+          </button>
+        </div>
+        <nav className="p-4 flex flex-col gap-4">
+          
+          <details className="py-2 border-b">
+            <summary className="text-lg font-semibold cursor-pointer">
+              Home
+            </summary>
+            <div className="p-4  grid grid-cols-2 md:grid-cols-3 gap-5 ">
+              {homeNavigations.map((page) => (
+                <Link key={page.id} to={page.path} onClick={() => setOpenMenu(false)}>
+                  <div className="space-y-2">
+                    <div className="h-40 w-40 md:h-56 md:w-56 overflow-hidden">
+                      <img
+                        src={page.image}
+                        alt={page.title}
+                        className="object-cover w-full h-full"
+                      />
+                    </div>
+                    <h3 className="text-center font-semibold ">
+                      {page.title}
+                    </h3>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </details>
+          <details className="py-2 border-b">
+            <summary className="text-lg font-semibold cursor-pointer">
+              Shop
+            </summary>
+            <div className="pl-4 pt-2">
+              {Object.entries(shopNavigations).map(([section, items]) => (
+                <div key={section} className="mb-4">
+                  <h4 className="font-semibold text-gray-800 mt-2">
+                    {section}
+                  </h4>
+                  <ul className="space-y-1 text-gray-600 text-sm">
+                    {items.map((item) => (
+                      <li key={item.title}>
+                        <Link to={item.path} onClick={() => setOpenMenu(false)}>
+                          {item.title}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+          </details>
+          <details className="py-2 border-b">
+            <summary className="text-lg font-semibold cursor-pointer">
+              Blog
+            </summary>
+            <div className="pl-4 pt-2">
+              {Object.entries(blogNavigations).map(([section, items]) => (
+                <div key={section} className="mb-4">
+                  <h4 className="font-semibold text-gray-800 mt-2">
+                    {section}
+                  </h4>
+                  <ul className="space-y-1 text-gray-600 text-sm">
+                    {items.map((item) => (
+                      <li key={item.title}>
+                        <Link to={item.path} onClick={() => setOpenMenu(false)}>
+                          {item.title}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+          </details>
+          <details className="py-2 border-b">
+            <summary className="text-lg font-semibold cursor-pointer">
+              Post Layout
+            </summary>
+            <div className="pl-4 pt-2">
+              {Object.entries(postSections).map(([section, items]) => (
+                <div key={section} className="mb-4">
+                  <h4 className="font-semibold text-gray-800 mt-2">
+                    {section}
+                  </h4>
+                  <ul className="space-y-1 text-gray-600 text-sm">
+                    {items.map((item) => (
+                      <li key={item}>
+                        <Link to="#" onClick={() => setOpenMenu(false)}>
+                          {item}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+          </details>
+          <details className="py-2 border-b">
+            <summary className="text-lg font-semibold cursor-pointer">
+              Portfolio
+            </summary>
+            <div className="pl-4 pt-2">
+              <h4 className="font-semibold text-gray-800 mt-2">Portfolios</h4>
+              <ul className="space-y-1 text-gray-600 text-sm mb-4">
+                {portfolioItems.map((item) => (
+                  <li key={item.path}>
+                    <Link to={item.path} onClick={() => setOpenMenu(false)}>
+                      {item.title}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+              <h4 className="font-semibold text-gray-800 mt-2">
+                Portfolio Details
+              </h4>
+              <ul className="space-y-1 text-gray-600 text-sm">
+                {[1, 2, 3, 4, 5].map((num) => (
+                  <li key={`portfolio-details-${num}`}>
+                    <Link
+                      to={`/portfolio-details-${num}`}
+                      onClick={() => setOpenMenu(false)}
+                    >
+                      Portfolio Details {num}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </details>
+          <details className="py-2 border-b">
+            <summary className="text-lg font-semibold cursor-pointer">
+              Pages
+            </summary>
+            <div className="pl-4 pt-2">
+              {Object.entries(pageNavigations).map(([section, items]) => (
+                <div key={section} className="mb-4">
+                  <h4 className="font-semibold text-gray-800 mt-2">
+                    {section}
+                  </h4>
+                  <ul className="space-y-1 text-gray-600 text-sm">
+                    {items.map(({ name, path }) => (
+                      <li key={name}>
+                        <Link to={path} onClick={() => setOpenMenu(false)}>
+                          {name}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+          </details>
+          {/* {isAuthenticated ? ( */}
+            <details className="py-2 border-b">
+              <summary className="text-lg font-semibold cursor-pointer">
+                My Account
+              </summary>
+              <div className="pl-4 pt-2">
+                <ul className="space-y-1 text-gray-600 text-sm">
+                  {dashboardLinks.map((item) => (
+                    <li key={item.name}>
+                      <Link to={item.path} onClick={() => setOpenMenu(false)}>
+                        {item.name}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </details>
+          {/* ) : ( */}
+            <Link
+              className="text-lg font-semibold py-2 border-b"
+              to={"/auth/login"}
+              onClick={() => setOpenMenu(false)}
+            >
+              Login
+            </Link>
+          {/* )} */}
+
+          <div className="flex flex-col gap-4 mt-4">
+            <Link
+              to={"/account/wishlist"}
+              className="flex items-center gap-2 text-gray-700 hover:text-black"
+              onClick={() => setOpenMenu(false)}
+            >
+              <Heart style={{ width: "20px", height: "20px" }} /> Wishlist
+            </Link>
+            <Link
+              to={"/account/cart"}
+              className="flex items-center gap-2 text-gray-700 hover:text-black relative"
+              onClick={() => setOpenMenu(false)}
+            >
+              <ShoppingCart style={{ width: "20px", height: "20px" }} /> Cart
+              <span className="absolute left-4 top-0 bg-red-500 text-white text-xs w-4 h-4 flex items-center justify-center rounded-full">
+                5
+              </span>
+            </Link>
+            {isAuthenticated && (
+              <Link
+                to={"/account"}
+                className="flex items-center gap-2 text-gray-700 hover:text-black"
+                onClick={() => setOpenMenu(false)}
+              >
+                <CgProfile size={24} /> Profile
+              </Link>
+            )}
+          </div>
+        </nav>
+      </div>
     </div>
   );
 };

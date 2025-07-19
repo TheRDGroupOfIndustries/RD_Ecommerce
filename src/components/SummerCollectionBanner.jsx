@@ -3,13 +3,13 @@ import { Link } from 'react-router-dom'
 
 const SummerCollectionBanner = () => {
   return (
-    <section className="flex flex-col md:flex-row w-full h-[450px]">
+    <section className="flex flex-col md:flex-row w-full">
         {/* Left Section */}
-        <div className="w-full md:w-1/2 h-full relative">
+        <div className="w-full md:w-1/2 relative h-[450px]">
           <img
             src="/banner-media2.webp" // replace with your actual image
             alt="Summer Women"
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover object-top"
           />
           <div className="absolute top-1/2 right-20 transform  -translate-y-1/2 w-[300px] h-[300px] md:w-[350px] md:h-[350px] bg-white rounded-full border border-black flex flex-col justify-center items-center text-center shadow-lg">
             <p className="text-sm font-semibold text-gray-600 mb-1">
@@ -28,11 +28,11 @@ const SummerCollectionBanner = () => {
         </div>
 
         {/* Right Section */}
-        <div className="w-full md:w-1/2 h-full relative">
+        <div className="w-full md:w-1/2 relative h-[450px]">
           <img
             src="/banner-media5.webp" // replace with your actual image
             alt="New Summer Collection"
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover object-top"
           />
           <div className="absolute top-1/2 w-2/3 left-10 transform -translate-y-1/2 text-black z-10 space-y-5">
             <p className="text-sm font-semibold text-black ">

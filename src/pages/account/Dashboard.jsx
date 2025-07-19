@@ -26,7 +26,7 @@ const chartData = [
 const Dashboard = () => {
   const {userData} = useSelector(state => state.auth)
   return (
-    <div className="p-6">
+    <div className=" md:p-6">
       <p className="mb-4 text-gray-800 capitalize">
         Hello <strong> {userData.first_name } {userData.last_name} </strong> (not {userData.first_name } {userData.last_name}?{" "}
         <a href="#" className="text-blue-500 underline">Log out</a>)

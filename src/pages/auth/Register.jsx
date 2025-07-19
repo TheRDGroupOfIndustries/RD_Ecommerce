@@ -24,7 +24,7 @@ const Register = () => {
 
   return (
     <div className="flex items-center justify-center p-6 md:p-12">
-      <div className="w-full max-w-md rounded-2xl border p-8">
+      <div className="w-full  rounded-2xl border p-8">
         <h2 className="text-2xl font-bold text-center">Register</h2>
         <p className="text-center text-gray-500 mb-6">
           Welcome! Please register your account

@@ -1,7 +1,20 @@
-import { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
+// Import slick-carousel CSS
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
+
+// Main App component to render the HeroSection
+export default function App() {
+  return (
+    // Tailwind CSS setup for the entire app.
+    // The font-inter class ensures the Inter font is used throughout.
+    // The bg-gray-50 provides a light background for better contrast.
+    <div className="font-sans antialiased bg-gray-50 min-h-screen">
+      <HeroSection />
+    </div>
+  );
+}
 
 const HeroSection = () => {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -13,6 +26,12 @@ const HeroSection = () => {
   const [nav1, setNav1] = useState(undefined);
   const [nav2, setNav2] = useState(undefined);
 
+  // Set initial nav states on component mount
+  useEffect(() => {
+    setNav1(leftSliderRef.current || undefined);
+    setNav2(rightSliderRef.current || undefined);
+  }, []);
+
   const handleNext = () => {
     leftSliderRef.current?.slickNext();
     rightSliderRef.current?.slickNext();
@@ -20,24 +39,41 @@ const HeroSection = () => {
 
   const imageSliderSettings = {
     asNavFor: nav1,
-    ref: (slider) => {
-      rightSliderRef.current = slider;
-      setNav2(slider ?? undefined);
-    },
+    ref: (slider) => (rightSliderRef.current = slider),
     infinite: true,
     focusOnSelect: true,
-    slidesToShow: 2,
+    slidesToShow: 2, // Default for larger screens
     slidesToScroll: 1,
     arrows: false,
     afterChange: (current) => setActiveIndex(current),
+    responsive: [
+      {
+        breakpoint: 1024, // For large screens (lg)
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+        },
+      },
+      {
+        breakpoint: 768, // For medium screens (md) and smaller
+        settings: {
+          slidesToShow: 1, // Show 1 slide on tablets and smaller
+          slidesToScroll: 1,
+        },
+      },
+      {
+        breakpoint: 640, // For small screens (sm) and smaller
+        settings: {
+          slidesToShow: 1, // Show 1 slide on mobile
+          slidesToScroll: 1,
+        },
+      },
+    ],
   };
 
   const leftSliderSettings = {
     asNavFor: nav2,
-    ref: (slider) => {
-      leftSliderRef.current = slider;
-      setNav1(slider ?? undefined);
-    },
+    ref: (slider) => (leftSliderRef.current = slider),
     slidesToShow: 1,
     slidesToScroll: 1,
     arrows: false,
@@ -60,40 +96,44 @@ const HeroSection = () => {
   ];
 
   return (
-    <section className="w-full min-h-screen flex flex-col md:flex-row px-4 md:px-20 py-10 md:py-20 relative">
-      {/* Left Slider */}
-      <div className="w-full md:w-1/2 h-full">
+    <section className="w-full min-h-screen flex flex-col md:flex-row px-4 md:px-20 py-10 md:py-20 relative overflow-hidden gap-5">
+      {/* Left Slider - Product Details */}
+      <div className="w-full md:w-1/2 h-full flex flex-col justify-center">
         <Slider {...leftSliderSettings}>
           {leftSliderDetails.map((item, index) => (
             <div
               key={item.title + index}
-              className="w-full h-[250px] md:h-[400px] p-2 md:p-4 space-y-10"
+              className="w-full h-[300px] md:h-[400px] p-2 md:p-4 space-y-4 md:space-y-6 flex flex-col justify-center"
             >
-              <h1 className="text-black text-3xl md:text-7xl font-bold">
+              <h1 className="text-black text-3xl md:text-7xl font-bold leading-tight">
                 {item.title}
               </h1>
-              <div className="">
-                <p>Price</p>
-                <span className="text-3xl md:text-5xl font-bold">
+              <div>
+                <p className="text-lg md:text-xl text-gray-700">Price</p>
+                <span className="text-3xl md:text-5xl font-bold text-black">
                   ${item.price}
                 </span>
               </div>
-              <div className="w-full flex flex-row gap-4 -5 ">
-                <button className=" px-6 py-3 bg-black rounded-lg text-white cursor-pointer">ADD TO CART</button>
-                <button className=" px-6 py-2 border rounded-lg cursor-pointer">
+              <div className="w-full flex flex-col sm:flex-row gap-4">
+                <button className="px-6 py-3 bg-black rounded-lg text-white text-base font-medium hover:bg-gray-800 transition-colors duration-300 shadow-md">
+                  ADD TO CART
+                </button>
+                <button className="px-6 py-3 border border-gray-300 rounded-lg text-black text-base font-medium hover:bg-gray-100 transition-colors duration-300 shadow-md">
                   VIEW DETAILS
                 </button>
               </div>
             </div>
           ))}
         </Slider>
-        <div className="flex gap-4 items-center p-2 md:p-4">
+        {/* Additional Info Section */}
+        <div className="flex gap-4 items-center p-2 md:p-4 mt-8 md:mt-12 bg-white rounded-lg shadow-sm">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="76"
             height="76"
             viewBox="0 0 76 76"
             fill="none"
+            className="w-16 h-16 md:w-auto md:h-auto"
           >
             <path
               d="M52.6617 37.6496L58.7381 40.0325L75.0609 49.0874L66.6016 63.7422L49.9214 54.6872L45.1557 50.7554L46.1088 57.1892V75.18H28.952V57.1892L30.0243 50.5171L24.9011 54.6872L8.45924 63.7422L0 49.0874L16.3228 39.7942L22.3991 37.6496L16.3228 35.1475L0 26.2117L8.45924 11.557L25.1394 20.4928L30.0243 24.6629L28.952 18.3482V0H46.1088V18.3482L45.1557 24.4246L49.9214 20.4928L66.6016 11.557L75.0609 26.2117L58.7381 35.3858L52.6617 37.6496Z"
@@ -101,8 +141,10 @@ const HeroSection = () => {
             />
           </svg>
           <div className="space-y-1 md:space-y-2">
-            <p className="text-sm md:text-base">Summer Collection</p>
-            <h2 className="uppercase text-lg md:text-xl font-bold leading-tight">
+            <p className="text-sm md:text-base text-gray-600">
+              Summer Collection
+            </p>
+            <h2 className="uppercase text-lg md:text-xl font-bold leading-tight text-black">
               Trendy and Classic <br /> for the New Season
             </h2>
           </div>
@@ -110,26 +152,35 @@ const HeroSection = () => {
       </div>
 
       {/* Right Image Slider */}
-      <div className="w-full md:w-1/2 h-full ">
-        <div className="slider-container h-full overflow-hidden relative md:-right-10 ">
-          <Slider {...imageSliderSettings}>
+      <div className="w-full md:w-1/2 h-full flex items-center justify-center relative">
+        <div className="slider-container w-full h-full overflow-hidden relative md:-right-10 flex items-center">
+          <Slider {...imageSliderSettings} className="w-full">
             {rightSlideDetails.map((item, index) => (
               <div
                 key={item.image}
-                className="w-full h-[400px] md:h-[550px] p-4 md:p-6 md:pl-20 transition-all duration-500"
+                className="w-full h-[400px] md:h-[550px] p-2 md:p-6 transition-all duration-500 flex items-center justify-center"
               >
-                <div className="relative h-full flex items-center justify-center">
+                <div className="relative h-full flex items-center justify-center w-full">
+                  {/* The commented out text overlay can be re-enabled if desired */}
                   {/* {activeIndex !== index && (
-                <h2 className="uppercase stroke text-3xl md:text-7xl absolute top-1/2 -left-20 md:-left-40 -translate-y-1/2 -rotate-90 z-30 font-bold text-white">
-                  {item.text}
-                </h2>
-              )} */}
+                    <h2 className="uppercase stroke text-3xl md:text-7xl absolute top-1/2 -left-20 md:-left-40 -translate-y-1/2 -rotate-90 z-30 font-bold text-white">
+                      {item.text}
+                    </h2>
+                  )} */}
                   <img
                     src={item.image}
                     alt="Banner image"
                     className={`${
-                      activeIndex === index ? "scale-150" : "scale-100"
-                    } transition-all duration-300 rounded-xl z-10 relative`}
+                      activeIndex === index
+                        ? "scale-110 md:scale-120"
+                        : "scale-100"
+                    } transition-all duration-300 rounded-xl z-10 relative object-cover w-full h-full shadow-lg`}
+                    // Fallback for image loading errors
+                    onError={(e) => {
+                      e.target.onerror = null;
+                      e.target.src =
+                        "https://placehold.co/600x400/CCCCCC/666666?text=Image+Error";
+                    }}
                   />
                 </div>
               </div>
@@ -139,7 +190,7 @@ const HeroSection = () => {
           {/* Custom Next Button */}
           <div
             onClick={handleNext}
-            className="w-16 h-16 md:w-20 md:h-20 bg-base-ground rounded-full absolute bottom-10 md:bottom-20 left-1/2 transform flex items-center justify-center cursor-pointer"
+            className="w-16 h-16 md:w-20 md:h-20 bg-gray-200 rounded-full absolute bottom-10 md:bottom-20 left-1/2 transform -translate-x-1/2 flex items-center justify-center cursor-pointer shadow-lg hover:bg-gray-300 transition-colors duration-300 z-20"
           >
             <div className="w-12 h-12 md:w-16 md:h-16 rounded-full flex items-center justify-center bg-black text-white text-lg md:text-xl">
               ➤
@@ -147,9 +198,10 @@ const HeroSection = () => {
           </div>
         </div>
       </div>
-      
+
+      {/* Star SVGs - Decorative elements, hidden on smaller screens */}
       <svg
-        className="star-1 absolute top-5 md:top-10 left-1/2 transform -translate-x-1/2 animate-star hidden lg:block"
+        className="star-1 absolute top-5 md:top-10 left-[10%] transform -translate-x-1/2 animate-pulse hidden lg:block"
         xmlns="http://www.w3.org/2000/svg"
         width="94"
         height="94"
@@ -163,7 +215,7 @@ const HeroSection = () => {
       </svg>
 
       <svg
-        className="star-2 absolute top-5 md:top-10 left-[85%] animate-star hidden lg:block"
+        className="star-2 absolute top-5 md:top-10 right-[10%] animate-pulse hidden lg:block"
         xmlns="http://www.w3.org/2000/svg"
         width="82"
         height="94"
@@ -178,5 +230,3 @@ const HeroSection = () => {
     </section>
   );
 };
-
-export default HeroSection;
