@@ -10,7 +10,7 @@ import {
 import { blogRoutes } from "./pages/blog/index.jsx";
 import { shopRoutes } from "./pages/shop/index.jsx";
 import { productRoute } from "./pages/product/index.jsx";
-import { Account, accountRoute, Dashboard } from "./pages/account";
+import { Account, accountRoute, Checkout, Dashboard } from "./pages/account";
 import AuthLayout from "./pages/auth/AuthLayout.jsx";
 import Login from "./pages/auth/Login.jsx";
 import Register from "./pages/auth/Register.jsx";
@@ -32,6 +32,10 @@ const router = createBrowserRouter([
         path: "account",
         element: <Account />,
         children: [...accountRoute],
+      },
+      {
+        path: "checkout",
+        element: <Checkout />,
       },
       {
         path: "auth",

@@ -40,7 +40,7 @@ const shopNavigations = {
   "Shop Structure": [
     { title: "Standard", path: "/shop-standard" },
     { title: "List", path: "/shop-list" },
-    { title: "With Category", path: "/shop-with-category" },
+    // { title: "With Category", path: "/shop-with-category" },
     { title: "Style 1", path: "/shop-style-1" },
     { title: "Style 2", path: "/shop-style-2" },
   ],
@@ -49,18 +49,18 @@ const shopNavigations = {
     { title: "Thumbnail", path: "/product-thumbnail" },
     { title: "Grid Media", path: "/product-grid-media" },
     { title: "Carousel", path: "/product-carousel" },
-    { title: "Full Width", path: "/product-full-width" },
+    // { title: "Full Width", path: "/product-full-width" },
   ],
-  "Shop Pages": [
-    { title: "Wishlist", path: "/shop-wishlist" },
-    { title: "Cart", path: "/shop-cart" },
-    { title: "Checkout", path: "/shop-checkout" },
-    { title: "Compare", path: "/shop-compare" },
-    { title: "Order Tracking", path: "/shop-order-tracking" },
-    { title: "Login", path: "/shop-login" },
-    { title: "Registration", path: "/shop-registration" },
-    { title: "Forget Password", path: "/shop-forget-password" },
-  ],
+  // "Shop Pages": [
+  //   { title: "Wishlist", path: "/shop-wishlist" },
+  //   { title: "Cart", path: "/shop-cart" },
+  //   { title: "Checkout", path: "/shop-checkout" },
+  //   { title: "Compare", path: "/shop-compare" },
+  //   { title: "Order Tracking", path: "/shop-order-tracking" },
+  //   { title: "Login", path: "/shop-login" },
+  //   { title: "Registration", path: "/shop-registration" },
+  //   { title: "Forget Password", path: "/shop-forget-password" },
+  // ],
 };
 
 const blogNavigations = {
@@ -69,29 +69,29 @@ const blogNavigations = {
     { title: "Blog 2 Column Sidebar", path: "/blog-dark-2-colomn-sidebar" },
     { title: "Blog 3 Column", path: "/blog-dark-3-colomn" },
   ],
-  "Blog List Sidebar": [
-    { title: "No Sidebar", path: "/blog-list-no-sidebar" },
-    { title: "Left Sidebar", path: "/blog-list-left-sidebar" },
-    { title: "Right Sidebar", path: "/blog-list-right-sidebar" },
-    { title: "Both Sidebar", path: "/blog-list-both-sidebar" },
-  ],
-  "Blog Page": [
-    { title: "Blog Archive", path: "/blog-archive" },
-    { title: "Author", path: "/blog-author" },
-    { title: "Category", path: "/blog-category" },
-    { title: "Tag", path: "/blog-tag" },
-  ],
+  // "Blog List Sidebar": [
+  //   { title: "No Sidebar", path: "/blog-list-no-sidebar" },
+  //   { title: "Left Sidebar", path: "/blog-list-left-sidebar" },
+  //   { title: "Right Sidebar", path: "/blog-list-right-sidebar" },
+  //   { title: "Both Sidebar", path: "/blog-list-both-sidebar" },
+  // ],
+  // "Blog Page": [
+  //   { title: "Blog Archive", path: "/blog-archive" },
+  //   { title: "Author", path: "/blog-author" },
+  //   { title: "Category", path: "/blog-category" },
+  //   { title: "Tag", path: "/blog-tag" },
+  // ],
   "Blog Light Style": [
     { title: "Blog 2 Column", path: "/blog-light-2-colomn" },
     { title: "Blog 2 Column Sidebar", path: "/blog-light-2-colomn-sidebar" },
   ],
-  "Blog Grid Sidebar": [
-    { title: "No Sidebar", path: "/blog-grid-no-sidebar" },
-    { title: "Left Sidebar", path: "/blog-grid-left-sidebar" },
-    { title: "Right Sidebar", path: "/blog-grid-right-sidebar" },
-    { title: "Both Sidebar", path: "/blog-grid-both-sidebar" },
-    { title: "Wide Sidebar", path: "/blog-grid-wide-sidebar" },
-  ],
+  // "Blog Grid Sidebar": [
+  //   { title: "No Sidebar", path: "/blog-grid-no-sidebar" },
+  //   { title: "Left Sidebar", path: "/blog-grid-left-sidebar" },
+  //   { title: "Right Sidebar", path: "/blog-grid-right-sidebar" },
+  //   { title: "Both Sidebar", path: "/blog-grid-both-sidebar" },
+  //   { title: "Wide Sidebar", path: "/blog-grid-wide-sidebar" },
+  // ],
 };
 
 const recentPosts = [
@@ -250,26 +250,27 @@ const pageNavigations = {
 const dashboardLinks = [
   { name: "Dashboard", path: "/account" },
   { name: "Orders", path: "/account/orders" },
-  { name: "Orders Details", path: "/account/orders-details" },
-  { name: "Orders Confirmation", path: "/account/orders-confirmation" },
+  // { name: "Orders Details", path: "/account/orders-details" },
+  // { name: "Orders Confirmation", path: "/account/orders-confirmation" },
   { name: "Downloads", path: "/account/downloads" },
-  { name: "Return Request", path: "/account/returns-request" },
-  { name: "Return Request Detail", path: "/account/returns-detail" },
-  { name: "Return Request Confirmed", path: "/account/returns-confirmed" },
+  { name: "Return Request", path: "/account/return-request" },
+  // { name: "Return Request Detail", path: "/account/returns-detail" },
+  // { name: "Return Request Confirmed", path: "/account/returns-confirmed" },
   { name: "Profile", path: "/account/profile" },
   { name: "Address", path: "/account/address" },
-  { name: "Shipping Methods", path: "/account/shipping-methods" },
-  { name: "Payment Methods", path: "/account/payment-methods" },
+  // { name: "Shipping Methods", path: "/account/shipping-methods" },
+  // { name: "Payment Methods", path: "/account/payment-methods" },
   { name: "Review", path: "/account/review" },
-  { name: "Billing Address", path: "/account/billing-address" },
-  { name: "Shipping Address", path: "/account/shipping-address" },
-  { name: "Cancellation Requests", path: "/account/cancellations" },
+  // { name: "Billing Address", path: "/account/billing-address" },
+  // { name: "Shipping Address", path: "/account/shipping-address" },
+  // { name: "Cancellation Requests", path: "/account/cancellations" },
 ];
 
 const Header = () => {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
-  // Uncomment the line below if you're using Redux for authentication
-  const { isAuthenticated } = useSelector((state) => state.auth);
+  const { isAuthenticated, userData } = useSelector((state) => state.auth);
+
+  const { totalQuantity } = useSelector((state) => state.cart);
   const [openMenu, setOpenMenu] = useState(false);
 
   const openSearchPannel = () => {
@@ -277,10 +278,14 @@ const Header = () => {
   };
 
   return (
-    <div className="w-full py-4 px-4 md:px-20 flex items-center justify-between gap-4  z-50 bg-white shadow-sm fixed top-0">
+    <div className="w-full py-4 px-4 md:px-10 flex items-center justify-between gap-4  z-50 bg-white shadow-sm fixed top-0">
       <div className="">
         <Link to="/">
-          <img src="/logo.svg" alt="logo" className="cursor-pointer h-8 md:h-10" />
+          <img
+            src="/logo.svg"
+            alt="logo"
+            className="cursor-pointer h-8 md:h-10"
+          />
         </Link>
       </div>
 
@@ -302,9 +307,7 @@ const Header = () => {
                         className="object-cover w-full h-full"
                       />
                     </div>
-                    <h3 className="text-center font-semibold ">
-                      {page.title}
-                    </h3>
+                    <h3 className="text-center font-semibold ">{page.title}</h3>
                   </div>
                 </Link>
               ))}
@@ -316,64 +319,72 @@ const Header = () => {
             Shop
           </li>
           <ContentWrapper>
-            <div className="bg-white p-6 md:p-10 flex flex-col md:flex-row flex-nowrap gap-5 md:gap-10 shadow rounded-sm">
-              {Object.entries(shopNavigations).map(([section, items]) => (
-                <div key={section}>
-                  <h3 className="text-lg font-semibold mb-3">{section}</h3>
-                  <ul className="space-y-2 text-gray-600">
-                    {items.map((item) => (
-                      <li
-                        key={`${item.title}jfslhfjgs`}
-                        className="hover:text-black cursor-pointer whitespace-nowrap"
-                      >
-                        <Link to={item.path}>{item.title}</Link>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ))}
-              <div className="border border-gray-400 p-4 w-full md:w-80 flex flex-col justify-between rounded-sm gap-4">
-                <div className="">
-                  <h4 className="text-lg font-bold mb-2">Deal of the month</h4>
-                  <p className="text-sm text-gray-600 mb-2 ">
-                    Yes! Send me exclusive offers, personalized, and unique gift
-                    ideas, tips for shopping on Pixio
-                  </p>
-                  <button className="text-blue-500 font-medium hover:underline mb-4">
-                    View All Products
-                  </button>
-                </div>
+            <div className="bg-white p-6 md:p-10  shadow rounded-sm">
+              <div className="flex flex-col md:flex-row flex-nowrap gap-5 md:gap-10">
+                {Object.entries(shopNavigations).map(([section, items]) => (
+                  <div key={section}>
+                    <h3 className="text-lg font-semibold mb-3 whitespace-nowrap">
+                      {section}
+                    </h3>
+                    <ul className="space-y-2 text-gray-600">
+                      {items.map((item) => (
+                        <li
+                          key={`${item.title}jfslhfjgs`}
+                          className="hover:text-black cursor-pointer whitespace-nowrap"
+                        >
+                          <Link to={item.path}>{item.title}</Link>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
+              </div>
+              <div className=" w-full flex gap-10  mt-10">
+                <div className="border border-gray-400 p-4 rounded-sm">
+                  <div className="">
+                    <h4 className="text-lg font-bold mb-2">
+                      Deal of the month
+                    </h4>
+                    <p className="text-sm text-gray-600 mb-2 ">
+                      Yes! Send me exclusive offers, personalized, and unique
+                      gift ideas, tips for shopping on Pixio
+                    </p>
+                    <button className="text-blue-500 font-medium hover:underline mb-4">
+                      View All Products
+                    </button>
+                  </div>
 
-                <div className="flex justify-center gap-2 md:gap-3 text-sm font-medium text-center">
-                  <div className="">
-                    <div className="bg-gray-300 p-2 rounded-sm text-xl">
-                      179
+                  <div className="flex justify-center gap-2 md:gap-3 text-sm font-medium text-center">
+                    <div className="">
+                      <div className="bg-gray-300 p-2 rounded-sm text-xl">
+                        179
+                      </div>
+                      <p className="font-bold">DAYS</p>
                     </div>
-                    <p className="font-bold">DAYS</p>
-                  </div>
-                  <div className="">
-                    <div className="bg-gray-300 p-2 rounded-sm text-xl">
-                      17
+                    <div className="">
+                      <div className="bg-gray-300 p-2 rounded-sm text-xl">
+                        17
+                      </div>
+                      <p className="font-bold">HOURS</p>
                     </div>
-                    <p className="font-bold">HOURS</p>
-                  </div>
-                  <div className="">
-                    <div className="bg-gray-300 p-2 rounded-sm text-xl">
-                      21
+                    <div className="">
+                      <div className="bg-gray-300 p-2 rounded-sm text-xl">
+                        21
+                      </div>
+                      <p className="font-bold">MINUTES</p>
                     </div>
-                    <p className="font-bold">MINUTES</p>
-                  </div>
-                  <div className="">
-                    <div className="bg-gray-300 p-2 rounded-sm text-xl">
-                      33
+                    <div className="">
+                      <div className="bg-gray-300 p-2 rounded-sm text-xl">
+                        33
+                      </div>
+                      <p className="font-bold">SECOND</p>
                     </div>
-                    <p className="font-bold">SECOND</p>
                   </div>
                 </div>
                 <img
                   src="/adv-1.webp"
                   alt="Fashion"
-                  className="rounded-2xl w-full object-cover mt-4"
+                  className="rounded-2xl w-full object-cover "
                 />
               </div>
             </div>
@@ -429,13 +440,12 @@ const Header = () => {
             </div>
           </ContentWrapper>
         </div>
-        <div className="group">
+        {/* <div className="group">
           <li className="px-4 py-2 font-semibold cursor-pointer list-none">
             Post Layout
           </li>
           <ContentWrapper>
             <div className="bg-white p-6 md:p-10 flex flex-col md:flex-row flex-nowrap gap-5 md:gap-10 shadow rounded-sm">
-              {/* Post Types */}
               <div>
                 <h3 className="text-lg font-semibold mb-4">Post Types</h3>
                 <ul className="space-y-2 text-gray-600">
@@ -446,8 +456,6 @@ const Header = () => {
                   ))}
                 </ul>
               </div>
-
-              {/* Multiple Media + Post Layout Type */}
               <div>
                 <h3 className="text-lg font-semibold mb-4">Multiple Media</h3>
                 <ul className="space-y-2 text-gray-600 mb-6">
@@ -457,9 +465,7 @@ const Header = () => {
                     </li>
                   ))}
                 </ul>
-                <h3 className="text-lg font-semibold mb-4">
-                  Post Layout Type
-                </h3>
+                <h3 className="text-lg font-semibold mb-4">Post Layout Type</h3>
                 <ul className="space-y-2 text-gray-600">
                   {postSections["Post Layout Type"].map((item) => (
                     <li key={item} className="hover:text-black cursor-pointer">
@@ -469,7 +475,6 @@ const Header = () => {
                 </ul>
               </div>
 
-              {/* Side Bar */}
               <div>
                 <h3 className="text-lg font-semibold mb-4">Side Bar</h3>
                 <ul className="space-y-2 text-gray-600">
@@ -580,8 +585,8 @@ const Header = () => {
               ))}
             </div>
           </ContentWrapper>
-        </div>
-        {/* {isAuthenticated && ( */}
+        </div> */}
+        {isAuthenticated && (
           <div className="group">
             <li className="px-4 py-2 font-semibold cursor-pointer list-none">
               My Account
@@ -603,7 +608,7 @@ const Header = () => {
               </div>
             </ContentWrapper>
           </div>
-        {/* )} */}
+        )}
       </nav>
 
       <div className="flex items-center gap-4 md:gap-10 justify-between">
@@ -613,12 +618,15 @@ const Header = () => {
           </button>
           {isAuthenticated ? (
             <div className="flex items-center gap-4 md:gap-8 ">
-              <Link to={"/account/wishlist"} className="">
+              <Link to={"/account/wishlist"} className="relative hidden lg:block">
+                <div className="absolute -right-3 -top-3 rounded-full bg-red-500 text-white text-xs w-4 h-4 flex items-center justify-center">
+                  {userData?.wishlist_products?.length}
+                </div>
                 <Heart style={{ width: "20px", height: "20px" }} />
               </Link>
-              <Link to={"/account/cart"} className="relative">
+              <Link to={"/account/cart"} className="relative hidden lg:block">
                 <div className="absolute -right-3 -top-3 rounded-full bg-red-500 text-white text-xs w-4 h-4 flex items-center justify-center">
-                  5
+                  {totalQuantity}
                 </div>
                 <ShoppingCart style={{ width: "20px", height: "20px" }} />
               </Link>
@@ -627,7 +635,10 @@ const Header = () => {
               </Link>
             </div>
           ) : (
-            <Link className="border px-3 py-1 text-sm rounded-lg hover:bg-gray-100 hidden md:block" to={"/auth/login"}>
+            <Link
+              className="border px-3 py-1 text-sm rounded-lg hover:bg-gray-100 hidden md:block"
+              to={"/auth/login"}
+            >
               Login
             </Link>
           )}
@@ -659,14 +670,17 @@ const Header = () => {
           </button>
         </div>
         <nav className="p-4 flex flex-col gap-4">
-          
           <details className="py-2 border-b">
             <summary className="text-lg font-semibold cursor-pointer">
               Home
             </summary>
             <div className="p-4  grid grid-cols-2 md:grid-cols-3 gap-5 ">
               {homeNavigations.map((page) => (
-                <Link key={page.id} to={page.path} onClick={() => setOpenMenu(false)}>
+                <Link
+                  key={page.id}
+                  to={page.path}
+                  onClick={() => setOpenMenu(false)}
+                >
                   <div className="space-y-2">
                     <div className="h-40 w-40 md:h-56 md:w-56 overflow-hidden">
                       <img
@@ -675,9 +689,7 @@ const Header = () => {
                         className="object-cover w-full h-full"
                       />
                     </div>
-                    <h3 className="text-center font-semibold ">
-                      {page.title}
-                    </h3>
+                    <h3 className="text-center font-semibold ">{page.title}</h3>
                   </div>
                 </Link>
               ))}
@@ -729,7 +741,7 @@ const Header = () => {
               ))}
             </div>
           </details>
-          <details className="py-2 border-b">
+          {/* <details className="py-2 border-b">
             <summary className="text-lg font-semibold cursor-pointer">
               Post Layout
             </summary>
@@ -806,8 +818,8 @@ const Header = () => {
                 </div>
               ))}
             </div>
-          </details>
-          {/* {isAuthenticated ? ( */}
+          </details> */}
+          {isAuthenticated ? (
             <details className="py-2 border-b">
               <summary className="text-lg font-semibold cursor-pointer">
                 My Account
@@ -824,7 +836,7 @@ const Header = () => {
                 </ul>
               </div>
             </details>
-          {/* ) : ( */}
+          ) : (
             <Link
               className="text-lg font-semibold py-2 border-b"
               to={"/auth/login"}
@@ -832,15 +844,18 @@ const Header = () => {
             >
               Login
             </Link>
-          {/* )} */}
+          )}
 
           <div className="flex flex-col gap-4 mt-4">
             <Link
               to={"/account/wishlist"}
-              className="flex items-center gap-2 text-gray-700 hover:text-black"
+              className="flex items-center gap-2 text-gray-700 hover:text-black relative"
               onClick={() => setOpenMenu(false)}
             >
               <Heart style={{ width: "20px", height: "20px" }} /> Wishlist
+              <span className="absolute left-4 top-0 bg-red-500 text-white text-xs w-4 h-4 flex items-center justify-center rounded-full">
+                {userData?.wishlist_products?.length}
+              </span>
             </Link>
             <Link
               to={"/account/cart"}
@@ -849,7 +864,7 @@ const Header = () => {
             >
               <ShoppingCart style={{ width: "20px", height: "20px" }} /> Cart
               <span className="absolute left-4 top-0 bg-red-500 text-white text-xs w-4 h-4 flex items-center justify-center rounded-full">
-                5
+                {totalQuantity}
               </span>
             </Link>
             {isAuthenticated && (

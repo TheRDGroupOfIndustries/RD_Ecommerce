@@ -18,7 +18,7 @@ const Register = () => {
   } = useForm();
 
   const onSubmit = (data) => {
-    // dispatch(signUp(data));
+    dispatch(signUp(data));
   };
 
   return (

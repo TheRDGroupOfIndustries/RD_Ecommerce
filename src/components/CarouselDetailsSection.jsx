@@ -18,6 +18,11 @@ const colorClasses = {
   green: "bg-green-500",
   pink: "bg-pink-300",
   blue: "bg-blue-500",
+  red: "bg-red-500",
+  yellow: "bg-yellow-500",
+  purple: "bg-purple-500",
+  orange: "bg-orange-500",
+  cyan: "bg-cyan-500",
 };
 
 const NextArrow = ({ onClick }) => {
@@ -50,11 +55,12 @@ const PrevArrow = ({ onClick }) => {
   );
 };
 
-const CarouselDetailsSection = () => {
+const CarouselDetailsSection = ({ product, reviews }) => {
   const [quantity, setQuantity] = useState(1);
   const [selectedSize, setSelectedSize] = useState("S");
   const [selectedColor, setSelectedColor] = useState("gray");
-
+  const averageRating =
+    reviews.reduce((sum, r) => sum + r.rating, 0) / reviews.length;
   const productPrice = 999;
   const discountedPrice = 799;
 
@@ -98,7 +104,7 @@ const CarouselDetailsSection = () => {
         {" "}
         <div className="slider-container relative ">
           <Slider {...settings}>
-            {images.map((image, index) => (
+            {product?.images.map((image, index) => (
               <div key={index} className="p-1">
                 {" "}
                 <img
@@ -115,28 +121,32 @@ const CarouselDetailsSection = () => {
       {/* Details Section */}
       <div className="flex-1 space-y-4 md:space-y-6 lg:space-y-8 text-center lg:text-left">
         <span className="inline-block text-sm bg-black text-white px-3 py-1 rounded-md font-semibold mb-2">
-          SALE 20% OFF
+          SALE {product?.discount}% OFF
         </span>
         <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 leading-tight">
-          Curly Girl Beautiful Dress
+          {product?.title}
         </h1>
 
         <div className="flex items-center justify-center lg:justify-start text-sm text-gray-600 space-x-2">
           <div className="flex text-yellow-500">★★★★☆</div>
-          <span>4.7 Rating (5 customer reviews)</span>
+          <span>
+            {averageRating.toFixed(1)} Rating ({reviews.length} customer
+            reviews)
+          </span>
         </div>
 
         {/* Price Display */}
         <div className="flex items-baseline justify-center lg:justify-start space-x-3 text-gray-900">
           <span className="text-3xl font-bold">
-            ₹{discountedPrice.toFixed(2)}
+            ₹{product?.salePrice.toFixed(2)}
           </span>
           <span className="text-lg text-gray-500 line-through">
-            ₹{productPrice.toFixed(2)}
+            ₹{product?.price.toFixed(2)}
           </span>
         </div>
 
         <p className="text-gray-700 leading-relaxed text-base">
+          {product?.description}
           Lorem Ipsum is simply dummy text of the printing and typesetting
           industry. Lorem Ipsum has been the industry's standard dummy text ever
           since the 1500s, when an unknown printer took a galley of type and
@@ -173,7 +183,7 @@ const CarouselDetailsSection = () => {
           <div className="space-y-3">
             <h4 className="font-semibold text-gray-800">Size</h4>
             <div className="flex items-center gap-2">
-              {sizes.map((size) => (
+              {product?.sizes.map((size) => (
                 <button
                   key={size}
                   onClick={() => setSelectedSize(size)}
@@ -195,7 +205,7 @@ const CarouselDetailsSection = () => {
           <div className="space-y-3">
             <h4 className="font-semibold text-gray-800">Color</h4>
             <div className="flex items-center gap-2">
-              {colors.map((color) => (
+              {product?.colors.map((color) => (
                 <button
                   key={color}
                   onClick={() => setSelectedColor(color)}
@@ -226,15 +236,14 @@ const CarouselDetailsSection = () => {
         {/* Product Meta Info */}
         <div className="text-base text-gray-700 space-y-2 py-4">
           <div>
-            <span className="font-semibold">SKU:</span> PRT584E63A
+            <span className="font-semibold">SKU:</span> {product?.sku}
           </div>
           <div>
-            <span className="font-semibold">Category:</span> Dresses, Jeans,
-            Swimwear, Summer
+            <span className="font-semibold">Category:</span> {product?.category}
           </div>
           <div>
-            <span className="font-semibold">Tags:</span> Casual, Workwear,
-            Accessories
+            <span className="font-semibold">Tags:</span>{" "}
+            {product?.tags.join(", ")}
           </div>
         </div>
 

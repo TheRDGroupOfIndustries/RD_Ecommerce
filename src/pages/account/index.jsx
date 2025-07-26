@@ -1,6 +1,7 @@
 import Account from "./Account";
 import Address from "./Address";
 import Cart from "./Cart";
+import Checkout from "./Checkout";
 import Dashboard from "./Dashboard";
 import Downloads from "./Downloads";
 import OrderDetails from "./OrderDetails";
@@ -11,6 +12,7 @@ import Reviews from "./Reviews";
 import Wishlist from "./Wishlist";
 
 export {
+  Checkout,
   OrderDetails,
   Reviews,
   Wishlist,

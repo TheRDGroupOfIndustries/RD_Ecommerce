@@ -1,5 +1,5 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import {
   LineChart,
   Line,
@@ -9,6 +9,8 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
+import { logout } from "../../store/authSlice";
+import { getAllOrders } from "../../store/orderSlice";
 
 // Sample Data
 const countries = [
@@ -32,19 +34,41 @@ const chartData = [
 ];
 
 const Dashboard = () => {
-  const { userData } = useSelector((state) => state.auth);
+  const { userData, isAuthenticated } = useSelector((state) => state.auth);
+  const { orders } = useSelector(state => state.order)
+  const dispatch = useDispatch();
+
+  const pendingOrders = orders?.filter(order => order.status === 'pending')
+  console.log("pendingOrders", pendingOrders);
+  
+
+  const handleLogout = () => {
+    dispatch(logout());
+  };
+
+
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      dispatch(getAllOrders());
+    }
+  }, [isAuthenticated]);
+
   return (
     <div className=" md:p-6">
       <p className="mb-4 text-gray-800 capitalize">
         Hello{" "}
         <strong>
           {" "}
-          {userData.first_name} {userData.last_name}{" "}
+          {userData?.first_name} {userData?.last_name}{" "}
         </strong>{" "}
-        (not {userData.first_name} {userData.last_name}?{" "}
-        <a href="#" className="text-blue-500 underline">
+        (not {userData?.first_name} {userData?.last_name}?{" "}
+        <button
+          onClick={handleLogout}
+          className="text-blue-500 underline cursor-pointer"
+        >
           Log out
-        </a>
+        </button>
         )
       </p>
       <p className="text-gray-700 mb-6">
@@ -64,8 +88,8 @@ const Dashboard = () => {
       </p>
 
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
-        <Card icon="🛒" title="Total Order" value="3658" />
-        <Card icon="🚚" title="Total Pending Order" value="215" />
+        <Card icon="🛒" title="Total Order" value={orders?.length} />
+        <Card icon="🚚" title="Total Pending Order" value={pendingOrders?.length} />
         <Card icon="⚙️" title="Total Wishlist" value="31576" />
       </div>
 

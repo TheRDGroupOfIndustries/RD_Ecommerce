@@ -1,8 +1,9 @@
 import Slider from "react-slick";
 import { MostPopularProduct, ProductCard } from "../../components";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FaArrowRightLong, FaInstagram } from "react-icons/fa6";
 import { ArrowRight, Heart, Instagram, ShoppingCart } from "lucide-react";
+import { getProducts } from "../../services/productService";
 
 const categorieList = [
   {
@@ -37,80 +38,6 @@ const categorieList = [
   },
 ];
 
-const products = [
-  {
-    id: 1,
-    title: "Cozy Knit Cardigan Sweater",
-    originalPrice: 80,
-    price: 95,
-    discount: "GET 20% OFF",
-    image: "/banner-media.webp",
-    category: "Outerwear",
-  },
-  {
-    id: 2,
-    title: "Sophisticated Swagger Suit",
-    originalPrice: 70,
-    price: 95,
-    discount: "GET 10% OFF",
-    image: "/banner-media2.webp",
-    category: "Tops",
-  },
-  {
-    id: 3,
-    title: "Classic Denim Skinny Jeans",
-    originalPrice: 50,
-    price: 95,
-    discount: "GET 15% OFF",
-    image: "/banner-media3.webp",
-    category: "Dresses",
-  },
-  {
-    id: 4,
-    title: "Athletic Mesh Sports Leggings",
-    originalPrice: 30,
-    price: 95,
-    discount: "GET 40% OFF",
-    image: "/banner-media5.webp",
-    category: "Jacket",
-  },
-  {
-    id: 1,
-    title: "Cozy Knit Cardigan Sweater",
-    originalPrice: 80,
-    price: 95,
-    discount: "GET 20% OFF",
-    image: "/banner-media.webp",
-    category: "Outerwear",
-  },
-  {
-    id: 2,
-    title: "Sophisticated Swagger Suit",
-    originalPrice: 70,
-    price: 95,
-    discount: "GET 10% OFF",
-    image: "/banner-media2.webp",
-    category: "Tops",
-  },
-  {
-    id: 3,
-    title: "Classic Denim Skinny Jeans",
-    originalPrice: 50,
-    price: 95,
-    discount: "GET 15% OFF",
-    image: "/banner-media3.webp",
-    category: "Dresses",
-  },
-  {
-    id: 4,
-    title: "Athletic Mesh Sports Leggings",
-    originalPrice: 30,
-    price: 95,
-    discount: "GET 40% OFF",
-    image: "/banner-media5.webp",
-    category: "Jacket",
-  },
-];
 
 const slider1Setting = {
   infinite: true,
@@ -203,6 +130,20 @@ const instagramImages = [
 const HomeIndexTwo = () => {
   const categories = ["All", "Dresses", "Tops", "Outerwear", "Jacket"];
   const [activeCategory, setActiveCategory] = useState("All");
+  const [products, setProducts] = useState([])
+
+  const fetchProducts = async () => {
+    const res = await getProducts()
+    if (res) {
+      setProducts(res);
+    } else {
+      toast.error("Failed to fetch products");
+    }
+  }
+
+  useEffect(() => {
+    fetchProducts();
+  }, []);
 
   const filteredProducts =
     activeCategory === "All"

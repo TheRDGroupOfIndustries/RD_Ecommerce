@@ -1,9 +1,11 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState, useEffect, use } from "react";
 import ProductCard from "./ProductCard";
 import MobileProductCard from "./MobileProductCard";
+import { getCategories, getProducts } from "../services/productService";
+import toast from "react-hot-toast";
 
 const MostPopularProduct = () => {
-  const categories = ["All", "Dresses", "Tops", "Outerwear", "Jacket"];
+  const [categories, setCategories] = useState([]);
   const [activeCategory, setActiveCategory] = useState("All");
 
   const products = [
@@ -81,10 +83,35 @@ const MostPopularProduct = () => {
     },
   ];
 
+  const [mostPopularProducts, setMostPopularProducts] = useState([]);
+
+  const fetchMostPopularProducts = async () => {
+    const res = await getProducts();
+    if (res) {
+      setMostPopularProducts(res);
+    } else {
+      toast.error("Failed to fetch most popular products");
+    }
+  };
+
+  const fetchCategories = async () => {
+    const res = await getCategories();
+    if (res) {
+      setCategories(res);
+    } else {
+      toast.error("Failed to fetch categories");
+    }
+  };
+
+  useEffect(() => {
+    fetchCategories();
+    fetchMostPopularProducts();
+  }, []);
+
   const filteredProducts =
     activeCategory === "All"
-      ? products
-      : products.filter((p) => p.category === activeCategory);
+      ? mostPopularProducts
+      : mostPopularProducts?.filter((p) => p.category === activeCategory);
 
   return (
     <section className="w-full px-2 md:px-20 py-10  mt-10">
@@ -93,34 +120,55 @@ const MostPopularProduct = () => {
           Most Popular Products
         </h2>
         <div className="flex flex-wrap justify-center sm:justify-end gap-1 border border-black p-1 rounded-full bg-white shadow-sm">
+          <button
+            onClick={() => setActiveCategory("All")}
+            className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
+              activeCategory === "All"
+                ? "bg-black text-white shadow-md"
+                : "bg-white text-black hover:bg-gray-100 hover:text-black"
+            }`}
+          >
+            All
+          </button>
           {categories.map((cat) => (
             <button
-              key={cat}
-              onClick={() => setActiveCategory(cat)}
+              key={cat._id}
+              onClick={() => setActiveCategory(cat.title)}
               className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
-                activeCategory === cat
+                activeCategory === cat.title
                   ? "bg-black text-white shadow-md"
                   : "bg-white text-black hover:bg-gray-100 hover:text-black"
               }`}
             >
-              {cat}
+              {cat.title}
             </button>
           ))}
         </div>
       </div>
 
       <div className="hidden md:grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 px-2 sm:px-0">
-        {filteredProducts.map((product) => (
-          <ProductCard key={product.id + product.title} product={product} />
-        ))}
+        {filteredProducts.length ? filteredProducts.slice(0, 8).map((product) => (
+          <ProductCard key={product._id} product={product} />
+        )) : (
+          <p className="text-center text-gray-500 col-span-full">
+            No products found in this category.
+          </p>
+        )}
       </div>
       <div className="grid grid-cols-1 md:hidden sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 px-2 sm:px-0">
-        {filteredProducts.map((product) => (
-          <MobileProductCard key={product.id + product.title} product={product} />
-        ))}
+        {filteredProducts.length ? filteredProducts.slice(0, 8).map((product) => (
+          <MobileProductCard
+            key={product._id}
+            product={product}
+          />
+        )) : (
+           <p className="text-center text-gray-500 col-span-full">
+            No products found in this category.
+          </p>
+        )}
       </div>
     </section>
   );
 };
 
-export default MostPopularProduct
+export default MostPopularProduct;

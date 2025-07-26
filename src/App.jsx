@@ -4,27 +4,35 @@ import { Toaster } from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { getTokenData } from "./store/authSlice";
+import { fetchCartItems } from "./store/cartSlice";
 
 function App() {
-  // const {pathname} =useLocation()
-  // // const token = localStorage.getItem('token')
-  // const { isAuthenticated, token } = useSelector(state => state.auth)
-  // const dispatch = useDispatch()
-  // const navigate = useNavigate()
+  const { pathname } = useLocation();
+  // const token = localStorage.getItem('token')
+  const { isAuthenticated, token } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  // const AuthenticateUserByToken =()=>{
+  const AuthenticateUserByToken = () => {};
 
-  // }
+  useEffect(() => {
+    if (token && isAuthenticated) {
+      dispatch(fetchCartItems());
+    }
+  }, [isAuthenticated]);
 
-  // useEffect(()=>{
-  //   if( token && isAuthenticated && pathname.includes("auth")){
-  //     navigate('/')
-  //   } else if(token && !isAuthenticated){
-  //     dispatch(getTokenData(token))
-  //   } else if(!isAuthenticated && pathname.includes("account")){
-  //     navigate('/')
-  //   }
-  // }, [pathname, token])
+
+
+
+  useEffect(() => {
+    if (token && isAuthenticated && pathname.includes("auth")) {
+      navigate("/");
+    } else if (token && !isAuthenticated) {
+      dispatch(getTokenData(token));
+    } else if (!isAuthenticated && pathname.includes("account")) {
+      navigate("/");
+    }
+  }, [pathname, token]);
 
   return (
     <>
@@ -37,7 +45,7 @@ function App() {
       <footer className="w-full bg-base-ground border-t border-gray-600">
         <Footer />
       </footer>
-      <Toaster/>
+      <Toaster />
     </>
   );
 }

@@ -1,74 +1,84 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FaMinus, FaPlus } from "react-icons/fa";
 import { IoClose } from "react-icons/io5";
+import { deleteCartItem, fetchCartItems, updateQuantity } from "../../store/cartSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
+// const [cartItems, setCartItems] = useState([
+//   {
+//     id: 1,
+//     image: "https://placehold.co/80x80/F3F4F6/1F2937?text=Product1",
+//     name: "Sophisticated Swagger Suit",
+//     price: 28.0,
+//     quantity: 1,
+//   },
+//   {
+//     id: 2,
+//     image: "https://placehold.co/80x80/F3F4F6/1F2937?text=Product2",
+//     name: "Cozy Knit Cardigan Sweater",
+//     price: 56.0,
+//     quantity: 1,
+//   },
+//   {
+//     id: 3,
+//     image: "https://placehold.co/80x80/F3F4F6/1F2937?text=Product3",
+//     name: "Athletic Mesh Sports Leggings",
+//     price: 20.0,
+//     quantity: 1,
+//   },
+//   {
+//     id: 4,
+//     image: "https://placehold.co/80x80/F3F4F6/1F2937?text=Product4",
+//     name: "Plaid Wool Winter Coat",
+//     price: 42.0,
+//     quantity: 2,
+//   },
+//   {
+//     id: 5,
+//     image: "https://placehold.co/80x80/F3F4F6/1F2937?text=Product5",
+//     name: "Satin Wrap Party Blouse",
+//     price: 35.0,
+//     quantity: 2,
+//   },
+//   {
+//     id: 6,
+//     image: "https://placehold.co/80x80/F3F4F6/1F2937?text=Product6",
+//     name: "Suede Ankle Booties Collection",
+//     price: 38.0,
+//     quantity: 2,
+//   },
+// ]);
 const Cart = () => {
-  const [cartItems, setCartItems] = useState([
-    {
-      id: 1,
-      image: "https://placehold.co/80x80/F3F4F6/1F2937?text=Product1",
-      name: "Sophisticated Swagger Suit",
-      price: 28.0,
-      quantity: 1,
-    },
-    {
-      id: 2,
-      image: "https://placehold.co/80x80/F3F4F6/1F2937?text=Product2",
-      name: "Cozy Knit Cardigan Sweater",
-      price: 56.0,
-      quantity: 1,
-    },
-    {
-      id: 3,
-      image: "https://placehold.co/80x80/F3F4F6/1F2937?text=Product3",
-      name: "Athletic Mesh Sports Leggings",
-      price: 20.0,
-      quantity: 1,
-    },
-    {
-      id: 4,
-      image: "https://placehold.co/80x80/F3F4F6/1F2937?text=Product4",
-      name: "Plaid Wool Winter Coat",
-      price: 42.0,
-      quantity: 2,
-    },
-    {
-      id: 5,
-      image: "https://placehold.co/80x80/F3F4F6/1F2937?text=Product5",
-      name: "Satin Wrap Party Blouse",
-      price: 35.0,
-      quantity: 2,
-    },
-    {
-      id: 6,
-      image: "https://placehold.co/80x80/F3F4F6/1F2937?text=Product6",
-      name: "Suede Ankle Booties Collection",
-      price: 38.0,
-      quantity: 2,
-    },
-  ]);
-
   const [couponCode, setCouponCode] = useState("");
   const [discount, setDiscount] = useState(0);
   const [couponMessage, setCouponMessage] = useState("");
+  const { isAuthenticated } = useSelector((state) => state.auth);
+  const { items, totalQuantity, totalPrice, loading } = useSelector(
+    (state) => state.cart
+  );
+  const dispatch = useDispatch();
 
-  const calculateSubtotal = (item) => item.price * item.quantity;
-  const calculateTotalPrice = () =>
-    cartItems.reduce((sum, item) => sum + calculateSubtotal(item), 0);
-  const calculateOrderTotal = () => calculateTotalPrice() - discount;
+  // const calculateSubtotal = (item) => item.price * item.quantity;
+  // const calculateTotalPrice = () =>
+  //   cartItems.reduce((sum, item) => sum + calculateSubtotal(item), 0);
+  // const calculateOrderTotal = () => calculateTotalPrice() - discount;
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      dispatch(fetchCartItems());
+    }
+  }, []);
 
   const handleQuantityChange = (id, delta) => {
-    setCartItems((prevItems) =>
-      prevItems.map((item) =>
-        item.id === id
-          ? { ...item, quantity: Math.max(1, item.quantity + delta) }
-          : item
-      )
-    );
+    dispatch(updateQuantity({ productId: id, quantity: delta }))
+  
   };
 
   const handleRemoveItem = (id) => {
-    setCartItems((prevItems) => prevItems.filter((item) => item.id !== id));
+    console.log("Removing item with ID:", id);
+    
+    dispatch(deleteCartItem(id));
   };
 
   const handleCouponCodeChange = (e) => {
@@ -98,7 +108,11 @@ const Cart = () => {
       <h2 className="text-xl sm:text-2xl font-semibold mb-6 text-gray-800">
         Your Shopping Cart
       </h2>
-      {cartItems.length === 0 ? (
+      {loading ? (
+        <div className="flex items-center justify-center py-10">
+          <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-gray-900"></div>
+        </div>
+      ) : items?.length === 0 ? (
         <p className="text-center text-gray-600 py-10">Your cart is empty.</p>
       ) : (
         <>
@@ -124,15 +138,15 @@ const Cart = () => {
               </tr>
             </thead>
             <tbody>
-              {cartItems.map((item) => (
+              {items.map((item) => (
                 <tr
-                  key={item.id}
+                  key={item.product.id}
                   className="border-t border-gray-100 hover:bg-gray-50"
                 >
                   <td className="p-4 flex items-center gap-4">
                     <img
-                      src={item.image}
-                      alt={item.name}
+                      src={item.product.images[0]}
+                      alt={item.product.title}
                       className="w-16 h-16 rounded object-cover border border-gray-200"
                       onError={(e) => {
                         e.target.onerror = null;
@@ -141,16 +155,18 @@ const Cart = () => {
                       }}
                     />
                     <span className="font-medium text-gray-900">
-                      {item.name}
+                      {item.product.title}
                     </span>
                   </td>
                   <td className="p-4 text-gray-700">
-                    ${item.price.toFixed(2)}
+                    Rs. {item.product.salePrice.toFixed(2)}
                   </td>
                   <td className="p-4">
                     <div className="flex items-center space-x-2">
                       <button
-                        onClick={() => handleQuantityChange(item.id, -1)}
+                        onClick={() =>
+                          handleQuantityChange(item.product._id, -1)
+                        }
                         className="bg-gray-200 text-gray-700 w-8 h-8 rounded-full flex items-center justify-center hover:bg-gray-300 transition-colors duration-200 text-sm"
                         aria-label="Decrease quantity"
                       >
@@ -160,7 +176,9 @@ const Cart = () => {
                         {item.quantity}
                       </span>
                       <button
-                        onClick={() => handleQuantityChange(item.id, 1)}
+                        onClick={() =>
+                          handleQuantityChange(item.product._id, 1)
+                        }
                         className="bg-gray-200 text-gray-700 w-8 h-8 rounded-full flex items-center justify-center hover:bg-gray-300 transition-colors duration-200 text-sm"
                         aria-label="Increase quantity"
                       >
@@ -169,11 +187,11 @@ const Cart = () => {
                     </div>
                   </td>
                   <td className="p-4 font-semibold text-gray-900">
-                    ${calculateSubtotal(item).toFixed(2)}
+                    Rs. {(item.product.salePrice * item.quantity).toFixed(2)}
                   </td>
                   <td className="p-4">
                     <button
-                      onClick={() => handleRemoveItem(item.id)}
+                      onClick={() => handleRemoveItem(item.product._id)}
                       className="text-gray-400 hover:text-red-500 transition-colors duration-200"
                       aria-label="Remove item"
                     >
@@ -187,16 +205,16 @@ const Cart = () => {
 
           {/* Cart Items - Mobile Card Layout */}
           <div className="md:hidden space-y-4">
-            {cartItems.map((item) => (
+            {items.map((item) => (
               <div
-                key={item.id}
+                key={item.product._id}
                 className="flex flex-col border border-gray-200 rounded-lg p-4 shadow-sm"
               >
                 <div className="flex items-start justify-between mb-3">
                   <div className="flex items-center space-x-3">
                     <img
-                      src={item.image}
-                      alt={item.name}
+                      src={item.product.images[0]}
+                      alt={item.product.title}
                       className="w-20 h-20 rounded-lg object-cover border border-gray-200 flex-shrink-0"
                       onError={(e) => {
                         e.target.onerror = null;
@@ -206,15 +224,15 @@ const Cart = () => {
                     />
                     <div>
                       <h3 className="font-medium text-gray-900 text-base">
-                        {item.name}
+                        {item.product.title}
                       </h3>
                       <p className="text-gray-700 text-sm">
-                        Price: ${item.price.toFixed(2)}
+                        Price: Rs. {item.product.salePrice.toFixed(2)}
                       </p>
                     </div>
                   </div>
                   <button
-                    onClick={() => handleRemoveItem(item.id)}
+                    onClick={() => handleRemoveItem(item.product._id)}
                     className="text-gray-400 hover:text-red-500 transition-colors duration-200"
                     aria-label="Remove item"
                   >
@@ -225,7 +243,7 @@ const Cart = () => {
                 <div className="flex justify-between items-center pt-3 border-t border-gray-100">
                   <div className="flex items-center space-x-2">
                     <button
-                      onClick={() => handleQuantityChange(item.id, -1)}
+                      onClick={() => handleQuantityChange(item.product._id, -1)}
                       className="bg-gray-200 text-gray-700 w-8 h-8 rounded-full flex items-center justify-center hover:bg-gray-300 transition-colors duration-200 text-sm"
                       aria-label="Decrease quantity"
                     >
@@ -243,7 +261,7 @@ const Cart = () => {
                     </button>
                   </div>
                   <div className="font-semibold text-gray-900 text-base">
-                    Subtotal: ${calculateSubtotal(item).toFixed(2)}
+                    Subtotal: Rs. {totalPrice}
                   </div>
                 </div>
               </div>
@@ -255,7 +273,7 @@ const Cart = () => {
             <div className="flex justify-between items-center text-gray-700 text-base">
               <span>Total Price</span>
               <span className="text-gray-900 font-medium">
-                ${calculateTotalPrice().toFixed(2)}
+                Rs. {totalPrice}
               </span>
             </div>
             <div className="flex justify-between items-center text-gray-700 text-base">
@@ -269,14 +287,14 @@ const Cart = () => {
                 Order Total
               </span>
               <span className="text-lg sm:text-xl font-bold text-gray-900">
-                ${calculateOrderTotal().toFixed(2)}
+                ${totalPrice}
               </span>
             </div>
           </div>
 
           {/* Coupon and Checkout Section */}
-          <div className="flex flex-col sm:flex-row justify-between items-center mt-10 space-y-4 sm:space-y-0 sm:space-x-4">
-            <div className="flex w-full sm:w-auto">
+          <div className="flex flex-col sm:flex-row justify-end items-center mt-10 space-y-4 sm:space-y-0 sm:space-x-4">
+            {/* <div className="flex w-full sm:w-auto">
               <input
                 type="text"
                 placeholder="Coupon Code"
@@ -299,13 +317,12 @@ const Cart = () => {
               >
                 {couponMessage}
               </p>
-            )}
-            <button
-              onClick={handleProceedToCheckout}
+            )} */}
+            <Link to="/checkout"
               className="bg-blue-600 text-white px-8 py-3 rounded-lg shadow-md hover:bg-blue-700 transition-colors duration-200 w-full sm:w-auto text-base sm:text-lg font-semibold"
             >
               Proceed to Checkout
-            </button>
+            </Link >
           </div>
         </>
       )}

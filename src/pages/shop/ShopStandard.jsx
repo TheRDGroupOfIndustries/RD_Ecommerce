@@ -1,131 +1,15 @@
 import { Filter, Grid, Heart, List, Search } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Slider from "react-slick";
-import { CategorySection, ListProductCard, MobileProductCard, ProductCard, ShopTopBanner } from "../../components";
+import {
+  CategorySection,
+  ListProductCard,
+  MobileProductCard,
+  ProductCard,
+  ShopTopBanner,
+} from "../../components";
 import { useNavigate } from "react-router-dom";
-
-const products = [
-  {
-    id: 1,
-    title: "Sophisticated Sweater Suit",
-    price: 80.0,
-    originalPrice: 100.0,
-    discount: 20,
-    image: "/banner-media.webp",
-    bgColor: "from-purple-200 to-purple-400",
-    liked: false,
-  },
-  {
-    id: 2,
-    title: "Checkered Slim Collar Casual Shirt",
-    price: 94.0,
-    originalPrice: 120.0,
-    discount: 25,
-    image: "/banner-media.webp",
-    bgColor: "from-pink-200 to-pink-400",
-    liked: false,
-  },
-  {
-    id: 3,
-    title: "Solid Cut Away Collar Casual Shirt",
-    price: 35.0,
-    originalPrice: 50.0,
-    discount: 30,
-    image: "/banner-media.webp",
-    bgColor: "from-blue-200 to-blue-400",
-    liked: false,
-  },
-  {
-    id: 4,
-    title: "Athletic Mesh Sports Leggings",
-    price: 45.0,
-    originalPrice: 60.0,
-    discount: 25,
-    image: "/banner-media.webp",
-    bgColor: "from-orange-200 to-red-400",
-    liked: false,
-  },
-  {
-    id: 5,
-    title: "Denim Overalls Shorts",
-    price: 70.0,
-    originalPrice: 90.0,
-    discount: 20,
-    image: "/banner-media.webp",
-    bgColor: "from-pink-200 to-pink-300",
-    liked: false,
-  },
-  {
-    id: 6,
-    title: "Plaid Wool Winter Coat",
-    price: 36.0,
-    originalPrice: 60.0,
-    discount: 40,
-    image: "/banner-media.webp",
-    bgColor: "from-pink-300 to-red-300",
-    liked: false,
-  },
-  {
-    id: 7,
-    title: "Comfy Lounge Jogger Pants",
-    price: 75.0,
-    originalPrice: 100.0,
-    discount: 25,
-    image: "/banner-media.webp",
-    bgColor: "from-gray-200 to-gray-300",
-    liked: false,
-  },
-  {
-    id: 8,
-    title: "Water-Resistant Windbreaker Jacket",
-    price: 90.0,
-    originalPrice: 120.0,
-    discount: 25,
-    image: "/banner-media.webp",
-    bgColor: "from-yellow-200 to-orange-300",
-    liked: false,
-  },
-  {
-    id: 9,
-    title: "Classic Denim Skinny Jeans",
-    price: 50.0,
-    originalPrice: 70.0,
-    discount: 28,
-    image: "/banner-media.webp",
-    bgColor: "from-amber-200 to-amber-300",
-    liked: false,
-  },
-  {
-    id: 10,
-    title: "Stylish Fedora Hat Collection",
-    price: 80,
-    originalPrice: 100.0,
-    discount: 20,
-    image: "/banner-media.webp",
-    bgColor: "from-pink-300 to-red-400",
-    liked: false,
-  },
-  {
-    id: 11,
-    title: "Suede Ankle Booties Collection",
-    price: 70,
-    originalPrice: 90.0,
-    discount: 22,
-    image: "/banner-media.webp",
-    bgColor: "from-red-300 to-red-500",
-    liked: false,
-  },
-  {
-    id: 12,
-    title: "Hiking Outdoor Gear Collection",
-    price: 50,
-    originalPrice: 75.0,
-    discount: 33,
-    image: "/banner-media.webp",
-    bgColor: "from-purple-300 to-purple-500",
-    liked: false,
-  },
-];
+import { getProducts } from "../../services/productService";
 
 const colorFilters = [
   { name: "Black", color: "bg-black" },
@@ -171,7 +55,21 @@ const ShopStandard = ({ viewMode, categorySection = false }) => {
   const [productsPerPage, setProductsPerPage] = useState(12);
   const [likedProducts, setLikedProducts] = useState([]);
   const navigate = useNavigate();
+  const [products, setProducts] = useState([]);
 
+  const fetchProducts = async () => {
+    const res = await getProducts();
+    if (res) {
+      setProducts(res);
+    } else {
+      toast.error("Failed to fetch products");
+    }
+  };
+
+  useEffect(() => {
+    fetchProducts();
+  }, []);
+  
   const toggleLike = (productId) => {
     setLikedProducts((prev) =>
       prev.includes(productId)
@@ -180,22 +78,21 @@ const ShopStandard = ({ viewMode, categorySection = false }) => {
     );
   };
 
+
   return (
     <div className="">
-      <ShopTopBanner/>
+      <ShopTopBanner />
 
       <div className="container mx-auto px-4 py-8">
         <div className="flex flex-col lg:flex-row gap-8">
           {/* Sidebar Filters */}
-          <div className="hidden md:block lg:w-72 flex-shrink-0">
+          {/* <div className="hidden md:block lg:w-72 flex-shrink-0">
             <div className="sticky top-8 space-y-6 bg-white lg:bg-transparent p-4 lg:p-0 rounded-lg lg:rounded-none border lg:border-none">
-              {/* Filter Header */}
               <div className="flex items-center gap-2 text-lg font-semibold">
                 <Filter className="w-5 h-5" />
                 Filter
               </div>
 
-              {/* Search */}
               <div className="relative">
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
                 <input
@@ -205,7 +102,6 @@ const ShopStandard = ({ viewMode, categorySection = false }) => {
                 />
               </div>
 
-              {/* Price Range */}
               <div className="space-y-4">
                 <h3 className="font-semibold">Price</h3>
                 <div className="px-2">
@@ -224,7 +120,6 @@ const ShopStandard = ({ viewMode, categorySection = false }) => {
                 </div>
               </div>
 
-              {/* Color Filter */}
               <div className="space-y-4">
                 <h3 className="font-semibold">Color</h3>
                 <div className="grid grid-cols-5 gap-2">
@@ -238,7 +133,6 @@ const ShopStandard = ({ viewMode, categorySection = false }) => {
                 </div>
               </div>
 
-              {/* Size Filter */}
               <div className="space-y-4">
                 <h3 className="font-semibold">Size</h3>
                 <div className="grid grid-cols-4 gap-2">
@@ -253,7 +147,6 @@ const ShopStandard = ({ viewMode, categorySection = false }) => {
                 </div>
               </div>
 
-              {/* Category Filter */}
               <div className="space-y-4">
                 <h3 className="font-semibold">Category</h3>
                 <div className="space-y-2">
@@ -273,7 +166,6 @@ const ShopStandard = ({ viewMode, categorySection = false }) => {
                 </div>
               </div>
 
-              {/* Tags */}
               <div className="space-y-4">
                 <h3 className="font-semibold">Tags</h3>
                 <div className="flex flex-wrap gap-2">
@@ -288,7 +180,6 @@ const ShopStandard = ({ viewMode, categorySection = false }) => {
                 </div>
               </div>
 
-              {/* Reset button */}
               <button
                 variant="outline"
                 className="w-full bg-black text-white hover:bg-gray-800"
@@ -296,12 +187,12 @@ const ShopStandard = ({ viewMode, categorySection = false }) => {
                 RESET
               </button>
             </div>
-          </div>
+          </div> */}
 
           {/* Main Content */}
           <div className="">
             {/* Category Section */}
-             {categorySection && <CategorySection categories={categories} />}
+            {categorySection && <CategorySection categories={categories} />}
 
             {/* Filter Bar */}
             <div className="flex flex-col lg:flex-row lg:items-center justify-between mb-6 gap-4">
@@ -391,21 +282,21 @@ const ShopStandard = ({ viewMode, categorySection = false }) => {
 
             {/* Product Grid */}
             <div
-              className={`${
+              className={`w-full ${
                 viewMode === "grid"
-                  ? "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 "
+                  ? "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 "
                   : ""
               }  gap-6 mb-8`}
             >
               {products.map((product) =>
                 viewMode === "grid" ? (
                   <>
-                  <div className="hidden md:block">
-                    <ProductCard key={product.id} product={product} />
-                  </div>
-                  <div className="md:hidden">
-                    <MobileProductCard key={product.id} product={product} />
-                  </div>
+                    <div className="hidden md:block">
+                      <ProductCard key={product.id} product={product} />
+                    </div>
+                    <div className="md:hidden">
+                      <MobileProductCard key={product.id} product={product} />
+                    </div>
                   </>
                 ) : viewMode === "list" ? (
                   <ListProductCard product={product} />
@@ -414,7 +305,7 @@ const ShopStandard = ({ viewMode, categorySection = false }) => {
             </div>
 
             {/* Pagination */}
-            <div className="flex items-center justify-center gap-2">
+            {/* <div className="flex items-center justify-center gap-2">
               <span className="text-sm text-gray-500">
                 Showing 1-{productsPerPage} of 50 Results
               </span>
@@ -432,7 +323,7 @@ const ShopStandard = ({ viewMode, categorySection = false }) => {
                   NEXT
                 </button>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

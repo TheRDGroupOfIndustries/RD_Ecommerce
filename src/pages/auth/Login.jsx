@@ -4,6 +4,7 @@ import { Eye, EyeOff } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { BtnLoader } from "../../components";
+import { login } from "../../store/authSlice";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -18,7 +19,7 @@ const Login = () => {
 
   const onSubmit = (data) => {
     console.log("Login Data:", data);
-    // dispatch(login(data));
+    dispatch(login(data));
   };
 
   return (

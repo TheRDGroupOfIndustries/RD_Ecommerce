@@ -1,8 +1,23 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { MobileProductCard, ProductCard, ShopTopBanner } from "../../components";
-import { products } from "../../store/data";
+import { getProducts } from "../../services/productService";
+// import { products } from "../../store/data";
 
 const ShopStyle1 = () => {
+    const [products, setProducts] = useState([]);
+  
+    const fetchProducts = async () => {
+      const res = await getProducts();
+      if (res) {
+        setProducts(res);
+      } else {
+        toast.error("Failed to fetch products");
+      }
+    };
+  
+    useEffect(() => {
+      fetchProducts();
+    }, []);
   return (
     <div className="">
       <ShopTopBanner/>

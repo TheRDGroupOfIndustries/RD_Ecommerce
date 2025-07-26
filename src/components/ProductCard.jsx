@@ -8,6 +8,9 @@ const ProductCard = ({ product, height }) => {
   const [inWishlist, setInWishlist] = useState(false)
   const [inCart, setInCart] = useState(false)
   const [isQuickViewOpen, setIsQuickViewOpen] = useState(false)
+
+  // console.log("ProductCard product: ", product);
+  
   
   return (
     <div className=" rounded-3xl overflow-hidden relative group">
@@ -15,8 +18,8 @@ const ProductCard = ({ product, height }) => {
       <div className={` ${height ? height : "h-[450px]"} w-full relative overflow-hidden`}>
         <div className="relative rounded-3xl overflow-hidden h-full w-full group-hover:h-[95%] duration-300 ">
           <img
-            src={product.image}
-            alt={product.title}
+            src={product?.images[0]}
+            alt={product?.title}
             className="h-full w-full object-cover object-top"
           />
         </div>
@@ -27,7 +30,7 @@ const ProductCard = ({ product, height }) => {
 
         {/* Discount Tag */}
         <span className="absolute top-3 left-3 bg-white text-black text-xs font-bold px-3 py-1 rounded-full shadow">
-          {product.discount}
+          {product?.discount}% OFF
         </span>
 
         {/* Icons */}
@@ -43,8 +46,8 @@ const ProductCard = ({ product, height }) => {
 
       {/* Title + Price */}
       <div className="p-4 flex items-start justify-between">
-        <Link to={`/product-default`} className="text-lg font-bold cursor-pointer hover:text-red-500 duration-300">{product.title}</Link>
-        <p className="text-right text-base font-bold">${product.price}</p>
+        <Link to={`/product-default/${product?._id}`} className="text-lg font-bold cursor-pointer hover:text-red-500 duration-300">{product?.title}</Link>
+        <p className="text-right text-base font-bold">Rs. {product?.salePrice}</p>
       </div>
 
 

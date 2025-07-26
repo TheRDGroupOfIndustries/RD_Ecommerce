@@ -2,6 +2,11 @@ import React, { useRef, useState, useEffect } from "react";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
+import { getHomeBanners } from "../services/productService";
+import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { addProductToCart } from "../store/cartSlice";
+import toast from "react-hot-toast";
 
 export default function App() {
   return (
@@ -13,6 +18,9 @@ export default function App() {
 
 const HeroSection = () => {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [banners, setBanners] = useState([]);
+  const { isAuthenticated } = useSelector(state => state.auth)
+  const dispatch = useDispatch();
 
   const leftSliderRef = useRef(null);
   const rightSliderRef = useRef(null);
@@ -30,27 +38,42 @@ const HeroSection = () => {
     rightSliderRef.current?.slickNext();
   };
 
+  const fetchBanners = async () => {
+    const res = await getHomeBanners();
+    setBanners(res);
+    console.log(res);
+  };
+
+  useEffect(() => {
+    fetchBanners();
+  }, []);
+
+  const handleAddToCart = (id) => {
+    if(!isAuthenticated) return toast.error("Please login to add product to cart");
+    dispatch(addProductToCart({productId: id, quantity: 1}));
+  }
+
   const imageSliderSettings = {
     asNavFor: nav1,
     ref: (slider) => (rightSliderRef.current = slider),
     infinite: true,
     focusOnSelect: true,
-    slidesToShow: 2, 
+    slidesToShow: 2,
     slidesToScroll: 1,
     arrows: false,
     afterChange: (current) => setActiveIndex(current),
     responsive: [
       {
-        breakpoint: 1024, 
+        breakpoint: 1024,
         settings: {
           slidesToShow: 2,
           slidesToScroll: 1,
         },
       },
       {
-        breakpoint: 768, 
+        breakpoint: 768,
         settings: {
-          slidesToShow: 1, 
+          slidesToShow: 1,
           slidesToScroll: 1,
         },
       },
@@ -92,32 +115,40 @@ const HeroSection = () => {
     <section className="w-full min-h-screen flex flex-col md:flex-row px-4 md:px-20 py-10 md:py-20 relative overflow-hidden gap-5">
       {/* Left Slider - Product Details */}
       <div className="w-full md:w-1/2 h-full flex flex-col justify-center">
-        <Slider {...leftSliderSettings}>
-          {leftSliderDetails.map((item, index) => (
-            <div
-              key={item.title + index}
-              className="w-full h-[300px] md:h-[400px] p-2 md:p-4 space-y-4 md:space-y-6 flex flex-col justify-center"
-            >
-              <h1 className="text-black text-3xl md:text-7xl font-bold leading-tight">
-                {item.title}
-              </h1>
-              <div>
-                <p className="text-lg md:text-xl text-gray-700">Price</p>
-                <span className="text-3xl md:text-5xl font-bold text-black">
-                  ${item.price}
-                </span>
+        {banners.length != 0 && (
+          <Slider {...leftSliderSettings}>
+            {banners.map((item, index) => (
+              <div
+                key={item._id}
+                className="w-full h-[300px] md:h-[400px] p-2 md:p-4 space-y-4 md:space-y-6 flex flex-col justify-center"
+              >
+                <h1 className="text-black text-3xl md:text-7xl font-bold leading-tight capitalize">
+                  {item.title}
+                </h1>
+                <div>
+                  <p className="text-lg md:text-xl text-gray-700">Price</p>
+                  <span className="text-3xl md:text-5xl font-bold text-black">
+                    ${item.salePrice}
+                  </span>
+                </div>
+                <div className="w-full flex flex-col sm:flex-row gap-4">
+                  <button
+                    onClick={() => handleAddToCart(item._id)}
+                    className="px-6 py-3 bg-black rounded-lg text-white text-base font-medium hover:bg-gray-800 transition-colors duration-300 shadow-md cursor-pointer"
+                  >
+                    ADD TO CART
+                  </button>
+                  <Link
+                    to={`/product-default/${item._id}`}
+                    className="px-6 py-3 border border-gray-300 rounded-lg text-black text-base font-medium hover:bg-gray-100 transition-colors duration-300 shadow-md"
+                  >
+                    VIEW DETAILS
+                  </Link>
+                </div>
               </div>
-              <div className="w-full flex flex-col sm:flex-row gap-4">
-                <button className="px-6 py-3 bg-black rounded-lg text-white text-base font-medium hover:bg-gray-800 transition-colors duration-300 shadow-md">
-                  ADD TO CART
-                </button>
-                <button className="px-6 py-3 border border-gray-300 rounded-lg text-black text-base font-medium hover:bg-gray-100 transition-colors duration-300 shadow-md">
-                  VIEW DETAILS
-                </button>
-              </div>
-            </div>
-          ))}
-        </Slider>
+            ))}
+          </Slider>
+        )}
         {/* Additional Info Section */}
         <div className="flex gap-4 items-center p-2 md:p-4 mt-8 md:mt-12 bg-white rounded-lg shadow-sm">
           <svg
@@ -147,32 +178,33 @@ const HeroSection = () => {
       {/* Right Image Slider */}
       <div className="w-full md:w-1/2 h-full flex items-center justify-center relative">
         <div className="slider-container w-full h-full overflow-hidden relative md:-right-10 flex items-center">
-          <Slider {...imageSliderSettings} className="w-full">
-            {rightSlideDetails.map((item, index) => (
-              <div
-                key={item.image}
-                className="w-full h-[400px] md:h-[550px] p-2 md:p-6 transition-all duration-500 flex items-center justify-center"
-              >
-                <div className="relative h-full flex items-center justify-center w-full">
-                  
-                  <img
-                    src={item.image}
-                    alt="Banner image"
-                    className={`${
-                      activeIndex === index
-                        ? "scale-110 md:scale-120"
-                        : "scale-100"
-                    } transition-all duration-300 rounded-xl z-10 relative object-cover w-full h-full shadow-lg`}
-                    onError={(e) => {
-                      e.target.onerror = null;
-                      e.target.src =
-                        "https://placehold.co/600x400/CCCCCC/666666?text=Image+Error";
-                    }}
-                  />
+          {banners.length != 0 && (
+            <Slider {...imageSliderSettings} className="w-full">
+              {banners.map((item, index) => (
+                <div
+                  key={item._id}
+                  className="w-full h-[400px] md:h-[550px] p-2 md:p-6 transition-all duration-500 flex items-center justify-center"
+                >
+                  <div className="relative h-full flex items-center justify-center w-full">
+                    <img
+                      src={item.images[0]}
+                      alt="Banner image"
+                      className={`${
+                        activeIndex === index
+                          ? "scale-110 md:scale-120"
+                          : "scale-100"
+                      } transition-all duration-300 rounded-xl z-10 relative object-cover w-full h-full shadow-lg`}
+                      onError={(e) => {
+                        e.target.onerror = null;
+                        e.target.src =
+                          "https://placehold.co/600x400/CCCCCC/666666?text=Image+Error";
+                      }}
+                    />
+                  </div>
                 </div>
-              </div>
-            ))}
-          </Slider>
+              ))}
+            </Slider>
+          )}
 
           {/* Custom Next Button */}
           <div

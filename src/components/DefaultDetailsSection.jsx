@@ -2,32 +2,48 @@ import { Minus, Plus } from "lucide-react";
 import React, { useState } from "react";
 import Slider from "react-slick";
 import { LuPackage } from "react-icons/lu";
+import { useDispatch, useSelector } from "react-redux";
+import { addProductToCart } from "../store/cartSlice";
+import BtnLoader from "./BtnLoader";
+import toast from "react-hot-toast";
+import { addToWishlist } from "../store/authSlice";
 
 const images = [
   "/details/product1.webp",
   "/details/product2.webp",
-  "/details/product3.webp",
+  // "/details/product3.webp",
 ];
 const sizes = ["S", "M", "L", "XL"];
 const colors = ["gray", "black", "green", "pink"];
 const colorClasses = {
   gray: "bg-gray-300",
-  black: "bg-black",
   green: "bg-green-500",
   pink: "bg-pink-300",
+  white: "bg-white",
+  black: "bg-black",
+  blue: "bg-blue-500",
+  red: "bg-red-500",
+  yellow: "bg-yellow-500",
+  purple: "bg-purple-500",
+  orange: "bg-orange-500",
+  brown: "bg-brown-500",
+  cyan: "bg-cyan-500",
 };
 
-const DefaultDetailsSection = () => {
+const DefaultDetailsSection = ({ product, reviews }) => {
   const [quantity, setQuantity] = useState(1);
   const [selectedSize, setSelectedSize] = useState("S");
   const [selectedColor, setSelectedColor] = useState("gray");
+  const { isAuthenticated } = useSelector((state) => state.auth);
+  const { loading } = useSelector((state) => state.cart);
+  const dispatch = useDispatch();
 
   const settings = {
     customPaging: function (i) {
       return (
         <a className="block border border-gray-200 rounded-md overflow-hidden hover:border-blue-500 transition-colors">
           <img
-            src={images[i]}
+            src={product.images[i]}
             alt={`Product thumbnail ${i + 1}`}
             className="w-full h-full object-cover"
           />
@@ -48,18 +64,37 @@ const DefaultDetailsSection = () => {
   const discountedPrice = productPrice * (1 - discountPercentage);
   const savings = productPrice * discountPercentage;
 
+  const averageRating =
+    reviews.reduce((sum, r) => sum + r.rating, 0) / reviews.length;
+
+  const handleAddToCart = () => {
+    if (!isAuthenticated) {
+      toast.error("Please login to add items to cart");
+      return;
+    }
+    dispatch(addProductToCart({ productId: product._id, quantity }));
+  };
   return (
     <section className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-10 p-4 md:p-8 lg:p-10  mx-auto mt-6">
       {/* Images Section */}
       <div className="lg:col-span-1 md:col-span-2 mx-auto w-full max-w-lg lg:max-w-none">
         <div className="slider-container">
           <Slider {...settings}>
-            {images.map((image, index) => (
-              <div key={index}>
+            {product?.images && product?.images.length == 1 && (
+              <div className="">
+                <img
+                  src={product?.images[0]}
+                  alt={`Product image`}
+                  className="rounded-lg w-full h-auto object-cover object-center"
+                />
+              </div>
+            )}
+            {product?.images.map((image, index) => (
+              <div key={index} className="">
                 <img
                   src={image}
                   alt={`Product image ${index + 1}`}
-                  className="rounded-lg w-full h-auto object-cover shadow-md"
+                  className="rounded-lg w-full h-auto object-cover object-center"
                 />
               </div>
             ))}
@@ -70,27 +105,31 @@ const DefaultDetailsSection = () => {
       {/* Details Section */}
       <div className="lg:col-span-1 space-y-5 text-center lg:text-left">
         <span className="inline-block text-sm bg-black text-white px-3 py-1 rounded-md font-semibold mb-2">
-          SALE 20% OFF
+          SALE {product?.discount}% OFF
         </span>
         <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 leading-tight">
-          Curly Girl Beautiful Dress
+          {product?.title}
         </h1>
 
         <div className="flex items-center justify-center lg:justify-start text-sm text-gray-600 space-x-2">
-          <div className="flex text-yellow-500">★★★★☆</div>
-          <span>4.7 Rating (5 customer reviews)</span>
+          <div className="flex text-yellow-500 text-xl">★</div>
+          <span>
+            {averageRating.toFixed(1)} Rating ({reviews.length} customer
+            reviews)
+          </span>
         </div>
 
         <div className="flex items-baseline justify-center lg:justify-start space-x-3 text-gray-900">
           <span className="text-3xl font-bold">
-            ₹{discountedPrice.toFixed(2)}
+            ₹{product?.salePrice.toFixed(2)}
           </span>
           <span className="text-lg text-gray-500 line-through">
-            ₹{productPrice.toFixed(2)}
+            ₹{product?.price.toFixed(2)}
           </span>
         </div>
 
         <p className="text-gray-700 leading-relaxed text-base">
+          {product?.description}
           Lorem Ipsum is simply dummy text of the printing and typesetting
           industry. Lorem Ipsum has been the industry's standard dummy text ever
           since the 1500s, when an unknown printer took a galley of type and
@@ -98,7 +137,7 @@ const DefaultDetailsSection = () => {
         </p>
 
         {/* Quantity, Size, Colors Options */}
-        <div className="flex flex-col sm:flex-row items-center gap-6 justify-center lg:justify-between w-full mt-6 sm:mt-8 pt-6 border-t border-gray-200">
+        <div className="flex flex-col flex-wrap sm:flex-row items-center gap-6 justify-center lg:justify-between w-full mt-6 sm:mt-8 pt-6 border-t border-gray-200">
           {/* Quantity */}
           <div className="space-y-3">
             <h2 className="font-semibold text-gray-800">Quantity</h2>
@@ -127,7 +166,7 @@ const DefaultDetailsSection = () => {
           <div className="space-y-3">
             <h4 className="font-semibold text-gray-800">Size</h4>
             <div className="flex items-center gap-2">
-              {sizes.map((size) => (
+              {product?.sizes.map((size) => (
                 <button
                   key={size}
                   onClick={() => setSelectedSize(size)}
@@ -139,7 +178,7 @@ const DefaultDetailsSection = () => {
                     }`}
                   aria-pressed={selectedSize === size}
                 >
-                  {size}
+                  {size.toUpperCase()}
                 </button>
               ))}
             </div>
@@ -149,7 +188,7 @@ const DefaultDetailsSection = () => {
           <div className="space-y-3">
             <h4 className="font-semibold text-gray-800">Color</h4>
             <div className="flex items-center gap-2">
-              {colors.map((color) => (
+              {product?.colors.map((color) => (
                 <button
                   key={color}
                   onClick={() => setSelectedColor(color)}
@@ -170,15 +209,15 @@ const DefaultDetailsSection = () => {
         {/* Product Meta Info */}
         <div className="text-base text-gray-700 space-y-2 pt-4 border-t border-gray-200 mt-6">
           <div>
-            <span className="font-semibold">SKU:</span> PRT584E63A
+            <span className="font-semibold">SKU:</span> {product?.sku}
           </div>
           <div>
-            <span className="font-semibold">Category:</span> Dresses, Jeans,
-            Swimwear, Summer
+            <span className="font-semibold">Category:</span>
+            {product?.category}
           </div>
           <div>
-            <span className="font-semibold">Tags:</span> Casual, Workwear,
-            Accessories
+            <span className="font-semibold">Tags:</span>
+            {product?.tags.join(", ")}
           </div>
         </div>
       </div>
@@ -222,16 +261,21 @@ const DefaultDetailsSection = () => {
             <div className="w-full font-bold flex items-center justify-between">
               <h2 className="text-lg text-gray-800">Total</h2>
               <h2 className="text-2xl text-gray-900">
-                ₹{(discountedPrice * quantity).toFixed(2)}
+                ₹{( product?.salePrice * quantity).toFixed(2)}
               </h2>
             </div>
           </div>
 
-          <button className="w-full bg-gray-100 text-gray-800 font-semibold py-3 rounded-lg hover:bg-gray-200 transition-colors duration-200 mt-3">
+          <button onClick={()=>{
+            dispatch(addToWishlist(product?._id))
+          }} className="w-full bg-gray-100 text-gray-800 font-semibold py-3 rounded-lg hover:bg-gray-200 transition-colors duration-200 mt-3 cursor-pointer">
             Add To Wishlist
           </button>
-          <button className="w-full bg-blue-600 text-white font-semibold py-3 rounded-lg hover:bg-blue-700 transition-colors duration-200">
-            Add To Cart
+          <button
+            onClick={handleAddToCart}
+            className="w-full bg-blue-600 text-white font-semibold py-3 rounded-lg hover:bg-blue-700 transition-colors duration-200 "
+          >
+            {loading ? <BtnLoader /> : "Add To Cart"}
           </button>
         </div>
       </div>

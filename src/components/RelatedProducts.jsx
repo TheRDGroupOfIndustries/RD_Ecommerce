@@ -2,6 +2,10 @@ import Slider from "react-slick";
 import ProductCard from "./ProductCard";
 import { MdArrowBackIos, MdArrowForwardIos } from "react-icons/md";
 import { products } from "../store/data";
+import { getProducts } from "../services/productService";
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import MobileProductCard from "./MobileProductCard";
 
 const NextArrow = ({ onClick }) => {
   return (
@@ -68,31 +72,46 @@ const RelatedProducts = () => {
     ],
   };
 
+  const [relatedProducts, setRelatedProducts] = useState([]);
+
+  const fetchRelatedProducts = async () => {
+    const res = await getProducts();
+    if (res) {
+      setRelatedProducts(res.slice(0, 8));
+    } else {
+      toast.error("Failed to fetch related products");
+    }
+  };
+
+  useEffect(() => {
+    fetchRelatedProducts();
+  }, []);
+
   return (
     <section className="container mx-auto px-4 py-8 md:px-6 md:py-10 lg:px-8 lg:py-12">
       <div className="flex justify-between items-center mb-6">
         <h2 className="text-2xl md:text-3xl font-bold text-gray-800">
           Related Products
         </h2>
-        <a
-          href="#"
+        <Link
+          to="/shop-standard"
           className="text-blue-600 font-medium flex items-center gap-1 hover:text-blue-800 transition-colors duration-200"
           aria-label="See all related products"
         >
           See All Products <span className="text-lg">→</span>
-        </a>
+        </Link>
       </div>
 
       <div className="relative">
-        {products.length === 0 ? (
+        {relatedProducts.length === 0 ? (
           <p className="text-center text-gray-600 py-10">
             No related products available.
           </p>
         ) : (
           <Slider {...settings}>
-            {products.map((product) => (
+            {relatedProducts.map((product) => (
               <div key={product.id} className="px-2">
-                <ProductCard product={product} />
+                <MobileProductCard product={product} />
               </div>
             ))}
           </Slider>

@@ -1,40 +1,44 @@
 import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { addProductToCart } from "../store/cartSlice";
+import { Link } from "react-router-dom";
 
- const product = {
-    id: "PRT584E63A",
-    name: "Cozy Knit Cardigan Sweater",
-    price: 125.75,
-    oldPrice: 132.17,
-    rating: 4.7,
-    reviews: 5,
-    description:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
-    sku: "PRT584E63A",
-    category: "Dresses, Jeans, Swimwear, Summer, Clothing",
-    tags: "Casual, Athletic, Workwear, Accessories",
-    images: [
-      "/details/lady-1.webp",
-      "/details/lady-2.webp",
-      "/details/lady-3.webp",
-    ],
-    cartIcon: "/icons/cart-icon.svg",
-    heartIcon: "/icons/heart-icon.svg",
-    facebookIcon: "/icons/facebook.svg",
-    pinterestIcon: "/icons/pinterest.svg",
-    linkedinIcon: "/icons/linkedin.svg",
-    instagramIcon: "/icons/instagram.svg",
-  };
+//  const product = {
+//     id: "PRT584E63A",
+//     name: "Cozy Knit Cardigan Sweater",
+//     price: 125.75,
+//     oldPrice: 132.17,
+//     rating: 4.7,
+//     reviews: 5,
+//     description:
+//       "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+//     sku: "PRT584E63A",
+//     category: "Dresses, Jeans, Swimwear, Summer, Clothing",
+//     tags: "Casual, Athletic, Workwear, Accessories",
+//     images: [
+//       "/details/lady-1.webp",
+//       "/details/lady-2.webp",
+//       "/details/lady-3.webp",
+//     ],
+//     cartIcon: "/icons/cart-icon.svg",
+//     heartIcon: "/icons/heart-icon.svg",
+//     facebookIcon: "/icons/facebook.svg",
+//     pinterestIcon: "/icons/pinterest.svg",
+//     linkedinIcon: "/icons/linkedin.svg",
+//     instagramIcon: "/icons/instagram.svg",
+//   };
 
-const QuickView = ({ setIsQuickViewOpen }) => {
-    const [quantity, setQuantity] = useState(1);
-    const [mainImage, setMainImage] = useState(product.images[0]);
+const QuickView = ({ product, setIsQuickViewOpen }) => {
+  const [quantity, setQuantity] = useState(1);
+  const [mainImage, setMainImage] = useState(product.images[0]);
+  const { isAuthenticated } = useSelector(state => state.auth)
+  const dispatch = useDispatch()
 
-    useEffect(() => {
-            setMainImage(product.images[0]);
-            setQuantity(1); // Reset quantity as well
-  
-    }, []);
- 
+  useEffect(() => {
+    setMainImage(product.images[0]);
+    setQuantity(1); // Reset quantity as well
+  }, []);
+
   const handleClose = () => {
     setIsQuickViewOpen(false);
   };
@@ -45,6 +49,14 @@ const QuickView = ({ setIsQuickViewOpen }) => {
     } else if (type === "decrement" && quantity > 1) {
       setQuantity((prev) => prev - 1);
     }
+  };
+
+  const handleAddToCart = () => {
+    if (!isAuthenticated) {
+      toast.error("Please login to add items to cart");
+      return;
+    }
+    dispatch(addProductToCart({ productId: product._id, quantity }));
   };
 
   return (
@@ -64,7 +76,7 @@ const QuickView = ({ setIsQuickViewOpen }) => {
           <div className="mb-4 w-full flex justify-center items-center">
             <img
               src={mainImage}
-              alt={product.name}
+              alt={product.title}
               className="max-w-full h-auto max-h-96 object-contain rounded-md shadow"
             />
           </div>
@@ -91,21 +103,20 @@ const QuickView = ({ setIsQuickViewOpen }) => {
             SALE 20% OFF
           </span>
           <h2 className="text-3xl font-bold text-gray-800 mb-2">
-            {product.name}
+            {product.title}
           </h2>
 
           <div className="flex items-center mb-4">
             <div className="flex text-yellow-400 text-lg mr-2">
               {Array.from({ length: 5 }, (_, i) => (
                 <span key={i}>
-                  {i < Math.floor(product.rating)
-                    ? "★"
-                    : "☆"}
+                  {i < Math.floor(product.ratings) ? "★" : "☆"}
                 </span>
               ))}
             </div>
             <span className="text-sm text-gray-600">
-              {product.rating} Rating ({product.reviews} customer reviews)
+              {product.ratings} Rating ({product.reviews_number} customer
+              reviews)
             </span>
           </div>
 
@@ -116,10 +127,10 @@ const QuickView = ({ setIsQuickViewOpen }) => {
           <div className="flex items-center justify-between mb-6 flex-wrap gap-4">
             <div className="flex items-baseline">
               <span className="text-3xl font-bold text-blue-600 mr-2">
-                ${product.price.toFixed(2)}
+                ${product.salePrice.toFixed(2)}
               </span>
               <span className="text-lg text-gray-500 line-through">
-                ${product.oldPrice.toFixed(2)}
+                ${product.price.toFixed(2)}
               </span>
             </div>
             <div className="flex items-center border border-gray-300 rounded-md overflow-hidden">
@@ -145,20 +156,15 @@ const QuickView = ({ setIsQuickViewOpen }) => {
           </div>
 
           <div className="flex space-x-3 mb-6 flex-wrap gap-y-3">
-            <button className="flex-1 min-w-[180px] px-6 py-3 bg-blue-600 text-white font-semibold rounded-md shadow-md hover:bg-blue-700 transition duration-300 flex items-center justify-center space-x-2">
-              {/* Replace with an actual SVG icon or a library icon */}
-              {/* <img
-                src={product.cartIcon}
-                alt="Cart"
-                className="w-5 h-5 invert"
-              /> */}
-              <span>ADD TO CART</span>
+            <button
+              onClick={handleAddToCart}
+              className="flex-1 min-w-[180px] px-6 py-3 bg-blue-600 text-white font-semibold rounded-md shadow-md hover:bg-blue-700 transition duration-300 flex items-center justify-center space-x-2 cursor-pointer"
+            >
+              ADD TO CART
             </button>
-            <button className="flex-1 min-w-[180px] px-6 py-3 border border-gray-300 text-gray-800 font-semibold rounded-md shadow-sm hover:bg-gray-50 transition duration-300 flex items-center justify-center space-x-2">
-              {/* Replace with an actual SVG icon or a library icon */}
-              {/* <img src={product.heartIcon} alt="Wishlist" className="w-5 h-5" /> */}
-              <span>Add To Wishlist</span>
-            </button>
+            <Link to={`/product-default/${product._id}`} className="flex-1 min-w-[180px] px-6 py-3 border border-gray-300 text-gray-800 font-semibold rounded-md shadow-sm hover:bg-gray-50 transition duration-300 flex items-center justify-center space-x-2">
+              View Details
+            </Link>
           </div>
 
           <div className="text-sm text-gray-700 mb-6">
@@ -170,13 +176,12 @@ const QuickView = ({ setIsQuickViewOpen }) => {
               {product.category}
             </p>
             <p>
-              <strong className="text-gray-800">Tags:</strong> {product.tags}
+              <strong className="text-gray-800">Tags:</strong>{" "}
+              {product.tags.join(", ")}
             </p>
           </div>
 
-          <div className="flex space-x-3">
-            {/* Socila media links */}
-          </div>
+          <div className="flex space-x-3">{/* Socila media links */}</div>
         </div>
       </div>
     </div>
