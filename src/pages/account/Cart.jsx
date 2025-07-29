@@ -1,9 +1,61 @@
 import React, { useEffect, useState } from "react";
 import { FaMinus, FaPlus } from "react-icons/fa";
 import { IoClose } from "react-icons/io5";
-import { deleteCartItem, fetchCartItems, updateQuantity } from "../../store/cartSlice";
+import {
+  deleteCartItem,
+  fetchCartItems,
+  setAppliedCoupon,
+  updateQuantity,
+} from "../../store/cartSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { applyCouponCode, getCoupons } from "../../services/couponService";
+import toast from "react-hot-toast";
+
+const CouponCard = ({ coupon, applyCoupon }) => {
+  const { name, code, discount, endDate, discountType, discountValue } = coupon;
+
+  return (
+    <div className="bg-gradient-to-r from-blue-100 to-blue-50 border border-blue-300 rounded-xl p-4 w-full min-w-60 shadow-md">
+      <div className="flex items-center justify-between gap-5 w-full">
+        <h3 className="text-lg font-semibold text-blue-800 uppercase">
+          {name}
+        </h3>
+
+        <div className="flex items-center gap-2">
+          <p className=" font-semibold text-gray-600">Use Code:</p>
+          <div className="text-base font-bold bg-blue-200 px-3 py-1 inline-block rounded-md tracking-wider text-blue-900">
+            {code}
+          </div>
+        </div>
+      </div>
+
+      <div className="flex items-end justify-between gap-5 ">
+        <div className="">
+          <p className="mt-2 text-green-600 font-medium">
+            {discountType == "percent"
+              ? `${discountValue}% OFF`
+              : `Rs.${discountValue} OFF`}
+          </p>
+
+          <p className="mt-1 text-sm text-gray-500">
+            Expires on:{" "}
+            <span className="font-semibold">
+              {endDate?.split("T")[0].replaceAll("-", "/")}
+            </span>
+          </p>
+        </div>
+        <button
+          type="button"
+          onClick={() => applyCoupon(code)}
+          className="bg-black px-4 py-1 cursor-pointer rounded-md text-white"
+        >
+          Apply
+        </button>
+      </div>
+    </div>
+  );
+};
 
 // const [cartItems, setCartItems] = useState([
 //   {
@@ -50,57 +102,71 @@ import { Link } from "react-router-dom";
 //   },
 // ]);
 const Cart = () => {
+  const [coupons, setCoupons] = useState([]);
   const [couponCode, setCouponCode] = useState("");
-  const [discount, setDiscount] = useState(0);
+  const [loadingCoupon, setLoadingCoupon] = useState(false);
+
+  // const [discount, setDiscount] = useState(0);
   const [couponMessage, setCouponMessage] = useState("");
-  const { isAuthenticated } = useSelector((state) => state.auth);
-  const { items, totalQuantity, totalPrice, loading } = useSelector(
+  const { isAuthenticated, userData } = useSelector((state) => state.auth);
+  const { items, totalQuantity, totalPrice, loading, appliedCoupon, discount } = useSelector(
     (state) => state.cart
   );
   const dispatch = useDispatch();
 
-  // const calculateSubtotal = (item) => item.price * item.quantity;
-  // const calculateTotalPrice = () =>
-  //   cartItems.reduce((sum, item) => sum + calculateSubtotal(item), 0);
-  // const calculateOrderTotal = () => calculateTotalPrice() - discount;
+  const cartPrice = totalPrice;
+
+  const fetchCoupons = async () => {
+    const res = await getCoupons();
+    setCoupons(res.coupons);
+  };
 
   useEffect(() => {
     if (isAuthenticated) {
       dispatch(fetchCartItems());
+      fetchCoupons();
     }
   }, []);
 
   const handleQuantityChange = (id, delta) => {
-    dispatch(updateQuantity({ productId: id, quantity: delta }))
-  
+    dispatch(updateQuantity({ productId: id, quantity: delta }));
   };
 
   const handleRemoveItem = (id) => {
     console.log("Removing item with ID:", id);
-    
     dispatch(deleteCartItem(id));
   };
 
-  const handleCouponCodeChange = (e) => {
-    setCouponCode(e.target.value);
-    setCouponMessage("");
-  };
+  const applyCoupon = async (code) => {
+    if (code === "") return toast.error("Invalid coupon code");
+    // alert(code);
+    setLoadingCoupon(true);
+    // apply coupon logic here
+    const res = await applyCouponCode({ code, userId: userData?._id });
+    console.log("Coupon apply Response: ", res);
 
-  const applyCoupon = () => {
-    console.log(`Applying coupon: ${couponCode}`);
-    if (couponCode.toLowerCase() === "discount20") {
-      setDiscount(20);
-      setCouponMessage("Coupon applied successfully!");
-    } else {
-      setDiscount(0);
-      setCouponMessage("Invalid coupon code.");
+    if (res.success) {
+      const coupon = coupons.find((c) => c.code === code);
+      dispatch(setAppliedCoupon(coupon));
+      // console.log(coupon);
+
+      // const discount =
+      //   appliedCoupon?.discountType === "percent"
+      //     ? (appliedCoupon?.discountValue / 100) * totalPrice
+      //     : appliedCoupon?.discountValue;
+
+      // setDiscount(discount.toFixed(2));
+      // console.log(discount.toFixed(2));
     }
+
+    setCouponCode("");
+    setLoadingCoupon(false);
   };
 
-  const handleProceedToCheckout = () => {
-    console.log("Proceeding to Checkout!");
-    alert("Proceeding to Checkout!");
-  };
+  const handleRemoveCoupon = () =>{
+    dispatch(setAppliedCoupon(null))
+    // setDiscount(0)
+  }
 
   return (
     <div className="">
@@ -140,7 +206,7 @@ const Cart = () => {
             <tbody>
               {items.map((item) => (
                 <tr
-                  key={item.product.id}
+                  key={item.product._id}
                   className="border-t border-gray-100 hover:bg-gray-50"
                 >
                   <td className="p-4 flex items-center gap-4">
@@ -278,8 +344,21 @@ const Cart = () => {
             </div>
             <div className="flex justify-between items-center text-gray-700 text-base">
               <span>Discount</span>
+              {appliedCoupon && (
+                <div className="flex gap-4 bg-gray-200 px-4 py-2 rounded-md">
+                  <span>{appliedCoupon?.name}</span>
+                  <span className="text-green-500 font-semibold">
+                    {appliedCoupon?.discountType == "percent"
+                      ? `${appliedCoupon?.discountValue}% OFF`
+                      : `Rs.${appliedCoupon?.discountValue} OFF`}
+                  </span>
+                  <button type="button" className="cursor-pointer" onClick={handleRemoveCoupon}>
+                    <IoClose size={20} />
+                  </button>
+                </div>
+              )}
               <span className="text-green-600 font-medium">
-                -${discount.toFixed(2)}
+                -Rs. {discount}
               </span>
             </div>
             <div className="flex justify-between items-center pt-3 border-t border-gray-200">
@@ -287,23 +366,23 @@ const Cart = () => {
                 Order Total
               </span>
               <span className="text-lg sm:text-xl font-bold text-gray-900">
-                ${totalPrice}
+                Rs. {(totalPrice - discount).toFixed(2)}
               </span>
             </div>
           </div>
 
           {/* Coupon and Checkout Section */}
-          <div className="flex flex-col sm:flex-row justify-end items-center mt-10 space-y-4 sm:space-y-0 sm:space-x-4">
-            {/* <div className="flex w-full sm:w-auto">
+          <div className="flex flex-col sm:flex-row justify-between items-center mt-10 space-y-4 sm:space-y-0 sm:space-x-4">
+            <div className="flex w-full sm:w-auto">
               <input
                 type="text"
                 placeholder="Coupon Code"
                 value={couponCode}
-                onChange={handleCouponCodeChange}
+                onChange={(e) => setCouponCode(e.target.value)}
                 className="p-3 border border-gray-300 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-blue-500 flex-grow text-gray-700"
               />
               <button
-                onClick={applyCoupon}
+                onClick={() => applyCoupon(couponCode)}
                 className="bg-gray-800 text-white px-6 py-3 rounded-r-lg hover:bg-gray-700 transition-colors duration-200 whitespace-nowrap text-sm sm:text-base"
               >
                 Apply Coupon
@@ -317,12 +396,27 @@ const Cart = () => {
               >
                 {couponMessage}
               </p>
-            )} */}
-            <Link to="/checkout"
+            )}
+            <Link
+              to="/checkout"
               className="bg-blue-600 text-white px-8 py-3 rounded-lg shadow-md hover:bg-blue-700 transition-colors duration-200 w-full sm:w-auto text-base sm:text-lg font-semibold"
             >
               Proceed to Checkout
-            </Link >
+            </Link>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 w-full gap-4 mt-10">
+            {coupons.length == 0 ? (
+              <p className="text-gray-600 text-sm">No coupons available</p>
+            ) : (
+              coupons.map((coupon, index) => (
+                <CouponCard
+                  key={coupon._id}
+                  coupon={coupon}
+                  applyCoupon={applyCoupon}
+                />
+              ))
+            )}
           </div>
         </>
       )}

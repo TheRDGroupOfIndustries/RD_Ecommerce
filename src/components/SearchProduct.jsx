@@ -2,13 +2,14 @@ import React, { useEffect, useState } from "react";
 import { IoClose } from "react-icons/io5";
 import { getProducts, searchProducts } from "../services/productService";
 import { Link } from "react-router-dom";
+import { FiSearch } from "react-icons/fi";
 
 function SearchProduct({ setIsSearchOpen }) {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All Categories");
   const [products, setProducts] = useState([]);
 
-  const quickSearchTags = ["Clothes", "UrbanSkirt", "VelvetGown", "LushShorts"];
+  const quickSearchTags = ["Black", "White", "Shirt", "Dress"];
   const categories = [
     "All Categories",
     "Dress",
@@ -49,7 +50,7 @@ function SearchProduct({ setIsSearchOpen }) {
 
   useEffect(() => {
     const fetchSampleProducts = async () => {
-      const response = await getProducts();
+      const response = await getProducts({});
       if (response) {
         setProducts(response.slice(0, 4));
       } else {
@@ -75,7 +76,7 @@ function SearchProduct({ setIsSearchOpen }) {
         </div>
 
         <div className="flex flex-col md:flex-row items-center border-b border-gray-200 pb-6 mb-6 gap-4 md:gap-0">
-          <div className="relative w-full md:w-auto md:mr-4">
+          {/* <div className="relative w-full md:w-auto md:mr-4">
             <select
               value={selectedCategory}
               onChange={handleCategoryChange}
@@ -96,31 +97,25 @@ function SearchProduct({ setIsSearchOpen }) {
                 <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
               </svg>
             </div>
-          </div>
-          <div className="relative flex-grow w-full">
+          </div> */}
+          <div className="relative flex items-center gap-2 flex-grow w-full border border-gray-300 rounded-lg shadow-sm p-2">
+            <div className="flex items-center pointer-events-none">
+              <FiSearch size={20} className="text-gray-500" />
+            </div>
             <input
               type="text"
               placeholder="Search Product..."
               value={searchTerm}
               onChange={handleSearchChange}
-              className="w-full p-2.5 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 pl-10 pr-4"
+              className="w-full  focus:outline-none focus:ring-blue-500 focus:border-blue-500 pr-4"
             />
-            <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-              <svg
-                className="w-5 h-5 text-gray-400"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                ></path>
-              </svg>
-            </div>
+            <button
+              type="button"
+              onClick={() => setSearchTerm("")}
+              className="flex items-center cursor-pointer z-20"
+            >
+              <IoClose size={20} className={`text-gray-500 ${searchTerm ? "" : "hidden"} `} />
+            </button>
           </div>
         </div>
 

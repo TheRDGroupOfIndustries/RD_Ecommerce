@@ -7,7 +7,7 @@ const ShopStyle1 = () => {
     const [products, setProducts] = useState([]);
   
     const fetchProducts = async () => {
-      const res = await getProducts();
+      const res = await getProducts({});
       if (res) {
         setProducts(res);
       } else {

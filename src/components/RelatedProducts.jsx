@@ -75,7 +75,7 @@ const RelatedProducts = () => {
   const [relatedProducts, setRelatedProducts] = useState([]);
 
   const fetchRelatedProducts = async () => {
-    const res = await getProducts();
+    const res = await getProducts({});
     if (res) {
       setRelatedProducts(res.slice(0, 8));
     } else {

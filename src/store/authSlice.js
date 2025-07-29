@@ -57,7 +57,7 @@ export const getTokenData = createAsyncThunk(
           "Content-Type": "application/json",
         },
       });
-        console.log(response.data);
+        // console.log(response.data);
       return response.data;
     } catch (error) {
       return rejectWithValue(
@@ -149,7 +149,7 @@ const authSlice = createSlice({
         state.loading = true;
       })
       .addCase(signUp.fulfilled, (state, action) => {
-        console.log("payload", action.payload);
+        // console.log("payload", action.payload);
         state.loading = false;
         toast.success(action.payload);
       })

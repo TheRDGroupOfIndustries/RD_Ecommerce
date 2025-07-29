@@ -89,9 +89,7 @@ export const clearCart = createAsyncThunk(
   async (_, { rejectWithValue, getState }) => {
     try {
       const { userData } = getState().auth;
-      const response = await api.delete(
-        `/cart/delete-all/${userData._id}`
-      );
+      const response = await api.delete(`/cart/delete-all/${userData._id}`);
       return response.data;
     } catch (error) {
       console.log("Error clearing Cart!", error);
@@ -109,12 +107,25 @@ const cartSlice = createSlice({
     totalQuantity: 0,
     totalPrice: 0,
     loading: false,
+    appliedCoupon: null,
+    discount: 0,
   },
   reducers: {
     setCartItems: (state, action) => {
       state.items = action.payload.items;
       state.totalQuantity = action.payload.totalQuantity;
       state.totalPrice = action.payload.totalPrice.toFixed(2);
+    },
+    setAppliedCoupon: (state, action) => {
+      const coupon = action.payload;
+      state.appliedCoupon = coupon;
+
+      const discount = coupon
+        ? coupon?.discountType === "percent"
+          ? (coupon?.discountValue / 100) * state.totalPrice
+          : coupon?.discountValue
+        : 0;
+        state.discount = discount.toFixed(2)
     },
   },
   extraReducers: (builder) => {
@@ -127,6 +138,8 @@ const cartSlice = createSlice({
         const { products } = action.payload;
         state.totalQuantity = products.length;
         state.loading = false;
+        state.appliedCoupon = null;
+        state.discount = 0;
         toast.success("Product added to cart successfully!");
       })
       .addCase(addProductToCart.rejected, (state, action) => {
@@ -204,9 +217,9 @@ const cartSlice = createSlice({
       .addCase(clearCart.rejected, (state, action) => {
         console.error("Failed to delete cart item:", action.payload);
         // toast.error(action.payload.message || "Failed to delete cart item");
-      })
-
+      });
   },
 });
 
+export const { setAppliedCoupon } = cartSlice.actions;
 export default cartSlice.reducer;

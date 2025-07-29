@@ -14,30 +14,29 @@ const categorieList = [
   {
     name: "Jeans",
     image: "/index2/pic2.webp",
-    bgColor: "bg-[#F8A6B7]", 
+    bgColor: "bg-[#F8A6B7]",
   },
   {
     name: "Shirts",
     image: "/index2/pic3.webp",
-    bgColor: "bg-[#ADD8E6]", 
+    bgColor: "bg-[#ADD8E6]",
   },
   {
     name: "Shorts",
     image: "/index2/pic4.webp",
-    bgColor: "bg-[#F8D6B7]", 
+    bgColor: "bg-[#F8D6B7]",
   },
   {
     name: "T-Shirt",
     image: "/index2/pic5.webp",
-    bgColor: "bg-[#FFC107]", 
+    bgColor: "bg-[#FFC107]",
   },
   {
     name: "Blazer",
     image: "/index2/pic6.webp",
-    bgColor: "bg-[#C8A2C8]", 
+    bgColor: "bg-[#C8A2C8]",
   },
 ];
-
 
 const slider1Setting = {
   infinite: true,
@@ -75,22 +74,22 @@ const trendingPostsData = [
   {
     date: "19 FEB 2025",
     title: "Dress to Impress: Elevate Your Everyday Style",
-    imageUrl: "/pic1.webp", 
+    imageUrl: "/pic1.webp",
   },
   {
     date: "21 FEB 2025",
     title: "Street Style Safari: Global Fashion Influences",
-    imageUrl: "/pic2.webp", 
+    imageUrl: "/pic2.webp",
   },
   {
     date: "25 FEB 2025",
     title: "Fashion & Beauty Fusion: The Ultimate Style Guide",
-    imageUrl: "/pic3.webp", 
+    imageUrl: "/pic3.webp",
   },
   {
     date: "14 FEB 2025",
     title: "Style Diaries: Fashion",
-    imageUrl: "/pic4.webp", 
+    imageUrl: "/pic4.webp",
   },
 ];
 
@@ -130,16 +129,16 @@ const instagramImages = [
 const HomeIndexTwo = () => {
   const categories = ["All", "Dresses", "Tops", "Outerwear", "Jacket"];
   const [activeCategory, setActiveCategory] = useState("All");
-  const [products, setProducts] = useState([])
+  const [products, setProducts] = useState([]);
 
   const fetchProducts = async () => {
-    const res = await getProducts()
+    const res = await getProducts({});
     if (res) {
       setProducts(res);
     } else {
       toast.error("Failed to fetch products");
     }
-  }
+  };
 
   useEffect(() => {
     fetchProducts();
@@ -150,7 +149,7 @@ const HomeIndexTwo = () => {
       ? products
       : products.filter((p) => p.category === activeCategory);
 
-   return (
+  return (
     <>
       {/* NewHeroSection */}
       <section className="relative bg-[#FFFBF7] py-10 px-4 sm:px-6 lg:px-8 overflow-hidden flex flex-col lg:flex-row items-center justify-center min-h-[calc(100vh-80px)]">
@@ -179,7 +178,10 @@ const HomeIndexTwo = () => {
             <h1 className="text-4xl sm:text-5xl lg:text-7xl font-extrabold text-gray-900 leading-tight mb-6">
               Your Ultimate <br />
               <span className="text-[#FF4062] flex items-center justify-center lg:justify-start">
-                <Heart className="h-8 w-8 sm:h-10 sm:w-10 lg:h-12 lg:w-12 mr-2" fill="currentColor" />
+                <Heart
+                  className="h-8 w-8 sm:h-10 sm:w-10 lg:h-12 lg:w-12 mr-2"
+                  fill="currentColor"
+                />
                 Online Store
               </span>{" "}
               for All Your Needs.
@@ -207,7 +209,11 @@ const HomeIndexTwo = () => {
               src="/hero-2.webp"
               alt="Smiling woman with yoga mat and headphones"
               className="relative z-10 w-[min(90%,_600px)] h-auto object-cover rounded-lg shadow-xl"
-              onError={(e) => { e.target.onerror = null; e.target.src="https://placehold.co/600x750/CCCCCC/666666?text=Image+Error"; }}
+              onError={(e) => {
+                e.target.onerror = null;
+                e.target.src =
+                  "https://placehold.co/600x750/CCCCCC/666666?text=Image+Error";
+              }}
             />
 
             <span className="absolute top-5 right-5 sm:top-10 sm:right-20 text-[#FFC9DB] text-4xl sm:text-6xl rotate-45 select-none z-10">
@@ -228,13 +234,19 @@ const HomeIndexTwo = () => {
                 src="/women.webp"
                 alt="Cozy Knit Cardigan"
                 className="w-12 h-12 sm:w-16 sm:h-16 rounded-md object-cover"
-                onError={(e) => { e.target.onerror = null; e.target.src="https://placehold.co/64x64/CCCCCC/666666?text=Error"; }}
+                onError={(e) => {
+                  e.target.onerror = null;
+                  e.target.src =
+                    "https://placehold.co/64x64/CCCCCC/666666?text=Error";
+                }}
               />
               <div>
                 <p className="text-xs sm:text-sm font-semibold text-gray-800">
                   Cozy Knit Cardigan
                 </p>
-                <p className="text-base sm:text-lg font-bold text-gray-900">$80</p>
+                <p className="text-base sm:text-lg font-bold text-gray-900">
+                  $80
+                </p>
               </div>
             </div>
 
@@ -246,19 +258,31 @@ const HomeIndexTwo = () => {
                 src="/testimonial1.webp"
                 alt="Person 1"
                 className="w-8 h-8 sm:w-10 sm:h-10 rounded-full object-cover border-2 border-white"
-                onError={(e) => { e.target.onerror = null; e.target.src="https://placehold.co/40x40/CCCCCC/666666?text=Error"; }}
+                onError={(e) => {
+                  e.target.onerror = null;
+                  e.target.src =
+                    "https://placehold.co/40x40/CCCCCC/666666?text=Error";
+                }}
               />
               <img
                 src="/testimonial2.webp"
                 alt="Person 2"
                 className="w-8 h-8 sm:w-10 sm:h-10 rounded-full object-cover border-2 border-white"
-                onError={(e) => { e.target.onerror = null; e.target.src="https://placehold.co/40x40/CCCCCC/666666?text=Error"; }}
+                onError={(e) => {
+                  e.target.onerror = null;
+                  e.target.src =
+                    "https://placehold.co/40x40/CCCCCC/666666?text=Error";
+                }}
               />
               <img
                 src="/testimonial3.webp"
                 alt="Person 3"
                 className="w-8 h-8 sm:w-10 sm:h-10 rounded-full object-cover border-2 border-white"
-                onError={(e) => { e.target.onerror = null; e.target.src="https://placehold.co/40x40/CCCCCC/666666?text=Error"; }}
+                onError={(e) => {
+                  e.target.onerror = null;
+                  e.target.src =
+                    "https://placehold.co/40x40/CCCCCC/666666?text=Error";
+                }}
               />
             </div>
 
@@ -281,7 +305,11 @@ const HomeIndexTwo = () => {
                 src={category.image}
                 alt={category.name}
                 className="absolute inset-0 w-full h-full object-cover rounded-3xl object-top"
-                onError={(e) => { e.target.onerror = null; e.target.src="https://placehold.co/400x500/CCCCCC/666666?text=Image+Error"; }}
+                onError={(e) => {
+                  e.target.onerror = null;
+                  e.target.src =
+                    "https://placehold.co/400x500/CCCCCC/666666?text=Image+Error";
+                }}
               />
               <div className="relative z-10 flex items-end justify-start h-full p-6">
                 <a
@@ -301,7 +329,9 @@ const HomeIndexTwo = () => {
       <section className="w-full px-4 md:px-10 lg:px-20 py-10  my-10">
         <div className="flex flex-col sm:flex-row items-center justify-between p-4 sm:p-10 gap-4">
           <div>
-            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 text-center sm:text-left">What's trending now</h2>
+            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 text-center sm:text-left">
+              What's trending now
+            </h2>
             <p className="text-base sm:text-xl text-gray-700 text-center sm:text-left">
               Discover the most trending products in Pixio.
             </p>
@@ -322,10 +352,8 @@ const HomeIndexTwo = () => {
         </div>
       </section>
 
-    <MostPopularProduct/>
+      <MostPopularProduct />
 
-
-{/* replace this */}
       {/* GrowingCompaniesSection */}
       <section className="w-full px-4 md:px-10 lg:px-20 py-10 my-10">
         <div className="rounded-3xl bg-gradient-to-br from-pink-400 to-yellow-200 min-h-[400px] md:min-h-[600px] relative flex flex-col lg:flex-row items-center justify-center overflow-hidden p-6 sm:p-10">
@@ -377,14 +405,30 @@ const HomeIndexTwo = () => {
                 <div className="wrapper-scroll">
                   {commonLogos.concat(commonLogos).map((img, index) => (
                     <div key={"left-" + index} className="item">
-                      <img src={img} alt={`Logo ${index + 1}`} onError={(e) => { e.target.onerror = null; e.target.src="https://placehold.co/100x50/CCCCCC/666666?text=Error"; }} />
+                      <img
+                        src={img}
+                        alt={`Logo ${index + 1}`}
+                        onError={(e) => {
+                          e.target.onerror = null;
+                          e.target.src =
+                            "https://placehold.co/100x50/CCCCCC/666666?text=Error";
+                        }}
+                      />
                     </div>
                   ))}
                 </div>
                 <div className="wrapper-scroll reverse">
                   {commonLogos.concat(commonLogos).map((img, index) => (
                     <div key={"right-" + index} className="item">
-                      <img src={img} alt={`Logo ${index + 1}`} onError={(e) => { e.target.onerror = null; e.target.src="https://placehold.co/100x50/CCCCCC/666666?text=Error"; }} />
+                      <img
+                        src={img}
+                        alt={`Logo ${index + 1}`}
+                        onError={(e) => {
+                          e.target.onerror = null;
+                          e.target.src =
+                            "https://placehold.co/100x50/CCCCCC/666666?text=Error";
+                        }}
+                      />
                     </div>
                   ))}
                 </div>
@@ -402,13 +446,21 @@ const HomeIndexTwo = () => {
             src="https://placehold.co/24x24/FFFFFF/000000?text=X"
             alt="Decorative element"
             className="h-6 absolute top-4 left-4 sm:top-10 sm:left-10 z-10"
-            onError={(e) => { e.target.onerror = null; e.target.src="https://placehold.co/24x24/CCCCCC/666666?text=Error"; }}
+            onError={(e) => {
+              e.target.onerror = null;
+              e.target.src =
+                "https://placehold.co/24x24/CCCCCC/666666?text=Error";
+            }}
           />
           <img
             src="https://placehold.co/24x24/FFFFFF/000000?text=X"
             alt="Decorative element"
             className="h-6 absolute bottom-4 right-4 sm:bottom-10 sm:right-10 rotate-180 z-10"
-            onError={(e) => { e.target.onerror = null; e.target.src="https://placehold.co/24x24/CCCCCC/666666?text=Error"; }}
+            onError={(e) => {
+              e.target.onerror = null;
+              e.target.src =
+                "https://placehold.co/24x24/CCCCCC/666666?text=Error";
+            }}
           />
         </div>
       </section>
@@ -417,7 +469,9 @@ const HomeIndexTwo = () => {
       <section className="w-full px-4 md:px-10 lg:px-20 py-10 bg-base-ground my-10">
         <div className="flex flex-col sm:flex-row items-center justify-between p-4 sm:p-10 gap-4">
           <div>
-            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 text-center sm:text-left">Latest Post</h2>
+            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 text-center sm:text-left">
+              Latest Post
+            </h2>
             <p className="text-base sm:text-xl text-gray-700 text-center sm:text-left">
               Discover the most trending products in Pixio.
             </p>
@@ -428,13 +482,20 @@ const HomeIndexTwo = () => {
         </div>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 p-2">
           {trendingPostsData.map((item) => (
-            <div key={item.id} className="bg-white rounded-2xl flex flex-col sm:flex-row gap-4 sm:gap-5 px-4 sm:px-6 py-4 sm:py-6 shadow-sm overflow-hidden">
+            <div
+              key={item.id}
+              className="bg-white rounded-2xl flex flex-col sm:flex-row gap-4 sm:gap-5 px-4 sm:px-6 py-4 sm:py-6 shadow-sm overflow-hidden"
+            >
               <div className="h-48 w-full sm:h-60 sm:w-48 lg:h-80 lg:w-60 flex-shrink-0 mx-auto sm:mx-0">
                 <img
                   src={item.imageUrl}
                   alt={item.title}
                   className="h-full w-full object-cover rounded-t-full sm:rounded-full"
-                  onError={(e) => { e.target.onerror = null; e.target.src="https://placehold.co/300x400/CCCCCC/666666?text=Image+Error"; }}
+                  onError={(e) => {
+                    e.target.onerror = null;
+                    e.target.src =
+                      "https://placehold.co/300x400/CCCCCC/666666?text=Image+Error";
+                  }}
                 />
               </div>
               <div className="p-2 sm:p-5 space-y-3 sm:space-y-4 flex flex-col justify-between text-center sm:text-left">
@@ -458,9 +519,7 @@ const HomeIndexTwo = () => {
 
       {/* InstagramFeedSection */}
       <section className="relative bg-[#FFFBF7] py-10 sm:py-20 overflow-hidden">
-        <div
-          className="relative w-full h-[150px] sm:h-[200px] md:h-[300px] lg:h-[400px] mx-auto"
-        >
+        <div className="relative w-full h-[150px] sm:h-[200px] md:h-[300px] lg:h-[400px] mx-auto">
           <div className="flex justify-center items-center h-full w-full">
             {instagramImages.map((image) => (
               <div
@@ -472,7 +531,11 @@ const HomeIndexTwo = () => {
                   src={image.src}
                   alt={image.alt}
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                  onError={(e) => { e.target.onerror = null; e.target.src="https://placehold.co/300x300/CCCCCC/666666?text=Image+Error"; }}
+                  onError={(e) => {
+                    e.target.onerror = null;
+                    e.target.src =
+                      "https://placehold.co/300x300/CCCCCC/666666?text=Image+Error";
+                  }}
                 />
               </div>
             ))}

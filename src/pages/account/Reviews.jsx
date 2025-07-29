@@ -1,72 +1,73 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FaStar } from "react-icons/fa";
+import { Star } from "lucide-react";
+import { useSelector } from "react-redux";
+import { getUserReviews } from "../../services/reviewService";
 
-const TestimonialCard = ({ testimonial }) => (
-  <div className=" p-6 rounded-lg shadow-md border border-gray-200">
-    <div className="flex items-center space-x-4 mb-4">
-      <img
-        src={testimonial.image}
-        alt={testimonial.name}
-        className="w-20 h-20 rounded-full object-cover border border-gray-200"
-        onError={(e) => {
-          e.target.onerror = null;
-          e.target.src = "https://placehold.co/80x80/F3F4F6/1F2937?text=User";
-        }}
-      />
-      <div>
-        <p className="text-lg font-semibold text-gray-900">
-          {testimonial.name}
-        </p>
-        <div className="flex mt-1">
-          {[...Array(5)].map((_, i) => (
-            <FaStar size={16} className="text-yellow-400" />
-          ))}
+const ReviewCard = ({ review }) => {
+  const { product, rating, description, user } = review;
+
+  return (
+    <div className="bg-white shadow-md rounded-xl p-4 w-full max-w-md mx-auto">
+      {/* Product Info */}
+      <div className="flex items-center gap-4">
+        <img
+          src={product?.images[0]}
+          alt={product?.title}
+          className="w-20 h-20 object-cover rounded-md"
+        />
+        <div>
+          <h3 className="text-lg font-semibold">{product?.title}</h3>
+          <p className="text-gray-600">₹{product?.price}</p>
         </div>
       </div>
+
+      {/* User Review */}
+      <div className="mt-4 border-t pt-3">
+        <div className="flex items-center gap-1">
+          {[...Array(5)].map((_, i) => (
+            <Star
+              key={i}
+              size={16}
+              className={
+                i < rating ? "text-yellow-500 fill-yellow-400" : "text-gray-300"
+              }
+            />
+          ))}
+        </div>
+        <p className="text-sm text-gray-700 mt-2 font-semibold">{description}</p>
+      </div>
     </div>
-    <p className="text-gray-700 leading-relaxed">{testimonial.text}</p>
-  </div>
-);
+  );
+};
 
 const Reviews = () => {
-  const [testimonials, setTestimonials] = useState([
-    {
-      id: 1,
-      image: "https://placehold.co/80x80/F3F4F6/1F2937?text=MP",
-      name: "Michel Poe",
-      rating: 5,
-      text: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry.",
-    },
-    {
-      id: 2,
-      image: "https://placehold.co/80x80/F3F4F6/1F2937?text=CA",
-      name: "Celesto Anderson",
-      rating: 5,
-      text: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry.",
-    },
-    {
-      id: 3,
-      image: "https://placehold.co/80x80/F3F4F6/1F2937?text=MR",
-      name: "Monsur Rahman Lito",
-      rating: 5,
-      text: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry.",
-    },
-    {
-      id: 4,
-      image: "https://placehold.co/80x80/F3F4F6/1F2937?text=JD",
-      name: "Johan Doe",
-      rating: 5,
-      text: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry.",
-    },
-  ]);
+  const [reviews, setReviews] = useState([])
+  const { userData, isAuthenticated } = useSelector(state => state.auth)
+
+  const fetchReviews = async () => {
+    const response = await getUserReviews(userData?._id)
+    if(response){
+      console.log("Review Response: ", response);
+      
+      setReviews(response)
+    }
+  }
+
+  useEffect(()=>{
+    if(isAuthenticated){
+      fetchReviews()
+    }
+  }, [isAuthenticated])
+
   return (
     <div className="w-full">
-      {testimonials.length === 0 ? (
-        <p className="text-center text-gray-600">No testimonials available.</p>
+      {reviews.length === 0 ? (
+        <p className="text-center text-gray-600">No Reviews available.</p>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {testimonials.map((testimonial) => (
-            <TestimonialCard key={testimonial.id} testimonial={testimonial} />
+          {reviews.map((review) => (
+            <ReviewCard key={review?._id} review={review} />
           ))}
         </div>
       )}

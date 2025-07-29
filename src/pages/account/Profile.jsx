@@ -20,19 +20,19 @@ function App() {
     setError,
   } = useForm();
 
-  const newPassword = watch("newPassword");
+  // const newPassword = watch("newPassword");
 
   const onSubmit = (data) => {
     console.log("Form data submitted:", data);
 
-    if (data.newPassword && data.newPassword !== data.confirmNewPassword) {
-      setError("confirmNewPassword", {
-        type: "manual",
-        message: "Passwords do not match",
-      });
-      alert("New password and confirm new password do not match.");
-      return;
-    }
+    // if (data.newPassword && data.newPassword !== data.confirmNewPassword) {
+    //   setError("confirmNewPassword", {
+    //     type: "manual",
+    //     message: "Passwords do not match",
+    //   });
+    //   alert("New password and confirm new password do not match.");
+    //   return;
+    // }
 
     alert("Profile updated successfully!");
 
@@ -144,6 +144,7 @@ function App() {
             <input
               type="email"
               id="email"
+              disabled
               {...register("email", {
                 required: "Email is required",
                 pattern: {
@@ -152,7 +153,7 @@ function App() {
                 },
               })}
               defaultValue={userData?.email}
-              className="mt-1 block w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+              className="mt-1 block w-full p-3 border text-gray-500 border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
             />
             {errors.email && (
               <p className="text-red-500 text-xs mt-1">
@@ -177,7 +178,7 @@ function App() {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {/* <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
             <label
               htmlFor="newPassword"
@@ -214,9 +215,9 @@ function App() {
               </p>
             )}
           </div>
-        </div>
+        </div> */}
 
-        <div className="flex items-center">
+        {/* <div className="flex items-center">
           <input
             id="subscribeToNewsletter"
             type="checkbox"
@@ -229,16 +230,16 @@ function App() {
           >
             Subscribe me to Newsletter
           </label>
-        </div>
+        </div> */}
 
-        <div className="text-right">
+        {/* <div className="text-right">
           <button
             type="submit"
             className="inline-flex justify-center py-3 px-8 border border-transparent shadow-sm text-sm font-medium rounded-lg text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
           >
             Update Profile
           </button>
-        </div>
+        </div> */}
       </form>
     </div>
   );

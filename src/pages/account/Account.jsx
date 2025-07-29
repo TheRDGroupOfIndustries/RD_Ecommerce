@@ -55,7 +55,7 @@ const Account = () => {
 
         {/* Sidebar */}
         <div
-          className={`fixed inset-0 z-40 bg-white transform transition-transform duration-300 ease-in-out lg:static lg:block lg:w-[300px] lg:flex-shrink-0 ${
+          className={` top-20 inset-0 z-40 bg-white transform transition-transform duration-300 ease-in-out lg:sticky lg:h-fit lg:w-[300px] lg:flex-shrink-0 ${
             isSidebarOpen ? "translate-x-0" : "-translate-x-full"
           } lg:translate-x-0`}
         >

@@ -86,7 +86,7 @@ const MostPopularProduct = () => {
   const [mostPopularProducts, setMostPopularProducts] = useState([]);
 
   const fetchMostPopularProducts = async () => {
-    const res = await getProducts();
+    const res = await getProducts({});
     if (res) {
       setMostPopularProducts(res);
     } else {

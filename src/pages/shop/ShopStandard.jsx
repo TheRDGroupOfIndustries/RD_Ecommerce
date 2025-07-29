@@ -24,7 +24,8 @@ const colorFilters = [
   { name: "White", color: "bg-white border border-gray-300" },
 ];
 
-const sizeOptions = ["4", "6", "8", "10", "12", "14", "16", "18", "XS"];
+const sizeOptions = ["s", "m", "l", "xl", "xxl", "xxxl"];
+const categoryOptions = ["T-Shirt", "Dresses", "Jeans", "Shirts", "Hoodie"];
 
 const categories = [
   { name: "Dresses", count: 16, image: "/banner-media.webp" },
@@ -57,8 +58,30 @@ const ShopStandard = ({ viewMode, categorySection = false }) => {
   const navigate = useNavigate();
   const [products, setProducts] = useState([]);
 
-  const fetchProducts = async () => {
-    const res = await getProducts();
+  const [color, setColor] = useState("");
+  const [size, setSize] = useState("");
+  const [category, setCategory] = useState("");
+  const [tag, setTag] = useState("");
+
+  useEffect(() => {
+    const filter = { color, size, category, tag, sortBy, limit: productsPerPage };
+    // console.log("Filter", filter);
+    fetchProducts(filter);
+  }, [color, size, category, tag, sortBy, productsPerPage]);
+
+  const handleReset = () => {
+    // console.log("Reset...");
+
+    setColor("");
+    setSize("");
+    setCategory("");
+    setTag("");
+    setSortBy("latest");
+    setProductsPerPage(12);
+  };
+
+  const fetchProducts = async (filter) => {
+    const res = await getProducts(filter);
     if (res) {
       setProducts(res);
     } else {
@@ -67,9 +90,9 @@ const ShopStandard = ({ viewMode, categorySection = false }) => {
   };
 
   useEffect(() => {
-    fetchProducts();
+    fetchProducts({});
   }, []);
-  
+
   const toggleLike = (productId) => {
     setLikedProducts((prev) =>
       prev.includes(productId)
@@ -78,57 +101,49 @@ const ShopStandard = ({ viewMode, categorySection = false }) => {
     );
   };
 
-
   return (
     <div className="">
       <ShopTopBanner />
 
-      <div className="container mx-auto px-4 py-8">
+      <div className=" mx-auto px-4 md:px-10 lg:px-20 py-8">
         <div className="flex flex-col lg:flex-row gap-8">
           {/* Sidebar Filters */}
-          {/* <div className="hidden md:block lg:w-72 flex-shrink-0">
-            <div className="sticky top-8 space-y-6 bg-white lg:bg-transparent p-4 lg:p-0 rounded-lg lg:rounded-none border lg:border-none">
-              <div className="flex items-center gap-2 text-lg font-semibold">
-                <Filter className="w-5 h-5" />
-                Filter
-              </div>
-
-              <div className="relative">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
-                <input
-                  type="search"
-                  placeholder="Search Product"
-                  className="pl-10 bg-white border-gray-200"
-                />
-              </div>
-
-              <div className="space-y-4">
-                <h3 className="font-semibold">Price</h3>
-                <div className="px-2">
-                  <Slider
-                    value={priceRange}
-                    onValueChange={setPriceRange}
-                    max={350}
-                    min={40}
-                    step={10}
-                    className="w-full"
-                  />
-                  <div className="flex justify-between text-sm text-gray-500 mt-2">
-                    <span>Min Price: {priceRange[0]}</span>
-                    <span>Max Price: {priceRange[1]}</span>
-                  </div>
+          <div className="hidden md:block lg:w-[300px] h-[700px] overflow-y-auto sticky top-20 flex-shrink-0 p-4">
+            <div className="space-y-6 bg-white lg:bg-transparent lg:p-0 rounded-lg lg:rounded-none border lg:border-none">
+              <div className="sticky top-0 bg-base-ground z-10 flex items-center justify-between gap-2 text-lg font-semibold">
+                <div className="flex gap-2 items-center">
+                  <Filter className="w-5 h-5" />
+                  Filter
                 </div>
+                <button
+                  onClick={handleReset}
+                  className="bg-black text-white px-4 py-1 rounded-md text-sm cursor-pointer"
+                >
+                  Reset
+                </button>
               </div>
 
               <div className="space-y-4">
                 <h3 className="font-semibold">Color</h3>
                 <div className="grid grid-cols-5 gap-2">
-                  {colorFilters.map((color) => (
-                    <button
-                      key={color.name}
-                      className={`w-8 h-8 rounded-full ${color.color} hover:scale-110 transition-transform`}
-                      title={color.name}
-                    />
+                  {colorFilters.map((colorItem) => (
+                    <label
+                      key={colorItem.name}
+                      htmlFor={colorItem.name}
+                      className={`w-8 h-8 rounded-full ${
+                        colorItem.color
+                      } hover:scale-110 transition-transform cursor-pointer ${
+                        color === colorItem.name ? "border-2 border-black" : ""
+                      }`}
+                    >
+                      <input
+                        type="radio"
+                        name="color"
+                        onChange={(e) => setColor(colorItem.name)}
+                        id={colorItem.name}
+                        hidden
+                      />
+                    </label>
                   ))}
                 </div>
               </div>
@@ -136,18 +151,28 @@ const ShopStandard = ({ viewMode, categorySection = false }) => {
               <div className="space-y-4">
                 <h3 className="font-semibold">Size</h3>
                 <div className="grid grid-cols-4 gap-2">
-                  {sizeOptions.map((size) => (
-                    <button
-                      key={size}
-                      className="px-3 py-2 text-sm border border-gray-200 rounded hover:border-primary hover:text-primary transition-colors"
+                  {sizeOptions.map((item, index) => (
+                    <label
+                      key={item + index}
+                      htmlFor={item}
+                      className={`p-1 rounded-full ${item} hover:scale-110 transition-transform cursor-pointer flex items-center justify-center uppercase ${
+                        size === item ? "border-2 border-black" : ""
+                      }`}
                     >
-                      {size}
-                    </button>
+                      <input
+                        type="radio"
+                        name="color"
+                        onChange={(e) => setSize(item)}
+                        id={item}
+                        hidden
+                      />
+                      {item}
+                    </label>
                   ))}
                 </div>
               </div>
 
-              <div className="space-y-4">
+              {/* <div className="space-y-4">
                 <h3 className="font-semibold">Category</h3>
                 <div className="space-y-2">
                   {categories.map((category) => (
@@ -164,40 +189,72 @@ const ShopStandard = ({ viewMode, categorySection = false }) => {
                     </div>
                   ))}
                 </div>
+              </div> */}
+
+              <div className="space-y-4">
+                <h3 className="font-semibold">Categories</h3>
+                <div className="flex flex-wrap gap-2">
+                  {categoryOptions.map((item, index) => (
+                    <label
+                      key={item + index}
+                      htmlFor={item}
+                      className={`rounded-full ${item} hover:scale-105 transition-transform cursor-pointer flex items-center justify-center px-2  ${
+                        category === item
+                          ? "bg-black text-white"
+                          : "border-[1px] border-black"
+                      }`}
+                    >
+                      <input
+                        type="radio"
+                        name="color"
+                        onChange={(e) => setCategory(item)}
+                        id={item}
+                        hidden
+                      />
+                      {item}
+                    </label>
+                  ))}
+                </div>
               </div>
 
               <div className="space-y-4">
                 <h3 className="font-semibold">Tags</h3>
                 <div className="flex flex-wrap gap-2">
-                  {tags.map((tag) => (
-                    <button
-                      key={tag}
-                      className="px-3 py-1 text-sm border border-gray-200 rounded-full hover:border-primary hover:text-primary transition-colors"
+                  {tags.map((item, index) => (
+                    <label
+                      key={item + index}
+                      htmlFor={item}
+                      className={`rounded-full ${item} hover:scale-105 transition-transform cursor-pointer flex items-center justify-center px-2  ${
+                        tag === item
+                          ? "bg-black text-white"
+                          : "border-[1px] border-black"
+                      }`}
                     >
-                      {tag}
-                    </button>
+                      <input
+                        type="radio"
+                        name="color"
+                        onChange={(e) => setTag(item)}
+                        id={item}
+                        hidden
+                      />
+                      {item}
+                    </label>
                   ))}
                 </div>
               </div>
 
-              <button
-                variant="outline"
-                className="w-full bg-black text-white hover:bg-gray-800"
-              >
-                RESET
-              </button>
             </div>
-          </div> */}
+          </div>
 
           {/* Main Content */}
-          <div className="">
+          <div className="w-full">
             {/* Category Section */}
-            {categorySection && <CategorySection categories={categories} />}
+            {/* {categorySection && <CategorySection categories={categories} />} */}
 
             {/* Filter Bar */}
-            <div className="flex flex-col lg:flex-row lg:items-center justify-between mb-6 gap-4">
+            <div className="flex w-full flex-col lg:flex-row lg:items-center justify-between mb-6 gap-4">
               <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
-                <div className="flex items-center gap-2 text-sm overflow-x-auto">
+                {/* <div className="flex items-center gap-2 text-sm overflow-x-auto">
                   <span className="px-2 py-1 bg-gray-100 rounded text-xs whitespace-nowrap">
                     DRESSES ×
                   </span>
@@ -207,9 +264,9 @@ const ShopStandard = ({ viewMode, categorySection = false }) => {
                   <span className="px-2 py-1 bg-gray-100 rounded text-xs whitespace-nowrap">
                     OUTERWEAR ×
                   </span>
-                </div>
+                </div> */}
                 <span className="text-sm text-gray-500 whitespace-nowrap">
-                  Showing 1-{productsPerPage} of 50 Results
+                  Found {products?.length} Results
                 </span>
               </div>
 
@@ -252,6 +309,7 @@ const ShopStandard = ({ viewMode, categorySection = false }) => {
                       }
                       className="mt-1 block w-24 px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm"
                     >
+                      <option value={8}>8</option>
                       <option value={12}>12</option>
                       <option value={24}>24</option>
                       <option value={36}>36</option>
@@ -284,23 +342,29 @@ const ShopStandard = ({ viewMode, categorySection = false }) => {
             <div
               className={`w-full ${
                 viewMode === "grid"
-                  ? "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 "
+                  ? "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 "
                   : ""
               }  gap-6 mb-8`}
             >
-              {products.map((product) =>
-                viewMode === "grid" ? (
-                  <>
-                    <div className="hidden md:block">
-                      <ProductCard key={product.id} product={product} />
+              {products.length === 0 ? (
+                <div className="text-center text-gray-500 text-lg col-span-full py-10">
+                  No products found
+                </div>
+              ) : (
+                products.map((product) =>
+                  viewMode === "grid" ? (
+                    <div key={product._id}>
+                      <div className="hidden md:block">
+                        <ProductCard key={product.id} product={product} />
+                      </div>
+                      <div className="md:hidden">
+                        <MobileProductCard key={product.id} product={product} />
+                      </div>
                     </div>
-                    <div className="md:hidden">
-                      <MobileProductCard key={product.id} product={product} />
-                    </div>
-                  </>
-                ) : viewMode === "list" ? (
-                  <ListProductCard product={product} />
-                ) : null
+                  ) : viewMode === "list" ? (
+                    <ListProductCard product={product} />
+                  ) : null
+                )
               )}
             </div>
 

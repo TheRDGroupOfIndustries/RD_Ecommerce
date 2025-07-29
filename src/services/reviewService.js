@@ -30,3 +30,17 @@ export const getReview = async (id) => {
         
     }
 }
+
+export const getUserReviews = async (userId) => {
+    try {
+        const response = await api.get(`/api/review/user/${userId}`)
+        return response.data
+
+    } catch (error) {
+        console.error(error);
+        return null
+        
+    }
+}
+
+

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAddress, getAllAddresses } from "../../store/addressSlice";
-import { clearCart, fetchCartItems } from "../../store/cartSlice";
+import { clearCart, fetchCartItems, setAppliedCoupon } from "../../store/cartSlice";
 import BtnLoader from "../../components/BtnLoader";
 import { createOrder } from "../../store/orderSlice";
 import toast from "react-hot-toast";
@@ -9,7 +9,9 @@ import { useNavigate } from "react-router-dom";
 
 const Checkout = () => {
   const { isAuthenticated } = useSelector((state) => state.auth);
-  const { items, totalPrice } = useSelector((state) => state.cart);
+  const { items, totalPrice, appliedCoupon, discount } = useSelector(
+    (state) => state.cart
+  );
   const { addresses } = useSelector((state) => state.address);
   const { error, loading } = useSelector((state) => state.order);
   const dispatch = useDispatch();
@@ -24,7 +26,7 @@ const Checkout = () => {
     const selected = addresses.find((addr) => addr._id === selectedAddress);
 
     if (!selected) {
-        return toast.error("Please select a delivery address");
+      return toast.error("Please select a delivery address");
     }
 
     const orderDetails = {
@@ -34,20 +36,23 @@ const Checkout = () => {
         quantity: item.quantity,
       })),
       billingMethod,
-      totalPrice,
+      totalPrice: Number((totalPrice - discount).toFixed(2)),
     };
+
+    appliedCoupon && (orderDetails.coupon = appliedCoupon?._id)
+
+    console.log("orderDetails", orderDetails);
     
     dispatch(createOrder(orderDetails));
-    dispatch(clearCart())
+    dispatch(clearCart());
+    dispatch(setAppliedCoupon(null))
 
-    new Promise((resolve) => setTimeout(
-        () => {
-            navigate("/account/orders");
-            resolve();
-        },
-        3000
-    ));
-
+    new Promise((resolve) =>
+      setTimeout(() => {
+        navigate("/account/orders");
+        resolve();
+      }, 3000)
+    );
   };
 
   const fetchAddresses = () => {
@@ -124,40 +129,54 @@ const Checkout = () => {
       </div>
 
       {/* Cart Items */}
-      <div>
-        <h3 className="text-lg font-semibold mb-2">Cart Items</h3>
-        <ul className="divide-y border rounded-lg">
-          {items.map((item) => (
-            <li key={item?.product._id} className="flex justify-between p-4">
-              <div className="flex items-start space-x-4">
-                <div className="">
-                  <img
-                    src={item?.product.images[0]}
-                    alt={item?.product.title}
-                    className="w-16 h-16 object-cover"
-                  />
-                </div>
-                <div className="">
-                  <div>
-                    <p className="font-medium">{item?.product.title}</p>
-                    <p className="text-sm text-gray-600">
-                      Qty: {item?.quantity}
-                    </p>
-                  </div>
-                </div>
+        <div className="">
+          <h3 className="text-lg font-semibold mb-4">Cart Items</h3>
+          <ul className="divide-y divide-gray-200 border rounded-lg">
+            {items.map((item) => (
+          <li key={item?.product._id} className="flex justify-between p-4 hover:bg-gray-50">
+            <div className="flex items-start space-x-4">
+              <div className="flex-shrink-0">
+            <img
+              src={item?.product.images[0]}
+              alt={item?.product.title}
+              className="w-20 h-20 object-cover rounded-md"
+            />
               </div>
-              <div className="text-right font-medium">
-                ₹{item?.product.salePrice * item?.quantity}
+              <div className="flex-1">
+            <p className="font-medium text-gray-900">{item?.product.title}</p>
+            <p className="text-sm text-gray-600 mt-1">
+              Qty: {item?.quantity}
+            </p>
               </div>
-            </li>
-          ))}
-        </ul>
-        <div className="text-right mt-4 text-xl font-bold">
-          Total: ₹{totalPrice}
-        </div>
-      </div>
+            </div>
+            <div className="text-right font-medium text-gray-900">
+              ₹{item?.product.salePrice * item?.quantity}
+            </div>
+          </li>
+            ))}
+          </ul>
+          
+          <div className="mt-6 space-y-4">
+            <div className="flex justify-between items-center py-2">
+          <span className="text-gray-600">Subtotal:</span>
+          <span className="text-lg font-medium">₹{totalPrice}</span>
+            </div>
 
-      {/* Billing Method */}
+            {appliedCoupon && (
+          <div className="flex justify-between items-center py-2 text-green-600">
+            <span>Discount Applied:</span>
+            <span>-₹{discount}</span>
+          </div>
+            )}
+
+            <div className="flex justify-between items-center pt-4 border-t border-gray-200">
+          <span className="text-lg font-bold">Total:</span>
+          <span className="text-xl font-bold text-blue-600">₹{(totalPrice - discount).toFixed(2)}</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Billing Method */}
       <div>
         <h3 className="text-lg font-semibold mb-2">Billing Method</h3>
         <div className="space-x-4">
@@ -189,11 +208,11 @@ const Checkout = () => {
       {/* Order Button */}
       <div>
         <button
-        disabled={items.length <= 0}
+          disabled={items.length <= 0}
           onClick={handleOrder}
           className="w-full bg-blue-600 cursor-pointer text-white py-3 rounded-lg hover:bg-blue-700 transition disabled:bg-blue-400 disabled:cursor-not-allowed"
         >
-          {loading ? <BtnLoader/> : "Place Order"}
+          {loading ? <BtnLoader /> : "Place Order"}
         </button>
       </div>
     </div>
