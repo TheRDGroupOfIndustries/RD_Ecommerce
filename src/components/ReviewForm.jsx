@@ -3,10 +3,12 @@ import { useSelector } from "react-redux";
 import { createReview } from "../services/reviewService";
 import { useState } from "react";
 import BtnLoader from "./BtnLoader";
+import RatingStars from "./RatingStars";
 
 export default function ReviewForm({ productId, setReviews }) {
   const { userData } = useSelector((state) => state.auth);
   const [loading, setLoading] = useState(false);
+  const [userRating, setUserRating] = useState(0)
   const {
     register,
     handleSubmit,
@@ -21,7 +23,7 @@ export default function ReviewForm({ productId, setReviews }) {
     const review = {
       product: productId,
       user: userData._id,
-      rating: data.rating,
+      rating: userRating,
       description: data.description,
     }
 
@@ -35,6 +37,7 @@ export default function ReviewForm({ productId, setReviews }) {
     }
 
     reset();
+    setUserRating(0)
     setLoading(false);
   };
 
@@ -60,7 +63,7 @@ export default function ReviewForm({ productId, setReviews }) {
         {/* Rating */}
         <div>
           <label className="block mb-1 font-medium text-gray-700">Rating</label>
-          <select
+          {/* <select
             {...register("rating", { required: "Rating is required" })}
             className="w-full px-4 py-2 border rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
           >
@@ -70,7 +73,8 @@ export default function ReviewForm({ productId, setReviews }) {
                 {val}
               </option>
             ))}
-          </select>
+          </select> */}
+          <RatingStars rating={userRating} interactive onRate={(value) => setUserRating(value)} />
           {errors.rating && (
             <p className="text-red-500 text-sm mt-1">{errors.rating.message}</p>
           )}

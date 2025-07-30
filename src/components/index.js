@@ -16,6 +16,7 @@ import MobileProductCard from "./MobileProductCard";
 import MostPopularProduct from "./MostPopularProduct";
 import ProductCard from "./ProductCard";
 import QuickView from "./QuickView";
+import RatingStars from "./RatingStars";
 import RelatedProducts from "./RelatedProducts";
 import ReviewForm from "./ReviewForm";
 import SearchProduct from "./SearchProduct";
@@ -27,8 +28,8 @@ import ThumbnailDetailsSection from "./ThumbnailDetailsSection";
 import UserViewsSection from "./UserViewsSection";
 
 
-
 export {
+  RatingStars,
   ReviewForm,
   AddressCard,
   AddressForm,

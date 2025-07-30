@@ -7,6 +7,7 @@ import { addProductToCart } from "../store/cartSlice";
 import BtnLoader from "./BtnLoader";
 import toast from "react-hot-toast";
 import { addToWishlist } from "../store/authSlice";
+import RatingStars from "./RatingStars";
 
 const images = [
   "/details/product1.webp",
@@ -64,8 +65,8 @@ const DefaultDetailsSection = ({ product, reviews }) => {
   const discountedPrice = productPrice * (1 - discountPercentage);
   const savings = productPrice * discountPercentage;
 
-  const averageRating =
-    reviews.reduce((sum, r) => sum + r.rating, 0) / reviews.length;
+  const averageRating = reviews.length > 0 ?
+    reviews.reduce((sum, r) => sum + r.rating, 0) / reviews.length : 0
 
   const handleAddToCart = () => {
     if (!isAuthenticated) {
@@ -103,38 +104,50 @@ const DefaultDetailsSection = ({ product, reviews }) => {
       </div>
 
       {/* Details Section */}
-      <div className="lg:col-span-1 space-y-5 text-center lg:text-left">
-        <span className="inline-block text-sm bg-black text-white px-3 py-1 rounded-md font-semibold mb-2">
-          SALE {product?.discount}% OFF
-        </span>
-        <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 leading-tight">
-          {product?.title}
-        </h1>
-
-        <div className="flex items-center justify-center lg:justify-start text-sm text-gray-600 space-x-2">
-          <div className="flex text-yellow-500 text-xl">★</div>
-          <span>
-            {averageRating.toFixed(1)} Rating ({reviews.length} customer
-            reviews)
+      <div className="lg:col-span-1 space-y-6 text-center lg:text-left px-4 lg:px-6">
+        {/* Sale Badge */}
+        <div className="mb-4">
+          <span className="inline-block text-sm bg-black text-white px-4 py-1.5 rounded-full font-medium transform hover:scale-105 transition-transform duration-200">
+            SALE {product?.discount}% OFF
           </span>
         </div>
 
-        <div className="flex items-baseline justify-center lg:justify-start space-x-3 text-gray-900">
-          <span className="text-3xl font-bold">
+        {/* Title */}
+        <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 leading-tight tracking-tight">
+          {product?.title}
+        </h1>
+
+        {/* Ratings */}
+        <div className="flex items-center justify-center lg:justify-start space-x-3">
+          <div className="flex items-center space-x-2">
+            <span className="font-medium text-gray-800">{Math.round(averageRating)}</span>
+            <RatingStars rating={Math.round(averageRating)} />
+          </div>
+          <span className="text-sm text-gray-600">
+            ({reviews.length} customer reviews)
+          </span>
+        </div>
+
+        {/* Price */}
+        <div className="flex items-baseline justify-center lg:justify-start space-x-4 mt-2">
+          <span className="text-4xl font-bold text-gray-900">
             ₹{product?.salePrice.toFixed(2)}
           </span>
-          <span className="text-lg text-gray-500 line-through">
+          <span className="text-xl text-gray-500 line-through">
             ₹{product?.price.toFixed(2)}
           </span>
         </div>
 
-        <p className="text-gray-700 leading-relaxed text-base">
-          {product?.description}
-          Lorem Ipsum is simply dummy text of the printing and typesetting
-          industry. Lorem Ipsum has been the industry's standard dummy text ever
-          since the 1500s, when an unknown printer took a galley of type and
-          scrambled it to make a type specimen book.
-        </p>
+        {/* Description */}
+        <div className="mt-6">
+          <p className="text-gray-700 leading-relaxed text-base rounded-lg">
+            {product?.description}
+            Lorem Ipsum is simply dummy text of the printing and typesetting
+            industry. Lorem Ipsum has been the industry's standard dummy text ever
+            since the 1500s, when an unknown printer took a galley of type and
+            scrambled it to make a type specimen book.
+          </p>
+        </div>
 
         {/* Quantity, Size, Colors Options */}
         <div className="flex flex-col flex-wrap sm:flex-row items-center gap-6 justify-center lg:justify-between w-full mt-6 sm:mt-8 pt-6 border-t border-gray-200">
