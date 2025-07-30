@@ -115,7 +115,7 @@ const HeroSection = () => {
     <section className="w-full min-h-screen flex flex-col md:flex-row px-4 md:px-20 py-10 md:py-20 relative overflow-hidden gap-5">
       {/* Left Slider - Product Details */}
       <div className="w-full md:w-1/2 h-full flex flex-col justify-center">
-        {banners.length != 0 && (
+        {banners?.length != 0 && (
           <Slider {...leftSliderSettings}>
             {banners.map((item, index) => (
               <div
