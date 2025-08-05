@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAddress, getAllAddresses } from "../../store/addressSlice";
+import { getAllAddresses } from "../../store/addressSlice";
 import { clearCart, fetchCartItems, setAppliedCoupon } from "../../store/cartSlice";
 import BtnLoader from "../../components/BtnLoader";
 import { createOrder } from "../../store/orderSlice";
 import toast from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Checkout = () => {
   const { isAuthenticated } = useSelector((state) => state.auth);
@@ -13,7 +13,7 @@ const Checkout = () => {
     (state) => state.cart
   );
   const { addresses } = useSelector((state) => state.address);
-  const { error, loading } = useSelector((state) => state.order);
+  const { loading } = useSelector((state) => state.order);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -123,7 +123,7 @@ const Checkout = () => {
         ) : (
           <div className="text-gray-500">
             No address found.{" "}
-            <span className="text-blue-600 cursor-pointer">Add Address</span>
+            <Link to="/account/address" className="text-blue-600 cursor-pointer">Add Address</Link>
           </div>
         )}
       </div>

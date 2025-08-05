@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { FaArrowRightLong, FaInstagram } from "react-icons/fa6";
 import { ArrowRight, Heart, Instagram, ShoppingCart } from "lucide-react";
 import { getProducts } from "../../services/productService";
+import toast from "react-hot-toast";
 
 const categorieList = [
   {
@@ -188,7 +189,7 @@ const HomeIndexTwo = () => {
             </h1>
             <p className="text-base sm:text-lg text-gray-700 mb-8 max-w-lg mx-auto lg:mx-0">
               No code need. Plus free shipping on{" "}
-              <span className="font-semibold text-[#FF4062]">$99+</span> orders!
+              <span className="font-semibold text-[#FF4062]">₹99+</span> orders!
             </p>
             <div className="flex flex-col sm:flex-row justify-center lg:justify-start space-y-4 sm:space-y-0 sm:space-x-4">
               <button className="bg-black text-white px-6 py-3 sm:px-8 sm:py-4 rounded-full text-base sm:text-lg font-medium hover:bg-gray-800 transition duration-300 shadow-lg">
@@ -245,7 +246,7 @@ const HomeIndexTwo = () => {
                   Cozy Knit Cardigan
                 </p>
                 <p className="text-base sm:text-lg font-bold text-gray-900">
-                  $80
+                  ₹80
                 </p>
               </div>
             </div>

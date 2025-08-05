@@ -47,7 +47,7 @@ const ProductCard = ({ product, height }) => {
       {/* Title + Price */}
       <div className="p-4 flex items-start justify-between">
         <Link to={`/product-default/${product?._id}`} className="text-lg font-bold cursor-pointer hover:text-red-500 duration-300">{product?.title}</Link>
-        <p className="text-right text-base font-bold">Rs. {product?.salePrice}</p>
+        <p className="text-right text-base font-bold whitespace-nowrap">Rs. {product?.salePrice}</p>
       </div>
 
 

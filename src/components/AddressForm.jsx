@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { IoClose } from "react-icons/io5";
 import { useDispatch, useSelector } from "react-redux";
-import { addAddress } from "../store/addressSlice";
+import { addAddress, updateAddress } from "../store/addressSlice";
 import BtnLoader from "./BtnLoader";
 
 const AddressForm = ({ addressId, handleClose }) => {
@@ -35,13 +35,13 @@ const AddressForm = ({ addressId, handleClose }) => {
       dispatch(addAddress(data));
     }
     error ? alert(error) : reset();
-
+    handleClose()
   };
 
   return (
     <form
       onSubmit={handleSubmit(onSubmitHandler)}
-      className=" mx-auto p-6 bg-white rounded-2xl shadow-lg space-y-4 grid grid-cols-1 sm:grid-cols-2 gap-4"
+      className=" mx-auto p-6 w-full md:w-fit bg-white rounded-2xl shadow-lg space-y-4 grid grid-cols-1 max-h-[90vh] overflow-y-auto sm:grid-cols-2 gap-4"
     >
       <div className="w-full flex items-center justify-between gap-4 col-span-full">
         <h2 className=" text-xl font-semibold text-gray-800 mb-2">

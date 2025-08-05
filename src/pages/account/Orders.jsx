@@ -67,7 +67,9 @@ const OrderDetails = ({ orderId, setOpenDetailsPannel }) => {
                       />
                       <div className="flex-1">
                         <h4 className="font-medium">{product.title}</h4>
-                        <p className="text-sm text-gray-600">{product.description}</p>
+                        <p className="text-sm text-gray-600">
+                          {product.description}
+                        </p>
                         <p className="text-sm text-gray-500 mt-1">
                           Brand: {product.brand} | Qty: {quantity}
                         </p>
@@ -85,11 +87,20 @@ const OrderDetails = ({ orderId, setOpenDetailsPannel }) => {
 
               <div className="space-y-6">
                 <div className="rounded-lg p-4 bg-white shadow-sm">
-                  <h3 className="text-lg font-semibold mb-2">Shipping Address</h3>
+                  <h3 className="text-lg font-semibold mb-2">
+                    Shipping Address
+                  </h3>
                   <div className="text-sm space-y-1">
-                    <p><strong>{order.address.fullName}</strong></p>
-                    <p>{order.address.addressLine1}, {order.address.addressLine2}</p>
-                    <p>{order.address.city}, {order.address.state} - {order.address.postalCode}</p>
+                    <p>
+                      <strong>{order.address.fullName}</strong>
+                    </p>
+                    <p>
+                      {order.address.addressLine1}, {order.address.addressLine2}
+                    </p>
+                    <p>
+                      {order.address.city}, {order.address.state} -{" "}
+                      {order.address.postalCode}
+                    </p>
                     <p>{order.address.country}</p>
                     <p>Phone: {order.address.phone}</p>
                     {order.address.alternatePhone && (
@@ -99,13 +110,25 @@ const OrderDetails = ({ orderId, setOpenDetailsPannel }) => {
                 </div>
 
                 <div className="rounded-lg p-4 bg-white shadow-sm">
-                  <h3 className="text-lg font-semibold mb-2">Billing Details</h3>
+                  <h3 className="text-lg font-semibold mb-2">
+                    Billing Details
+                  </h3>
                   <div className="text-sm space-y-2 pl-2">
-                    <p><span className="font-medium">Billing Method:</span> {order.billingMethod.toUpperCase()}</p>
-                    <p><span className="font-medium">Total Price:</span> ₹{Number(order.totalPrice).toFixed(2)}</p>
+                    <p>
+                      <span className="font-medium">Billing Method:</span>{" "}
+                      {order.billingMethod.toUpperCase()}
+                    </p>
+                    <p>
+                      <span className="font-medium">Total Price:</span> ₹
+                      {Number(order.totalPrice).toFixed(2)}
+                    </p>
                     <p>
                       <span className="font-bold">Order Status:</span>{" "}
-                      <span className={`px-2 py-1 rounded-full ${getStatusClass(order.status)}`}>
+                      <span
+                        className={`px-2 py-1 rounded-full ${getStatusClass(
+                          order.status
+                        )}`}
+                      >
                         {order.status}
                       </span>
                     </p>
@@ -140,49 +163,73 @@ const Orders = () => {
       <h2 className="text-xl font-semibold mb-4 text-gray-800">Your Orders</h2>
 
       {/* Table for Desktop */}
-      <div className="hidden md:block overflow-x-auto rounded-lg border border-gray-200">
-        <table className="min-w-full divide-y divide-gray-200">
-          <thead className="bg-gray-50">
-            <tr>
-              <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">ORDER #</th>
-              <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">DATE PURCHASED</th>
-              <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">STATUS</th>
-              <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">TOTAL</th>
-              <th className="px-4 py-3 text-right text-xs font-medium text-gray-500 uppercase">ACTION</th>
-            </tr>
-          </thead>
-          <tbody className="bg-white divide-y divide-gray-200">
-            {orders?.map((order) => (
-              <tr key={order._id} className="text-sm text-gray-700 hover:bg-gray-50 transition">
-                <td className="px-4 py-3">{order._id}</td>
-                <td className="px-4 py-3">{order.createdAt.split("T")[0]}</td>
-                <td className="px-4 py-3">
-                  <span className={`px-2 py-1 text-xs font-semibold rounded-full ${getStatusClass(order.status)}`}>
-                    {order.status}
-                  </span>
-                </td>
-                <td className="px-4 py-3">₹{order.totalPrice.toFixed(2)}</td>
-                <td className="px-4 py-3 text-right">
-                  <button
-                    onClick={() => {
-                      setOpenDetailsPannel(true);
-                      setSelectedOrderId(order._id);
-                    }}
-                    className="text-blue-600 hover:text-blue-800 font-medium hover:underline"
-                  >
-                    View
-                  </button>
-                </td>
+      {orders.length ? (
+        <div className="hidden md:block overflow-x-auto rounded-lg border border-gray-200">
+          <table className="min-w-full divide-y divide-gray-200">
+            <thead className="bg-gray-50">
+              <tr>
+                <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                  ORDER #
+                </th>
+                <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                  DATE PURCHASED
+                </th>
+                <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                  STATUS
+                </th>
+                <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                  TOTAL
+                </th>
+                <th className="px-4 py-3 text-right text-xs font-medium text-gray-500 uppercase">
+                  ACTION
+                </th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+            </thead>
+            <tbody className="bg-white divide-y divide-gray-200">
+              {orders?.map((order) => (
+                <tr
+                  key={order._id}
+                  className="text-sm text-gray-700 hover:bg-gray-50 transition"
+                >
+                  <td className="px-4 py-3">{order._id}</td>
+                  <td className="px-4 py-3">{order.createdAt.split("T")[0]}</td>
+                  <td className="px-4 py-3">
+                    <span
+                      className={`px-2 py-1 text-xs font-semibold rounded-full ${getStatusClass(
+                        order.status
+                      )}`}
+                    >
+                      {order.status}
+                    </span>
+                  </td>
+                  <td className="px-4 py-3">₹{order.totalPrice.toFixed(2)}</td>
+                  <td className="px-4 py-3 text-right">
+                    <button
+                      onClick={() => {
+                        setOpenDetailsPannel(true);
+                        setSelectedOrderId(order._id);
+                      }}
+                      className="text-blue-600 hover:text-blue-800 font-medium hover:underline"
+                    >
+                      View
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      ) : (
+        <p className="text-lg font-semibold text-center">No Orders Available</p>
+      )}
 
       {/* Cards for Mobile */}
       <div className="block md:hidden space-y-4 mt-4">
         {orders?.map((order) => (
-          <div key={order._id} className="bg-white p-4 rounded-lg shadow border border-gray-200">
+          <div
+            key={order._id}
+            className="bg-white p-4 rounded-lg shadow border border-gray-200"
+          >
             <div className="mb-2">
               <p className="text-sm text-gray-500">ORDER ID</p>
               <p className="font-medium">{order._id}</p>
@@ -193,7 +240,11 @@ const Orders = () => {
             </div>
             <div className="mb-2">
               <p className="text-sm text-gray-500">STATUS</p>
-              <span className={`px-2 py-1 text-xs font-semibold rounded-full ${getStatusClass(order.status)}`}>
+              <span
+                className={`px-2 py-1 text-xs font-semibold rounded-full ${getStatusClass(
+                  order.status
+                )}`}
+              >
                 {order.status}
               </span>
             </div>

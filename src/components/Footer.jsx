@@ -7,9 +7,9 @@ const Footer = () => {
         {/* Brand & Contact */}
         <div className="space-y-4">
           <img src="/logo.svg" alt="Pixio Logo" className="h-10" />
-          <p>Address : 451 Wall Street, UK, London</p>
-          <p>E-mail : example@info.com</p>
-          <p>Phone : (064) 332-1233</p>
+          <p>Address : Varanasi, Uttar Pradesh, India</p>
+          <p>E-mail : contact@pixio.com</p>
+          <p>Phone : +91 8117994713</p>
           <div>
             <p className="font-semibold mt-4 mb-2">
               Subscribe To Our Newsletter
@@ -61,29 +61,6 @@ const Footer = () => {
           </ul>
         </div>
 
-        {/* Our Stores */}
-        <div>
-          <h3 className="font-semibold text-lg mb-4">Our Stores</h3>
-          <ul className="space-y-2 text-sm text-gray-700">
-            {[
-              "new-york",
-              "london-sf",
-              "edinburgh",
-              "los-angeles",
-              "chicago",
-              "las-vegas",
-            ].map((city) => (
-              <li key={city}>
-                <Link
-                  to="#"
-                  className="text-gray-600 hover:text-black capitalize font-semibold"
-                >
-                  {city.replace("-", " ")}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
 
         {/* Useful Links */}
         <div>
@@ -101,7 +78,7 @@ const Footer = () => {
                 key={link}
                 className="text-gray-600 hover:text-black capitalize font-semibold"
               >
-                <Link to="#">{link}</Link>
+                <Link to={link === 'Contact Us' ? "contact-us": "#"}>{link}</Link>
               </li>
             ))}
           </ul>
@@ -122,7 +99,7 @@ const Footer = () => {
                 key={link}
                 className="text-gray-600 hover:text-black capitalize font-semibold"
               >
-                <Link to="#">{link}</Link>
+                <Link to={link === 'Contact Us' ? "contact-us": "#"}>{link}</Link>
               </li>
             ))}
           </ul>
@@ -132,8 +109,8 @@ const Footer = () => {
       {/* Bottom Bar */}
       <div className="mt-12 border-t border-gray-300 py-6 text-sm flex flex-col md:flex-row justify-between items-center max-w-screen-xl mx-auto px-6 gap-4">
         <p>
-          © 2025 <span className="text-red-600 font-semibold">DexignZone</span>{" "}
-          Theme. All Rights Reserved.
+          © 2025 <span className="text-red-600 font-semibold">Pixio</span>{" "}
+          All Rights Reserved.
         </p>
         <div className="flex items-center gap-2">
           <span className="font-semibold">We Accept:</span>

@@ -82,8 +82,8 @@ const HomeIndexThree = () => {
               <div className="flex flex-col justify-center">
                 <h2 className="text-xl md:text-2xl font-semibold">Collar Casual Shirt</h2>
                 <h3>
-                  <span className="text-red-600 font-bold text-xl">$19</span>{" "}
-                  <span className="line-through text-gray-500 text-base md:text-lg">$27</span>
+                  <span className="text-red-600 font-bold text-xl">₹19</span>{" "}
+                  <span className="line-through text-gray-500 text-base md:text-lg">₹27</span>
                 </h3>
               </div>
             </div>
@@ -99,8 +99,8 @@ const HomeIndexThree = () => {
               <div className="flex flex-col justify-center">
                 <h2 className="text-xl md:text-2xl font-semibold">Collar Casual Shirt</h2>
                 <h3>
-                  <span className="text-red-600 font-bold text-xl">$19</span>{" "}
-                  <span className="line-through text-gray-500 text-base md:text-lg">$27</span>
+                  <span className="text-red-600 font-bold text-xl">₹19</span>{" "}
+                  <span className="line-through text-gray-500 text-base md:text-lg">₹27</span>
                 </h3>
               </div>
             </div>

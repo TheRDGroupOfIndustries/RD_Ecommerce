@@ -16,6 +16,7 @@ import Login from "./pages/auth/Login.jsx";
 import Register from "./pages/auth/Register.jsx";
 import { Provider } from "react-redux";
 import store from "./store/store.js";
+import { AboutUs, ContactUs } from "./pages";
 
 const router = createBrowserRouter([
   {
@@ -32,6 +33,14 @@ const router = createBrowserRouter([
         path: "account",
         element: <Account />,
         children: [...accountRoute],
+      },
+      {
+        path: "about-us",
+        element: <AboutUs />,
+      },
+      {
+        path: "contact-us",
+        element: <ContactUs />,
       },
       {
         path: "checkout",

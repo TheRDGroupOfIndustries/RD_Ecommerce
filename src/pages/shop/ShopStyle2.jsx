@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { deals } from "../home/HomeIndexOne";
 import { ProductCard, ShirtHoverCard, ShopTopBanner } from "../../components";
 import { getBlockbusterDeals } from "../../services/productService";
+import toast from "react-hot-toast";
 
 const ShopStyle2 = () => {
     const [products, setProducts] = useState([]);

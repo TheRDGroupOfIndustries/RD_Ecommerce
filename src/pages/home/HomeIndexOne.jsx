@@ -15,7 +15,7 @@ import { Star } from "lucide-react";
 import { getBlockbusterDeals } from "../../services/productService";
 import toast from "react-hot-toast";
 
-export const products = [
+const products = [
   {
     id: 1,
     title: "Cozy Knit Cardigan Sweater",
@@ -97,36 +97,6 @@ const featuredCategoriesData = [
   { image: "/jeans.webp", title: "jeans" },
 ];
 
-export const deals = [
-  {
-    title: "Checkered Slim Collar Casual Shirt",
-    price: 80,
-    originalPrice: 95,
-    discount: "Up to 76% OFF",
-    image: "/shirts/1.webp",
-  },
-  {
-    title: "Solid Cut Away Collar Casual Shirt",
-    price: 80,
-    originalPrice: 95,
-    discount: "Up to 76% OFF",
-    image: "/shirts/5.webp",
-  },
-  {
-    title: "Printed Spread Collar Casual Shirt",
-    price: 80,
-    originalPrice: 95,
-    discount: "Up to 76% OFF",
-    image: "/shirts/3.webp",
-  },
-  {
-    title: "Checkered Spread Collar Casual Shirt",
-    price: 80,
-    originalPrice: 95,
-    discount: "Up to 76% OFF",
-    image: "/shirts/4.webp",
-  },
-];
 
 const featuredItems = [
   {
@@ -473,9 +443,9 @@ const HomeIndexOne = () => {
                     </p>
                   </div>
                   <div className="">
-                    <span className="font-bold text-black">${item.price}</span>
+                    <span className="font-bold text-black">₹{item.price}</span>
                     <div className="text-gray-400 text-sm line-through">
-                      ${item.originalPrice}
+                      ₹{item.originalPrice}
                     </div>
                   </div>
                 </div>
@@ -502,7 +472,7 @@ const HomeIndexOne = () => {
                 Great Saving On <br /> Everyday Essentials
               </h2>
               <p className="mt-2 text-sm text-center">
-                Up To 60% Off + Up To $107 CashBACK
+                Up To 60% Off + Up To ₹107 CashBACK
               </p>
               <Link to={"/shop-standard"}  className="bg-white text-black font-semibold px-10 py-2 mt-5 rounded-md">
                 SEE ALL
@@ -603,9 +573,9 @@ const HomeIndexOne = () => {
                     {item.discountText}
                   </p>
                   <div className="flex items-center gap-3 text-base">
-                    <span className="font-bold">${item.price}</span>
+                    <span className="font-bold">₹{item.price}</span>
                     <span className="line-through text-gray-400 text-sm">
-                      ${item.oldPrice}
+                      ₹{item.oldPrice}
                     </span>
                     <span className="text-gray-400 text-sm flex items-center gap-1">
                       <Star className="w-4 h-4 fill-yellow-400 stroke-yellow-500" />
@@ -633,7 +603,7 @@ const HomeIndexOne = () => {
                 Recent Adiitions To <br /> Tour Shortlist
               </h2>
               <p className="mt-2 text-sm text-center">
-                Up To 60% Off + Up To $107 CashBACK
+                Up To 60% Off + Up To ₹107 CashBACK
               </p>
               <Link to={"/shop-standard"}  className="bg-white text-black font-semibold px-10 py-2 mt-5 rounded-md">
                 SEE ALL
@@ -663,9 +633,9 @@ const HomeIndexOne = () => {
                     </p>
                   </div>
                   <div className="">
-                    <span className="font-bold text-black">${item.price}</span>
+                    <span className="font-bold text-black">₹{item.price}</span>
                     <div className="text-gray-400 text-sm line-through">
-                      ${item.originalPrice}
+                      ₹{item.originalPrice}
                     </div>
                   </div>
                 </div>

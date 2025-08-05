@@ -1,11 +1,11 @@
 import Slider from "react-slick";
 import ProductCard from "./ProductCard";
 import { MdArrowBackIos, MdArrowForwardIos } from "react-icons/md";
-import { products } from "../store/data";
 import { getProducts } from "../services/productService";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import MobileProductCard from "./MobileProductCard";
+import toast from "react-hot-toast";
 
 const NextArrow = ({ onClick }) => {
   return (
@@ -110,7 +110,10 @@ const RelatedProducts = () => {
         ) : (
           <Slider {...settings}>
             {relatedProducts.map((product) => (
-              <div key={product.id} className="px-2">
+              <div
+                key={product.id}
+                className="px-2"
+              >
                 <MobileProductCard product={product} />
               </div>
             ))}

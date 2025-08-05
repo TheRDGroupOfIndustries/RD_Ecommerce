@@ -159,7 +159,7 @@ const OrderDetails = () => {
                   <p className="text-lg font-medium text-gray-900">
                     {item.name}
                   </p>
-                  <p className="text-gray-600 mt-1">Price : ${item.price}</p>
+                  <p className="text-gray-600 mt-1">Price : ₹{item.price}</p>
                   <p className="text-gray-600 mt-1">Size : {item.size}</p>
                 </div>
               </div>
@@ -169,13 +169,13 @@ const OrderDetails = () => {
                 <div className="flex justify-between items-center">
                   <span className="text-gray-700">Total Price</span>
                   <span className="text-gray-900 font-medium">
-                    + ${totalPrice}
+                    + ₹{totalPrice}
                   </span>
                 </div>
                 <div className="flex justify-between items-center">
                   <span className="text-gray-700">Total Discounts</span>
                   <span className="text-green-600 font-medium">
-                    - ${totalDiscounts}
+                    - ₹{totalDiscounts}
                   </span>
                 </div>
                 <div className="flex justify-between items-center pt-2 border-t border-gray-200">
@@ -183,7 +183,7 @@ const OrderDetails = () => {
                     Order Total
                   </span>
                   <span className="text-lg font-bold text-gray-900">
-                    ${orderTotal}
+                    ₹{orderTotal}
                   </span>
                 </div>
               </div>
@@ -208,7 +208,7 @@ const OrderDetails = () => {
                 <strong>Date: </strong>17/04/2025, 02:34pm
               </h3>
               <h3>
-                <strong>Total: </strong>$95
+                <strong>Total: </strong>₹95
               </h3>
               <h3>
                 <strong>Payment Methods: </strong>Cash on Delivery

@@ -40,31 +40,9 @@ const Wishlist = () => {
     },
   ]);
 
-  const { isAuthenticated, userData } = useSelector(state => state.auth)
+  const { userData } = useSelector(state => state.auth)
   const dispatch = useDispatch()
 
-  const handleAddToCart = (productId) => {
-    console.log(`Product with ID ${productId} added to cart!`);
-    alert(`Product with ID ${productId} added to cart!`);
-  };
-
-  const handleRemoveItem = (id) => {
-    setProducts((prevProducts) =>
-      prevProducts.filter((product) => product.id !== id)
-    );
-    console.log(`Product with ID ${id} removed from wishlist.`);
-  };
-
-  const getStockStatusClass = (status) => {
-    switch (status) {
-      case "In Stock":
-        return "bg-green-100 text-green-700";
-      case "Out of Stock":
-        return "bg-red-100 text-red-700";
-      default:
-        return "bg-gray-100 text-gray-700";
-    }
-  };
 
   return (
     <div className="">
@@ -216,11 +194,11 @@ const Wishlist = () => {
                       <div className="flex flex-col mt-1">
                         {product.price && (
                           <span className="text-gray-500 line-through text-sm">
-                            ${product.price}
+                            ₹{product.price}
                           </span>
                         )}
                         <span className="text-gray-700 font-semibold text-base">
-                          ${product.salePrice}
+                          ₹{product.salePrice}
                         </span>
                       </div>
                     </div>

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { MobileProductCard, ProductCard, ShopTopBanner } from "../../components";
 import { getProducts } from "../../services/productService";
-// import { products } from "../../store/data";
+import toast from "react-hot-toast";
 
 const ShopStyle1 = () => {
     const [products, setProducts] = useState([]);

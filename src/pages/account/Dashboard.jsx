@@ -14,12 +14,12 @@ import { getAllOrders } from "../../store/orderSlice";
 
 // Sample Data
 const countries = [
-  { name: "United States", amount: "$130.00", flag: "🇺🇸" },
-  { name: "India", amount: "$110.00", flag: "🇮🇳" },
-  { name: "Africa", amount: "$90.00", flag: "🌍" },
-  { name: "Canada", amount: "$75.00", flag: "🇨🇦" },
-  { name: "Brazil", amount: "$60.00", flag: "🇧🇷" },
-  { name: "Jordan", amount: "$50.00", flag: "🇯🇴" },
+  { name: "United States", amount: "₹130.00", flag: "🇺🇸" },
+  { name: "India", amount: "₹110.00", flag: "🇮🇳" },
+  { name: "Africa", amount: "₹90.00", flag: "🌍" },
+  { name: "Canada", amount: "₹75.00", flag: "🇨🇦" },
+  { name: "Brazil", amount: "₹60.00", flag: "🇧🇷" },
+  { name: "Jordan", amount: "₹50.00", flag: "🇯🇴" },
 ];
 
 const chartData = [

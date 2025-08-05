@@ -95,21 +95,6 @@ const HeroSection = () => {
     arrows: false,
   };
 
-  const leftSliderDetails = [
-    { title: "Beautiful Women Purple Sweater", price: "30.00" },
-    { title: "Shot Slad Curly Women", price: "80.00" },
-    { title: "Curly Girl Beautiful Dress", price: "30.00" },
-    { title: "Shot Slad Curly Women", price: "80.00" },
-    { title: "Curly Girl Beautiful Dress", price: "30.00" },
-  ];
-
-  const rightSlideDetails = [
-    { image: "/banner-media.webp", text: "winter" },
-    { image: "/banner-media2.webp", text: "summer" },
-    { image: "/banner-media3.webp", text: "leggings" },
-    { image: "/banner-media4.webp", text: "dress" },
-    { image: "/banner-media5.webp", text: "shorts" },
-  ];
 
   return (
     <section className="w-full min-h-screen flex flex-col md:flex-row px-4 md:px-20 py-10 md:py-20 relative overflow-hidden gap-5">
@@ -117,7 +102,7 @@ const HeroSection = () => {
       <div className="w-full md:w-1/2 h-full flex flex-col justify-center">
         {banners?.length != 0 && (
           <Slider {...leftSliderSettings}>
-            {banners.map((item, index) => (
+            {banners.map((item) => (
               <div
                 key={item._id}
                 className="w-full h-[300px] md:h-[400px] p-2 md:p-4 space-y-4 md:space-y-6 flex flex-col justify-center"
@@ -128,7 +113,7 @@ const HeroSection = () => {
                 <div>
                   <p className="text-lg md:text-xl text-gray-700">Price</p>
                   <span className="text-3xl md:text-5xl font-bold text-black">
-                    ${item.salePrice}
+                    ₹{item.salePrice}
                   </span>
                 </div>
                 <div className="w-full flex flex-col sm:flex-row gap-4">

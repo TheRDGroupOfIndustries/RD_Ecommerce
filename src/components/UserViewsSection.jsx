@@ -119,10 +119,10 @@ const UserViewsSection = () => {
                   </h3>
                   <div className="flex items-center gap-2 mt-1">
                     <span className="text-black font-bold">
-                      ${product.price}
+                      ₹{product.price}
                     </span>
                     <span className="text-gray-400 line-through text-sm">
-                      ${product.originalPrice}
+                      ₹{product.originalPrice}
                     </span>
                   </div>
                 </div>

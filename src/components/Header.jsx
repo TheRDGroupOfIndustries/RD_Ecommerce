@@ -117,153 +117,14 @@ const recentPosts = [
   },
 ];
 
-const postSections = {
-  "Post Types": [
-    "Text Post",
-    "Image Post",
-    "Video Post",
-    "Link Post",
-    "Audio Post",
-    "Post Quote",
-    "Tutorial Post",
-    "Cateloge Post",
-  ],
-  "Multiple Media": ["Banner", "Slider", "Gallery", "Status Slider"],
-  "Post Layout Type": ["Standard Post", "Corner Post", "Side Post"],
-  "Side Bar": ["Left Sidebar", "Right Sidebar", "Both Sidebar", "No Sidebar"],
-};
-
-const portfolioItems = [
-  {
-    path: "portfolio-tiles",
-    image: "/portfolio-tiles.c233f7aa.svg",
-    title: "Portfolio Tiles",
-  },
-  {
-    path: "collage-style-1",
-    image: "/collage-style-1.fa53c4d7.svg",
-    title: "Collage Style 1",
-  },
-  {
-    path: "collage-style-2",
-    image: "/collage-style-2.f6cebca9.svg",
-    title: "Collage Style 2",
-  },
-  {
-    path: "masonry-grid",
-    image: "/masonry-grid.38bd74ab.svg",
-    title: "Masonary Grid",
-  },
-  {
-    path: "cobble-style-1",
-    image: "/cobble-style-1.c0f6e465.svg",
-    title: "Cobble Style 1",
-  },
-  {
-    path: "cobble-style-2",
-    image: "/cobble-style-2.c7de38e9.svg",
-    title: "Cobble Style 2",
-  },
-  {
-    path: "portfolio-thumbs-slider",
-    image: "/portfolio-thumbs-slider.8de5035c.svg",
-    title: "Portfolio Thumbs Slider",
-  },
-  {
-    path: "portfolio-film-strip",
-    image: "/portfolio-film-strip.94dde8da.svg",
-    title: "Portfolio Film Strip",
-  },
-  {
-    path: "portfolio-split-slider",
-    image: "/portfolio-split-slider.4fa1211b.svg",
-    title: "Portfolio Split Slider",
-  },
-  {
-    path: "carousel-showcase",
-    image: "/carousel-showcase.e0496453.svg",
-    title: "Carousel Showcase",
-  },
-];
-
-const pageNavigations = {
-  Pages: [
-    { name: "About Us", path: "/about-us" },
-    { name: "About Me", path: "/about-me" },
-    { name: "Pricing Table", path: "/pricing" },
-    { name: "Our Gift Vouchers", path: "/gift-vouchers" },
-    { name: "What We Do", path: "/what-we-do" },
-    { name: "Faqs 1", path: "/faqs-1" },
-    { name: "Faqs 2", path: "/faqs-2" },
-    { name: "Our Team", path: "/team" },
-  ],
-  "Contact Us": [
-    { name: "Contact Us 1", path: "/contact-1" },
-    { name: "Contact Us 2", path: "/contact-2" },
-    { name: "Contact Us 3", path: "/contact-3" },
-  ],
-  "Web Pages": [
-    { name: "Error 404 1", path: "/404-1" },
-    { name: "Error 404 2", path: "/404-2" },
-    { name: "Coming Soon", path: "/coming-soon" },
-    { name: "Under Construction", path: "/under-construction" },
-  ],
-  "Banner Style": [
-    { name: "Banner With BG Color", path: "/banner-bg" },
-    { name: "Banner With Image", path: "/banner-image" },
-    { name: "Banner With Video", path: "/banner-video" },
-    { name: "Banner With Kanbern", path: "/banner-kanbern" },
-    { name: "Banner Small", path: "/banner-small" },
-    { name: "Banner Medium", path: "/banner-medium" },
-    { name: "Banner Large", path: "/banner-large" },
-  ],
-  "Header Style": [
-    { name: "Header Style 1", path: "/header-1" },
-    { name: "Header Style 2", path: "/header-2" },
-    { name: "Header Style 3", path: "/header-3" },
-    { name: "Header Style 4", path: "/header-4" },
-    { name: "Header Style 5", path: "/header-5" },
-    { name: "Header Style 6", path: "/header-6" },
-    { name: "Header Style 7", path: "/header-7" },
-  ],
-  "Footer Style": [
-    { name: "Footer Style 1", path: "/footer-1" },
-    { name: "Footer Style 2", path: "/footer-2" },
-    { name: "Footer Style 3", path: "/footer-3" },
-    { name: "Footer Style 4", path: "/footer-4" },
-    { name: "Footer Style 5", path: "/footer-5" },
-    { name: "Footer Style 6", path: "/footer-6" },
-    { name: "Footer Style 7", path: "/footer-7" },
-  ],
-  Dashboard: [
-    { name: "Dashboard", path: "/dashboard" },
-    { name: "Orders", path: "/orders" },
-    { name: "Orders Details", path: "/orders/details" },
-    { name: "Orders Confirmation", path: "/orders/confirmation" },
-    { name: "Downloads", path: "/downloads" },
-    { name: "Return Request", path: "/returns/request" },
-    { name: "Return Request Detail", path: "/returns/detail" },
-    { name: "Return Request Confirmed", path: "/returns/confirmed" },
-  ],
-};
-
 const dashboardLinks = [
   { name: "Dashboard", path: "/account" },
   { name: "Orders", path: "/account/orders" },
-  // { name: "Orders Details", path: "/account/orders-details" },
-  // { name: "Orders Confirmation", path: "/account/orders-confirmation" },
   { name: "Downloads", path: "/account/downloads" },
   { name: "Return Request", path: "/account/return-request" },
-  // { name: "Return Request Detail", path: "/account/returns-detail" },
-  // { name: "Return Request Confirmed", path: "/account/returns-confirmed" },
   { name: "Profile", path: "/account/profile" },
   { name: "Address", path: "/account/address" },
-  // { name: "Shipping Methods", path: "/account/shipping-methods" },
-  // { name: "Payment Methods", path: "/account/payment-methods" },
   { name: "Review", path: "/account/review" },
-  // { name: "Billing Address", path: "/account/billing-address" },
-  // { name: "Shipping Address", path: "/account/shipping-address" },
-  // { name: "Cancellation Requests", path: "/account/cancellations" },
 ];
 
 const Header = () => {
@@ -298,7 +159,10 @@ const Header = () => {
           <ContentWrapper>
             <div className="p-10 bg-white flex flex-col md:flex-row gap-5 items-center shadow rounded-sm ">
               {homeNavigations.map((page) => (
-                <Link key={page.id} to={page.path}>
+                <Link
+                  key={page.id}
+                  to={page.path}
+                >
                   <div className="space-y-2">
                     <div className="h-40 w-40 md:h-56 md:w-56 overflow-hidden">
                       <img
@@ -419,7 +283,10 @@ const Header = () => {
                 <h3 className="text-lg font-semibold mb-4">Recent Posts</h3>
                 <ul className="space-y-4">
                   {recentPosts.map((post) => (
-                    <li key={post.title} className="flex gap-4 items-start">
+                    <li
+                      key={post.title}
+                      className="flex gap-4 items-start"
+                    >
                       <img
                         src={post.image}
                         alt={post.title}
@@ -440,152 +307,20 @@ const Header = () => {
             </div>
           </ContentWrapper>
         </div>
-        {/* <div className="group">
-          <li className="px-4 py-2 font-semibold cursor-pointer list-none">
-            Post Layout
-          </li>
-          <ContentWrapper>
-            <div className="bg-white p-6 md:p-10 flex flex-col md:flex-row flex-nowrap gap-5 md:gap-10 shadow rounded-sm">
-              <div>
-                <h3 className="text-lg font-semibold mb-4">Post Types</h3>
-                <ul className="space-y-2 text-gray-600">
-                  {postSections["Post Types"].map((item) => (
-                    <li key={item} className="hover:text-black cursor-pointer">
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              <div>
-                <h3 className="text-lg font-semibold mb-4">Multiple Media</h3>
-                <ul className="space-y-2 text-gray-600 mb-6">
-                  {postSections["Multiple Media"].map((item) => (
-                    <li key={item} className="hover:text-black cursor-pointer">
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-                <h3 className="text-lg font-semibold mb-4">Post Layout Type</h3>
-                <ul className="space-y-2 text-gray-600">
-                  {postSections["Post Layout Type"].map((item) => (
-                    <li key={item} className="hover:text-black cursor-pointer">
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-              </div>
 
-              <div>
-                <h3 className="text-lg font-semibold mb-4">Side Bar</h3>
-                <ul className="space-y-2 text-gray-600">
-                  {postSections["Side Bar"].map((item) => (
-                    <li key={item} className="hover:text-black cursor-pointer">
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-          </ContentWrapper>
-        </div>
-        <div className="group">
-          <li className="px-4 py-2 font-semibold cursor-pointer list-none">
-            Portfolio
-          </li>
-          <ContentWrapper>
-            <div className="w-full bg-white p-6 md:p-10 shadow rounded-sm flex flex-col md:flex-row gap-5">
-              <div className="w-full md:w-3xl grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-                {portfolioItems.map((item) => (
-                  <Link
-                    key={`${item.path}dfjgslfg`}
-                    to={item.path}
-                    className="group"
-                  >
-                    <div
-                      key={item.title}
-                      className="flex flex-col items-center"
-                    >
-                      <div className="w-24 h-24 md:w-32 md:h-32">
-                        <img
-                          src={item.image}
-                          alt={item.title}
-                          className="w-full h-full object-cover"
-                        />
-                      </div>
-                      <h3 className=" text-center text-sm font-medium text-gray-700 ">
-                        {item.title}
-                      </h3>
-                    </div>
-                  </Link>
-                ))}
-              </div>
-              <div className="whitespace-nowrap px-0 md:px-10 flex-col flex gap-1">
-                <h2 className="font-bold text-lg mb-1">Portfolio Details</h2>
-                <Link
-                  to="/portfolio-details-1"
-                  className="text-gray-600 hover:text-red-500"
-                >
-                  Portfolio Details 1
-                </Link>
-                <Link
-                  to="/portfolio-details-2"
-                  className="text-gray-600 hover:text-red-500"
-                >
-                  Portfolio Details 2
-                </Link>
-                <Link
-                  to="/portfolio-details-3"
-                  className="text-gray-600 hover:text-red-500"
-                >
-                  Portfolio Details 3
-                </Link>
-                <Link
-                  to="/portfolio-details-4"
-                  className="text-gray-600 hover:text-red-500"
-                >
-                  Portfolio Details 4
-                </Link>
-                <Link
-                  to="/portfolio-details-5"
-                  className="text-gray-600 hover:text-red-500"
-                >
-                  Portfolio Details 5
-                </Link>
-              </div>
-            </div>
-          </ContentWrapper>
-        </div>
-        <div className="group">
-          <li className="px-4 py-2 font-semibold cursor-pointer list-none">
-            Pages
-          </li>
-          <ContentWrapper>
-            <div className="bg-white p-6 md:p-10 flex flex-col md:flex-row flex-nowrap gap-5 md:gap-10 shadow rounded-sm">
-              {Object.entries(pageNavigations).map(([section, items]) => (
-                <div key={section} className="whitespace-nowrap">
-                  <h3 className="text-lg font-semibold mb-4">{section}</h3>
-                  <ul className="space-y-2 text-gray-600">
-                    {items.map(({ name, path }) => (
-                      <li key={name} className="hover:text-black">
-                        <Link to={path} className="block whitespace-nowrap">
-                          {name}
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                  {section === "Header Style" && (
-                    <div className="col-span-full flex justify-center mt-4">
-                      <button className="px-6 py-2 rounded-full border-2 font-semibold text-sm flex items-center gap-2 bg-white text-black border-red-400 hover:shadow transition-all bg-gradient-to-r from-red-400 to-purple-500 bg-clip-text hover:bg-clip-border hover:text-black duration-200">
-                        <span className="text-black">Menu Styles</span>
-                        <span className="text-black text-lg">➜</span>
-                      </button>
-                    </div>
-                  )}
-                </div>
-              ))}
-            </div>
-          </ContentWrapper>
-        </div> */}
+        <Link
+          to="/about-us"
+          className="px-4 py-2 font-semibold cursor-pointer"
+        >
+          About Us
+        </Link>
+        <Link
+          to="/contact-us"
+          className="px-4 py-2 font-semibold cursor-pointer"
+        >
+          Contact Us
+        </Link>
+
         {isAuthenticated && (
           <div className="group">
             <li className="px-4 py-2 font-semibold cursor-pointer list-none">
@@ -613,18 +348,27 @@ const Header = () => {
 
       <div className="flex items-center gap-4 md:gap-10 justify-between">
         <div className="flex items-center gap-4 md:gap-8">
-          <button onClick={openSearchPannel} className="cursor-pointer ">
+          <button
+            onClick={openSearchPannel}
+            className="cursor-pointer "
+          >
             <Search style={{ width: "20px", height: "20px" }} />
           </button>
           {isAuthenticated ? (
             <div className="flex items-center gap-4 md:gap-8 ">
-              <Link to={"/account/wishlist"} className="relative hidden lg:block">
+              <Link
+                to={"/account/wishlist"}
+                className="relative hidden lg:block"
+              >
                 <div className="absolute -right-3 -top-3 rounded-full bg-red-500 text-white text-xs w-4 h-4 flex items-center justify-center">
                   {userData?.wishlist_products?.length}
                 </div>
                 <Heart style={{ width: "20px", height: "20px" }} />
               </Link>
-              <Link to={"/account/cart"} className="relative hidden lg:block">
+              <Link
+                to={"/account/cart"}
+                className="relative hidden lg:block"
+              >
                 <div className="absolute -right-3 -top-3 rounded-full bg-red-500 text-white text-xs w-4 h-4 flex items-center justify-center">
                   {totalQuantity}
                 </div>
@@ -663,9 +407,16 @@ const Header = () => {
       >
         <div className="flex justify-between items-center p-4 border-b">
           <Link to="/">
-            <img src="/logo.svg" alt="logo" className="cursor-pointer h-8" />
+            <img
+              src="/logo.svg"
+              alt="logo"
+              className="cursor-pointer h-8"
+            />
           </Link>
-          <button onClick={() => setOpenMenu(false)} className="text-2xl">
+          <button
+            onClick={() => setOpenMenu(false)}
+            className="text-2xl"
+          >
             &times;
           </button>
         </div>
@@ -701,14 +452,20 @@ const Header = () => {
             </summary>
             <div className="pl-4 pt-2">
               {Object.entries(shopNavigations).map(([section, items]) => (
-                <div key={section} className="mb-4">
+                <div
+                  key={section}
+                  className="mb-4"
+                >
                   <h4 className="font-semibold text-gray-800 mt-2">
                     {section}
                   </h4>
                   <ul className="space-y-1 text-gray-600 text-sm">
                     {items.map((item) => (
                       <li key={item.title}>
-                        <Link to={item.path} onClick={() => setOpenMenu(false)}>
+                        <Link
+                          to={item.path}
+                          onClick={() => setOpenMenu(false)}
+                        >
                           {item.title}
                         </Link>
                       </li>
@@ -724,14 +481,20 @@ const Header = () => {
             </summary>
             <div className="pl-4 pt-2">
               {Object.entries(blogNavigations).map(([section, items]) => (
-                <div key={section} className="mb-4">
+                <div
+                  key={section}
+                  className="mb-4"
+                >
                   <h4 className="font-semibold text-gray-800 mt-2">
                     {section}
                   </h4>
                   <ul className="space-y-1 text-gray-600 text-sm">
                     {items.map((item) => (
                       <li key={item.title}>
-                        <Link to={item.path} onClick={() => setOpenMenu(false)}>
+                        <Link
+                          to={item.path}
+                          onClick={() => setOpenMenu(false)}
+                        >
                           {item.title}
                         </Link>
                       </li>
@@ -741,84 +504,21 @@ const Header = () => {
               ))}
             </div>
           </details>
-          {/* <details className="py-2 border-b">
-            <summary className="text-lg font-semibold cursor-pointer">
-              Post Layout
-            </summary>
-            <div className="pl-4 pt-2">
-              {Object.entries(postSections).map(([section, items]) => (
-                <div key={section} className="mb-4">
-                  <h4 className="font-semibold text-gray-800 mt-2">
-                    {section}
-                  </h4>
-                  <ul className="space-y-1 text-gray-600 text-sm">
-                    {items.map((item) => (
-                      <li key={item}>
-                        <Link to="#" onClick={() => setOpenMenu(false)}>
-                          {item}
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ))}
-            </div>
-          </details>
-          <details className="py-2 border-b">
-            <summary className="text-lg font-semibold cursor-pointer">
-              Portfolio
-            </summary>
-            <div className="pl-4 pt-2">
-              <h4 className="font-semibold text-gray-800 mt-2">Portfolios</h4>
-              <ul className="space-y-1 text-gray-600 text-sm mb-4">
-                {portfolioItems.map((item) => (
-                  <li key={item.path}>
-                    <Link to={item.path} onClick={() => setOpenMenu(false)}>
-                      {item.title}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-              <h4 className="font-semibold text-gray-800 mt-2">
-                Portfolio Details
-              </h4>
-              <ul className="space-y-1 text-gray-600 text-sm">
-                {[1, 2, 3, 4, 5].map((num) => (
-                  <li key={`portfolio-details-${num}`}>
-                    <Link
-                      to={`/portfolio-details-${num}`}
-                      onClick={() => setOpenMenu(false)}
-                    >
-                      Portfolio Details {num}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </details>
-          <details className="py-2 border-b">
-            <summary className="text-lg font-semibold cursor-pointer">
-              Pages
-            </summary>
-            <div className="pl-4 pt-2">
-              {Object.entries(pageNavigations).map(([section, items]) => (
-                <div key={section} className="mb-4">
-                  <h4 className="font-semibold text-gray-800 mt-2">
-                    {section}
-                  </h4>
-                  <ul className="space-y-1 text-gray-600 text-sm">
-                    {items.map(({ name, path }) => (
-                      <li key={name}>
-                        <Link to={path} onClick={() => setOpenMenu(false)}>
-                          {name}
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ))}
-            </div>
-          </details> */}
+          <Link
+            to="/about-us"
+            onClick={() => setOpenMenu(false)}
+            className="px-4 py-2 font-semibold cursor-pointer border-b"
+          >
+            About Us
+          </Link>
+          <Link
+            to="/contact-us"
+            onClick={() => setOpenMenu(false)}
+            className="px-4 py-2 font-semibold cursor-pointer border-b"
+          >
+            Contact Us
+          </Link>
+
           {isAuthenticated ? (
             <details className="py-2 border-b">
               <summary className="text-lg font-semibold cursor-pointer">
@@ -828,7 +528,10 @@ const Header = () => {
                 <ul className="space-y-1 text-gray-600 text-sm">
                   {dashboardLinks.map((item) => (
                     <li key={item.name}>
-                      <Link to={item.path} onClick={() => setOpenMenu(false)}>
+                      <Link
+                        to={item.path}
+                        onClick={() => setOpenMenu(false)}
+                      >
                         {item.name}
                       </Link>
                     </li>

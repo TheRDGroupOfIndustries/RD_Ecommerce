@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addProductToCart } from "../store/cartSlice";
 import { Link } from "react-router-dom";
+import toast from "react-hot-toast";
 
 //  const product = {
 //     id: "PRT584E63A",
@@ -127,10 +128,10 @@ const QuickView = ({ product, setIsQuickViewOpen }) => {
           <div className="flex items-center justify-between mb-6 flex-wrap gap-4">
             <div className="flex items-baseline">
               <span className="text-3xl font-bold text-blue-600 mr-2">
-                ${product.salePrice.toFixed(2)}
+                ₹{product.salePrice.toFixed(2)}
               </span>
               <span className="text-lg text-gray-500 line-through">
-                ${product.price.toFixed(2)}
+                ₹{product.price.toFixed(2)}
               </span>
             </div>
             <div className="flex items-center border border-gray-300 rounded-md overflow-hidden">

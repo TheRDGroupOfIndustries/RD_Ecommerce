@@ -5,26 +5,21 @@ import { AddressCard, AddressForm } from "../../components";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllAddresses } from "../../store/addressSlice";
 
-
-
 const Address = () => {
-  const [isAddressFormShow, setIsAddressFormShow] = useState(false)
+  const [isAddressFormShow, setIsAddressFormShow] = useState(false);
   const { isAuthenticated } = useSelector((state) => state.auth);
   const { addresses } = useSelector((state) => state.address);
   const dispatch = useDispatch();
 
-
-
-
   const fetchAllAddresses = async () => {
-    dispatch(getAllAddresses())
-  }
+    dispatch(getAllAddresses());
+  };
 
-  useEffect(()=>{
+  useEffect(() => {
     if (isAuthenticated) {
       fetchAllAddresses();
     }
-  },[isAuthenticated])
+  }, [isAuthenticated]);
 
   return (
     <div className=" p-6 rounded-lg max-w-4xl w-full">
@@ -34,13 +29,13 @@ const Address = () => {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
         {addresses?.length > 0 ? (
-          addresses.map((address, index) => (
+          addresses.map((address) => (
             <AddressCard
               key={address._id}
               address={address}
             />
-          )) 
-        ): (
+          ))
+        ) : (
           <div className="col-span-2 text-center text-gray-500">
             No addresses found. Please add an address.
           </div>
@@ -61,8 +56,15 @@ const Address = () => {
         </button>
       </div>
 
-      <div className={`${isAddressFormShow ? "fixed" : "hidden"} inset-0 bg-zinc-800/40 flex h-screen justify-center items-center pt-10 md:pt-16 z-[100] font-sans`}>
-      <AddressForm addressId={null} handleClose={()=>setIsAddressFormShow(false)} />
+      <div
+        className={`${
+          isAddressFormShow ? "fixed" : "hidden"
+        } inset-0 bg-zinc-800/40 w-full flex h-screen justify-center items-center px-4 pt-10 md:pt-16 z-[100] font-sans`}
+      >
+        <AddressForm
+          addressId={null}
+          handleClose={() => setIsAddressFormShow(false)}
+        />
       </div>
     </div>
   );
