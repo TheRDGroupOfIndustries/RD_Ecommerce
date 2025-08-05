@@ -163,7 +163,7 @@ const Orders = () => {
       <h2 className="text-xl font-semibold mb-4 text-gray-800">Your Orders</h2>
 
       {/* Table for Desktop */}
-      {orders.length ? (
+      {orders?.length ? (
         <div className="hidden md:block overflow-x-auto rounded-lg border border-gray-200">
           <table className="min-w-full divide-y divide-gray-200">
             <thead className="bg-gray-50">

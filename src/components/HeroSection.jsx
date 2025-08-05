@@ -41,7 +41,6 @@ const HeroSection = () => {
   const fetchBanners = async () => {
     const res = await getHomeBanners();
     setBanners(res);
-    console.log(res);
   };
 
   useEffect(() => {

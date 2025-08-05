@@ -168,7 +168,7 @@ const cartSlice = createSlice({
         console.error("Failed to fetch cart items:", action.payload);
         // toast.error(action.payload.message || "Failed to fetch cart items");
       })
-      .addCase(updateQuantity.pending, (state) => {
+      .addCase(updateQuantity.pending, () => {
         // state.loading = true;
       })
       .addCase(updateQuantity.fulfilled, (state, action) => {
@@ -187,7 +187,7 @@ const cartSlice = createSlice({
         console.error("Failed to update quantity:", action.payload);
         // toast.error(action.payload.message || "Failed to update quantity");
       })
-      .addCase(deleteCartItem.pending, (state) => {
+      .addCase(deleteCartItem.pending, () => {
         // state.loading = true;
       })
       .addCase(deleteCartItem.fulfilled, (state, action) => {
@@ -206,10 +206,10 @@ const cartSlice = createSlice({
         console.error("Failed to delete cart item:", action.payload);
         // toast.error(action.payload.message || "Failed to delete cart item");
       })
-      .addCase(clearCart.pending, (state) => {
+      .addCase(clearCart.pending, () => {
         // state.loading = true;
       })
-      .addCase(clearCart.fulfilled, (state, action) => {
+      .addCase(clearCart.fulfilled, (state) => {
         state.items = [];
         state.totalQuantity = 0;
         state.totalPrice = 0;

@@ -13,7 +13,7 @@ import { applyCouponCode, getCoupons } from "../../services/couponService";
 import toast from "react-hot-toast";
 
 const CouponCard = ({ coupon, applyCoupon }) => {
-  const { name, code, discount, endDate, discountType, discountValue } = coupon;
+  const { name, code, endDate, discountType, discountValue } = coupon;
 
   return (
     <div className="bg-gradient-to-r from-blue-100 to-blue-50 border border-blue-300 rounded-xl p-4 w-full min-w-60 shadow-md">
@@ -57,64 +57,17 @@ const CouponCard = ({ coupon, applyCoupon }) => {
   );
 };
 
-// const [cartItems, setCartItems] = useState([
-//   {
-//     id: 1,
-//     image: "https://placehold.co/80x80/F3F4F6/1F2937?text=Product1",
-//     name: "Sophisticated Swagger Suit",
-//     price: 28.0,
-//     quantity: 1,
-//   },
-//   {
-//     id: 2,
-//     image: "https://placehold.co/80x80/F3F4F6/1F2937?text=Product2",
-//     name: "Cozy Knit Cardigan Sweater",
-//     price: 56.0,
-//     quantity: 1,
-//   },
-//   {
-//     id: 3,
-//     image: "https://placehold.co/80x80/F3F4F6/1F2937?text=Product3",
-//     name: "Athletic Mesh Sports Leggings",
-//     price: 20.0,
-//     quantity: 1,
-//   },
-//   {
-//     id: 4,
-//     image: "https://placehold.co/80x80/F3F4F6/1F2937?text=Product4",
-//     name: "Plaid Wool Winter Coat",
-//     price: 42.0,
-//     quantity: 2,
-//   },
-//   {
-//     id: 5,
-//     image: "https://placehold.co/80x80/F3F4F6/1F2937?text=Product5",
-//     name: "Satin Wrap Party Blouse",
-//     price: 35.0,
-//     quantity: 2,
-//   },
-//   {
-//     id: 6,
-//     image: "https://placehold.co/80x80/F3F4F6/1F2937?text=Product6",
-//     name: "Suede Ankle Booties Collection",
-//     price: 38.0,
-//     quantity: 2,
-//   },
-// ]);
 const Cart = () => {
   const [coupons, setCoupons] = useState([]);
   const [couponCode, setCouponCode] = useState("");
-  const [loadingCoupon, setLoadingCoupon] = useState(false);
 
   // const [discount, setDiscount] = useState(0);
-  const [couponMessage, setCouponMessage] = useState("");
   const { isAuthenticated, userData } = useSelector((state) => state.auth);
-  const { items, totalQuantity, totalPrice, loading, appliedCoupon, discount } = useSelector(
+  const { items, totalPrice, loading, appliedCoupon, discount } = useSelector(
     (state) => state.cart
   );
   const dispatch = useDispatch();
 
-  const cartPrice = totalPrice;
 
   const fetchCoupons = async () => {
     const res = await getCoupons();
@@ -133,34 +86,19 @@ const Cart = () => {
   };
 
   const handleRemoveItem = (id) => {
-    console.log("Removing item with ID:", id);
     dispatch(deleteCartItem(id));
   };
 
   const applyCoupon = async (code) => {
     if (code === "") return toast.error("Invalid coupon code");
-    // alert(code);
-    setLoadingCoupon(true);
-    // apply coupon logic here
     const res = await applyCouponCode({ code, userId: userData?._id });
-    console.log("Coupon apply Response: ", res);
 
     if (res.success) {
       const coupon = coupons.find((c) => c.code === code);
       dispatch(setAppliedCoupon(coupon));
-      // console.log(coupon);
-
-      // const discount =
-      //   appliedCoupon?.discountType === "percent"
-      //     ? (appliedCoupon?.discountValue / 100) * totalPrice
-      //     : appliedCoupon?.discountValue;
-
-      // setDiscount(discount.toFixed(2));
-      // console.log(discount.toFixed(2));
     }
 
     setCouponCode("");
-    setLoadingCoupon(false);
   };
 
   const handleRemoveCoupon = () =>{
@@ -388,15 +326,7 @@ const Cart = () => {
                 Apply Coupon
               </button>
             </div>
-            {couponMessage && (
-              <p
-                className={`text-sm ${
-                  discount > 0 ? "text-green-600" : "text-red-600"
-                } mt-2`}
-              >
-                {couponMessage}
-              </p>
-            )}
+            
             <Link
               to="/checkout"
               className="bg-blue-600 text-white px-8 py-3 rounded-lg shadow-md hover:bg-blue-700 transition-colors duration-200 w-full sm:w-auto text-base sm:text-lg font-semibold"
@@ -409,7 +339,7 @@ const Cart = () => {
             {coupons.length == 0 ? (
               <p className="text-gray-600 text-sm">No coupons available</p>
             ) : (
-              coupons.map((coupon, index) => (
+              coupons.map((coupon) => (
                 <CouponCard
                   key={coupon._id}
                   coupon={coupon}

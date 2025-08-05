@@ -18,21 +18,16 @@ export default function ReviewForm({ productId, setReviews }) {
 
   const onSubmit = async (data) => {
     setLoading(true);
-    console.log("Form Data:", data);
-
     const review = {
       product: productId,
       user: userData._id,
       rating: userRating,
       description: data.description,
     }
-
-    console.log("Review data: ", review);
     
     const res = await createReview(review);
 
     if (res) {
-      console.log("Review created successfully", res);
       setReviews(res);
     }
 

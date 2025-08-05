@@ -1,4 +1,3 @@
-import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { IoClose } from "react-icons/io5";
 import { useDispatch, useSelector } from "react-redux";
@@ -15,18 +14,8 @@ const AddressForm = ({ addressId, handleClose }) => {
   const dispatch = useDispatch();
   const { loading, error } = useSelector((state) => state.address);
 
-  useEffect(() => {
-    if (addressId) {
-      // Fetch address data by ID and set form values
-
-      console.log(`Fetching address data for ID: ${addressId}`);
-      // Simulate fetching dat
-    }
-  }, [addressId]);
 
   const onSubmitHandler = (data) => {
-    console.log("Form submitted with data: ", data);
-
     if (addressId) {
       // Update existing address
       dispatch(updateAddress(addressId, data));

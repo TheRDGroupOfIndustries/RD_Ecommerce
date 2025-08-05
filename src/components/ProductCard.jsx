@@ -1,16 +1,9 @@
-import React, { useState } from "react";
-import { IoCart } from "react-icons/io5"
-import { FaHeart } from "react-icons/fa6";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import QuickView from "./QuickView";
 
 const ProductCard = ({ product, height }) => {
-  const [inWishlist, setInWishlist] = useState(false)
-  const [inCart, setInCart] = useState(false)
   const [isQuickViewOpen, setIsQuickViewOpen] = useState(false)
-
-  // console.log("ProductCard product: ", product);
-  
   
   return (
     <div className=" rounded-3xl overflow-hidden relative group">
@@ -33,15 +26,7 @@ const ProductCard = ({ product, height }) => {
           {product?.discount}% OFF
         </span>
 
-        {/* Icons */}
-        <div className="absolute top-3 right-3 flex flex-col gap-2">
-          <button onClick={(()=>setInWishlist(state => !state))} className={` p-2 rounded-full bg-opacity-60 flex items-center justify-center text-white cursor-pointer ${inWishlist ? 'bg-red-500' : 'bg-gray-800 '} `}>
-            <FaHeart size={20} />
-          </button>
-          <button onClick={(()=>setInCart(state => !state))} className={` p-2 rounded-full bg-gray-800 bg-opacity-60 flex items-center justify-center text-white cursor-pointer ${inCart ? 'bg-red-500' : 'bg-gray-800 '}`}>
-            <IoCart size={20} />
-          </button>
-        </div>
+        
       </div>
 
       {/* Title + Price */}
