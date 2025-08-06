@@ -40,7 +40,7 @@ const HeroSection = () => {
 
   const fetchBanners = async () => {
     const res = await getHomeBanners();
-    setBanners(res);
+    if(res) setBanners(res);
   };
 
   useEffect(() => {
@@ -101,7 +101,7 @@ const HeroSection = () => {
       <div className="w-full md:w-1/2 h-full flex flex-col justify-center">
         {banners?.length != 0 && (
           <Slider {...leftSliderSettings}>
-            {banners.map((item) => (
+            {banners?.map((item) => (
               <div
                 key={item._id}
                 className="w-full h-[300px] md:h-[400px] p-2 md:p-4 space-y-4 md:space-y-6 flex flex-col justify-center"
