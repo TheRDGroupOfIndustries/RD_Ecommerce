@@ -143,7 +143,7 @@ const Header = () => {
       <div className="">
         <Link to="/">
           <img
-            src="/logo.svg"
+            src="/website-logo-1.jpg"
             alt="logo"
             className="cursor-pointer h-8 md:h-10"
           />
