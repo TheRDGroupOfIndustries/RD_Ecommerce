@@ -158,7 +158,7 @@ const QuickView = ({ product, setIsQuickViewOpen }) => {
 
           <div className="flex space-x-3 mb-6 flex-wrap gap-y-3">
             <button
-              onClick={handleAddToCart}
+              onClick={()=>dispatch(addProductToCart({ productId: product._id, quantity }))}
               className="flex-1 min-w-[180px] px-6 py-3 bg-blue-600 text-white font-semibold rounded-md shadow-md hover:bg-blue-700 transition duration-300 flex items-center justify-center space-x-2 cursor-pointer"
             >
               ADD TO CART

@@ -65,16 +65,18 @@ const DefaultDetailsSection = ({ product, reviews }) => {
   const discountedPrice = productPrice * (1 - discountPercentage);
   const savings = productPrice * discountPercentage;
 
-  const averageRating = reviews.length > 0 ?
-    reviews.reduce((sum, r) => sum + r.rating, 0) / reviews.length : 0
+  const averageRating =
+    reviews.length > 0
+      ? reviews.reduce((sum, r) => sum + r.rating, 0) / reviews.length
+      : 0;
 
-  const handleAddToCart = () => {
-    if (!isAuthenticated) {
-      toast.error("Please login to add items to cart");
-      return;
-    }
-    dispatch(addProductToCart({ productId: product._id, quantity }));
-  };
+  // const handleAddToCart = () => {
+  //   if (!isAuthenticated) {
+  //     toast.error("Please login to add items to cart");
+  //     return;
+  //   }
+  //   dispatch(addProductToCart({ productId: product._id, quantity }));
+  // };
   return (
     <section className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-10 p-4 md:p-8 lg:p-10  mx-auto mt-6">
       {/* Images Section */}
@@ -120,7 +122,9 @@ const DefaultDetailsSection = ({ product, reviews }) => {
         {/* Ratings */}
         <div className="flex items-center justify-center lg:justify-start space-x-3">
           <div className="flex items-center space-x-2">
-            <span className="font-medium text-gray-800">{Math.round(averageRating)}</span>
+            <span className="font-medium text-gray-800">
+              {Math.round(averageRating)}
+            </span>
             <RatingStars rating={Math.round(averageRating)} />
           </div>
           <span className="text-sm text-gray-600">
@@ -143,9 +147,9 @@ const DefaultDetailsSection = ({ product, reviews }) => {
           <p className="text-gray-700 leading-relaxed text-base rounded-lg">
             {product?.description}
             Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry. Lorem Ipsum has been the industry's standard dummy text ever
-            since the 1500s, when an unknown printer took a galley of type and
-            scrambled it to make a type specimen book.
+            industry. Lorem Ipsum has been the industry's standard dummy text
+            ever since the 1500s, when an unknown printer took a galley of type
+            and scrambled it to make a type specimen book.
           </p>
         </div>
 
@@ -237,7 +241,7 @@ const DefaultDetailsSection = ({ product, reviews }) => {
 
       {/* Actions Section */}
       <div className="lg:col-span-1">
-        <div className="w-full md:border md:border-gray-300 md:rounded-lg flex flex-col p-5 space-y-6 h-full">
+        <div className="w-full md:border md:border-gray-300 md:rounded-lg flex flex-col p-5 space-y-6 h-fit">
           <div className="border border-green-300 bg-green-50 text-green-700 px-4 py-3 rounded-lg flex items-center justify-center text-sm font-medium">
             Bank offer: Get 5% Off!
           </div>
@@ -274,18 +278,23 @@ const DefaultDetailsSection = ({ product, reviews }) => {
             <div className="w-full font-bold flex items-center justify-between">
               <h2 className="text-lg text-gray-800">Total</h2>
               <h2 className="text-2xl text-gray-900">
-                ₹{( product?.salePrice * quantity).toFixed(2)}
+                ₹{(product?.salePrice * quantity).toFixed(2)}
               </h2>
             </div>
           </div>
 
-          <button onClick={()=>{
-            dispatch(addToWishlist(product?._id))
-          }} className="w-full bg-gray-100 text-gray-800 font-semibold py-3 rounded-lg hover:bg-gray-200 transition-colors duration-200 mt-3 cursor-pointer">
+          <button
+            onClick={() => {
+              dispatch(addToWishlist(product?._id));
+            }}
+            className="w-full bg-gray-100 text-gray-800 font-semibold py-3 rounded-lg hover:bg-gray-200 transition-colors duration-200 mt-3 cursor-pointer"
+          >
             Add To Wishlist
           </button>
           <button
-            onClick={handleAddToCart}
+            onClick={() =>
+              dispatch(addProductToCart({ productId: product._id, quantity }))
+            }
             className="w-full bg-blue-600 text-white font-semibold py-3 rounded-lg hover:bg-blue-700 transition-colors duration-200 "
           >
             {loading ? <BtnLoader /> : "Add To Cart"}

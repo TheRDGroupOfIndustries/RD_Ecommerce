@@ -58,7 +58,7 @@ const ReturnRequests = () => {
   };
 
   const handleViewDetails = (requestNo) => {
-    console.log(`Viewing details for return request: #${requestNo}`);
+    // connsole.log(`Viewing details for return request: #${requestNo}`);
     alert(`Navigating to details for return request #${requestNo}`);
   };
 

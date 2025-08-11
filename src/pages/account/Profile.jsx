@@ -10,7 +10,7 @@ function App() {
       userData.first_name.slice(0, 1) + userData.last_name.slice(0, 1)
     ).toUpperCase();
 
-  console.log("TextImage", TextImage);
+  // connsole.log("TextImage", TextImage);
 
   const {
     register,
@@ -23,7 +23,7 @@ function App() {
   // const newPassword = watch("newPassword");
 
   const onSubmit = (data) => {
-    console.log("Form data submitted:", data);
+    // connsole.log("Form data submitted:", data);
 
     // if (data.newPassword && data.newPassword !== data.confirmNewPassword) {
     //   setError("confirmNewPassword", {

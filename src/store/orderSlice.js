@@ -16,10 +16,10 @@ export const createOrder = createAsyncThunk(
     async (orderDetails, { rejectWithValue, getState }) => {
         try {
             const { userData } = getState().auth;
-            console.log("Creating order with details:", {
-                ...orderDetails,
-                user: userData._id,
-            });
+            // connsole.log("Creating order with details:", {
+            //     ...orderDetails,
+            //     user: userData._id,
+            // });
             
             const response = await api.post("/order/create", {
                 ...orderDetails,
@@ -28,8 +28,7 @@ export const createOrder = createAsyncThunk(
             return response.data;
         } catch (error) {
             console.error("Error creating order:", error);
-            return rejectWithValue(
-                error.response?.data || { message: "Failed to create order" }
+            return rejectWithValue({ message: "Failed to create order" }
             );
         }
     }
@@ -41,12 +40,11 @@ export const getAllOrders = createAsyncThunk(
         try {
             const { userData } = getState().auth;
             const response = await api.get(`/order/get/user/${userData._id}`);
-            // console.log("Fetched orders successfully:", response.data);
+            // // connsole.log("Fetched orders successfully:", response.data);
             return response.data;
         } catch (error) {
             // console.error("Error fetching orders:", error);
-            return rejectWithValue(
-                error.response?.data || { message: "Failed to fetch orders" }
+            return rejectWithValue({ message: "Failed to fetch orders" }
             );
         }
     }
@@ -60,8 +58,7 @@ export const getOrderDetails = createAsyncThunk(
             const response = await api.get(`/order/get/user/${userData._id}/${orderId}`);
             return response.data;
         } catch (error) {
-            return rejectWithValue(
-                error.response?.data || { message: "Failed to fetch order details" }
+            return rejectWithValue( { message: "Failed to fetch order details" }
             );
         }
     }
@@ -85,7 +82,7 @@ const orderSlice  = createSlice({
             })
             .addCase(createOrder.fulfilled, (state, action) => {
                 state.loading = false;
-                console.log("Order created successfully:", action.payload);
+                // // connsole.log("Order created successfully:", action.payload);
                 
                 state.orders = action.payload.orders;
                 toast.success("Order created successfully!");
@@ -102,7 +99,7 @@ const orderSlice  = createSlice({
             .addCase(getAllOrders.fulfilled, (state, action) => {
                 state.loading = false;
                 state.orders = action.payload;
-                console.log("Fetched orders successfully:", action.payload);
+                // // connsole.log("Fetched orders successfully:", action.payload);
             })
             .addCase(getAllOrders.rejected, (state, action) => {
                 state.loading = false;

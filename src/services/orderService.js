@@ -10,7 +10,7 @@ const api = axios.create({
 export const getOrderDetails = async (orderId) => {
   try {
     const response = await api.get(`/order/get/user/_/${orderId}`);
-    console.log("response order details: ", response.data);
+    // connsole.log("response order details: ", response.data);
     return response.data;
   } catch (error) {
     console.log(error);

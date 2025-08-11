@@ -29,7 +29,7 @@ const Downloads = () => {
   ]);
 
   const handleDownload = (productName, downloadLink) => {
-    console.log(`Downloading ${productName} from: ${downloadLink}`);
+    // connsole.log(`Downloading ${productName} from: ${downloadLink}`);
     window.open(downloadLink, "_blank");
   };
 

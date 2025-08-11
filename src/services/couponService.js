@@ -11,7 +11,7 @@ const api = axios.create({
 export const getCoupons = async () => {
   try {
     const response = await api.get("/coupons");
-    console.log("Coupon Response: ", response.data);
+    // connsole.log("Coupon Response: ", response.data);
 
     return response.data;
   } catch (error) {
@@ -29,7 +29,7 @@ export const applyCouponCode = async ({ code, userId }) => {
     return response.data;
   } catch (error) {
     console.error(error);
-    toast.error(error.response.data.error)
+    toast.error(error.response.data.error);
     return null;
   }
 };

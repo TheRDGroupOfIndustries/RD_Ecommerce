@@ -25,7 +25,7 @@ const ContactUs = () => {
             <Mail size={24} className="text-pink-600 flex-shrink-0" />
             <div>
               <h3 className="font-semibold text-lg">Email</h3>
-              <p className="text-gray-600">contact@pixio.com</p>
+              <p className="text-gray-600">contact@neeraya.com</p>
             </div>
           </div>
           <div className="flex items-start space-x-4">

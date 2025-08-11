@@ -4,6 +4,7 @@ import SearchProduct from "./SearchProduct";
 import { useState } from "react";
 import { CgProfile } from "react-icons/cg";
 import { useSelector } from "react-redux";
+import { MdKeyboardArrowDown } from "react-icons/md";
 
 // ContentWrapper remains largely the same for desktop dropdowns,
 // but for mobile, the navigation will be a separate overlay.
@@ -153,16 +154,15 @@ const Header = () => {
       {/* Desktop Navigation */}
       <nav className="hidden md:flex gap-2">
         <div className="group">
-          <li className="px-4 py-2 font-semibold cursor-pointer list-none">
-            Home
-          </li>
-          <ContentWrapper>
+          <Link to={"/"}>
+            <li className="px-4 py-2 font-semibold cursor-pointer list-none">
+              Home
+            </li>
+          </Link>
+          {/* <ContentWrapper>
             <div className="p-10 bg-white flex flex-col md:flex-row gap-5 items-center shadow rounded-sm ">
               {homeNavigations.map((page) => (
-                <Link
-                  key={page.id}
-                  to={page.path}
-                >
+                <Link key={page.id} to={page.path}>
                   <div className="space-y-2">
                     <div className="h-40 w-40 md:h-56 md:w-56 overflow-hidden">
                       <img
@@ -176,34 +176,38 @@ const Header = () => {
                 </Link>
               ))}
             </div>
-          </ContentWrapper>
+          </ContentWrapper> */}
         </div>
         <div className="group">
-          <li className="px-4 py-2 font-semibold cursor-pointer list-none">
-            Shop
+          <li className="px-4 py-2 font-semibold cursor-pointer list-none flex items-center gap-1 group">
+            Shop{" "}
+            <MdKeyboardArrowDown
+              size={20}
+              className="group-hover:rotate-180 duration-150"
+            />
           </li>
           <ContentWrapper>
-            <div className="bg-white p-6 md:p-10  shadow rounded-sm">
-              <div className="flex flex-col md:flex-row flex-nowrap gap-5 md:gap-10">
-                {Object.entries(shopNavigations).map(([section, items]) => (
-                  <div key={section}>
-                    <h3 className="text-lg font-semibold mb-3 whitespace-nowrap">
-                      {section}
-                    </h3>
-                    <ul className="space-y-2 text-gray-600">
-                      {items.map((item) => (
-                        <li
-                          key={`${item.title}jfslhfjgs`}
-                          className="hover:text-black cursor-pointer whitespace-nowrap"
-                        >
-                          <Link to={item.path}>{item.title}</Link>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                ))}
-              </div>
-              <div className=" w-full flex gap-10  mt-10">
+            <div className="bg-white p-6 md:p-10 grid grid-cols-2 gap-10 shadow rounded-sm">
+              <div className="space-y-10">
+                <div className="flex flex-col md:flex-row flex-nowrap gap-5 md:gap-10">
+                  {Object.entries(shopNavigations).map(([section, items]) => (
+                    <div key={section}>
+                      <h3 className="text-lg font-semibold mb-3 whitespace-nowrap">
+                        {section}
+                      </h3>
+                      <ul className="space-y-2 text-gray-600">
+                        {items.map((item) => (
+                          <li
+                            key={`${item.title}jfslhfjgs`}
+                            className="hover:text-black cursor-pointer whitespace-nowrap"
+                          >
+                            <Link to={item.path}>{item.title}</Link>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  ))}
+                </div>
                 <div className="border border-gray-400 p-4 rounded-sm">
                   <div className="">
                     <h4 className="text-lg font-bold mb-2">
@@ -211,7 +215,7 @@ const Header = () => {
                     </h4>
                     <p className="text-sm text-gray-600 mb-2 ">
                       Yes! Send me exclusive offers, personalized, and unique
-                      gift ideas, tips for shopping on Pixio
+                      gift ideas, tips for shopping on Neeraya
                     </p>
                     <button className="text-blue-500 font-medium hover:underline mb-4">
                       View All Products
@@ -245,6 +249,8 @@ const Header = () => {
                     </div>
                   </div>
                 </div>
+              </div>
+              <div className=" w-full flex gap-10 ">
                 <img
                   src="/adv-1.webp"
                   alt="Fashion"
@@ -255,12 +261,16 @@ const Header = () => {
           </ContentWrapper>
         </div>
         <div className="group">
-          <li className="px-4 py-2 font-semibold cursor-pointer list-none">
-            Blog
+          <li className="px-4 py-2 font-semibold cursor-pointer list-none flex items-center gap-1 group">
+            Blog{" "}
+            <MdKeyboardArrowDown
+              size={20}
+              className="group-hover:rotate-180 duration-150"
+            />
           </li>
           <ContentWrapper>
             <div className="bg-white p-6 md:p-10 flex flex-col md:flex-row flex-nowrap gap-5 md:gap-10 shadow rounded-sm">
-              <div className="w-full md:w-2xl grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-10 whitespace-nowrap">
+              <div className="w-full md:w-3xl grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-10 whitespace-nowrap">
                 {Object.entries(blogNavigations).map(([section, items]) => (
                   <div key={section}>
                     <h3 className="text-lg font-semibold mb-3">{section}</h3>
@@ -276,42 +286,35 @@ const Header = () => {
                     </ul>
                   </div>
                 ))}
-              </div>
 
-              {/* Recent Posts */}
-              <div>
-                <h3 className="text-lg font-semibold mb-4">Recent Posts</h3>
-                <ul className="space-y-4">
-                  {recentPosts.map((post) => (
-                    <li
-                      key={post.title}
-                      className="flex gap-4 items-start"
-                    >
-                      <img
-                        src={post.image}
-                        alt={post.title}
-                        className="w-12 h-12 rounded-md object-cover"
-                      />
-                      <div className="text-sm">
-                        <p className="font-semibold leading-tight">
-                          {post.title}
-                        </p>
-                        <p className="text-gray-500 text-xs mt-1">
-                          {post.date}
-                        </p>
-                      </div>
-                    </li>
-                  ))}
-                </ul>
+                <div>
+                  <h3 className="text-lg font-semibold mb-4">Recent Posts</h3>
+                  <ul className="space-y-4">
+                    {recentPosts.map((post) => (
+                      <li key={post.title} className="flex gap-4 items-start">
+                        <img
+                          src={post.image}
+                          alt={post.title}
+                          className="w-12 h-12 rounded-md object-cover"
+                        />
+                        <div className="text-sm">
+                          <p className="font-semibold leading-tight">
+                            {post.title}
+                          </p>
+                          <p className="text-gray-500 text-xs mt-1">
+                            {post.date}
+                          </p>
+                        </div>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               </div>
             </div>
           </ContentWrapper>
         </div>
 
-        <Link
-          to="/about-us"
-          className="px-4 py-2 font-semibold cursor-pointer"
-        >
+        <Link to="/about-us" className="px-4 py-2 font-semibold cursor-pointer">
           About Us
         </Link>
         <Link
@@ -348,10 +351,7 @@ const Header = () => {
 
       <div className="flex items-center gap-4 md:gap-10 justify-between">
         <div className="flex items-center gap-4 md:gap-8">
-          <button
-            onClick={openSearchPannel}
-            className="cursor-pointer "
-          >
+          <button onClick={openSearchPannel} className="cursor-pointer ">
             <Search style={{ width: "20px", height: "20px" }} />
           </button>
           {isAuthenticated ? (
@@ -365,10 +365,7 @@ const Header = () => {
                 </div>
                 <Heart style={{ width: "20px", height: "20px" }} />
               </Link>
-              <Link
-                to={"/account/cart"}
-                className="relative hidden lg:block"
-              >
+              <Link to={"/account/cart"} className="relative hidden lg:block">
                 <div className="absolute -right-3 -top-3 rounded-full bg-red-500 text-white text-xs w-4 h-4 flex items-center justify-center">
                   {totalQuantity}
                 </div>
@@ -407,25 +404,22 @@ const Header = () => {
       >
         <div className="flex justify-between items-center p-4 border-b">
           <Link to="/">
-            <img
-              src="/logo.svg"
-              alt="logo"
-              className="cursor-pointer h-8"
-            />
+            <img src="/website-logo-1.jpg" alt="logo" className="cursor-pointer h-8" />
           </Link>
-          <button
-            onClick={() => setOpenMenu(false)}
-            className="text-2xl"
-          >
+          <button onClick={() => setOpenMenu(false)} className="text-2xl">
             &times;
           </button>
         </div>
         <nav className="p-4 flex flex-col gap-4">
-          <details className="py-2 border-b">
-            <summary className="text-lg font-semibold cursor-pointer">
-              Home
-            </summary>
-            <div className="p-4  grid grid-cols-2 md:grid-cols-3 gap-5 ">
+          {/* <details className="py-2 border-b"> */}
+          <Link
+            onClick={() => setOpenMenu(false)}
+            to="/"
+            className="text-lg font-semibold cursor-pointer"
+          >
+            Home
+          </Link>
+          {/* <div className="p-4  grid grid-cols-2 md:grid-cols-3 gap-5 ">
               {homeNavigations.map((page) => (
                 <Link
                   key={page.id}
@@ -444,28 +438,22 @@ const Header = () => {
                   </div>
                 </Link>
               ))}
-            </div>
-          </details>
+            </div> */}
+          {/* </details> */}
           <details className="py-2 border-b">
             <summary className="text-lg font-semibold cursor-pointer">
               Shop
             </summary>
             <div className="pl-4 pt-2">
               {Object.entries(shopNavigations).map(([section, items]) => (
-                <div
-                  key={section}
-                  className="mb-4"
-                >
+                <div key={section} className="mb-4">
                   <h4 className="font-semibold text-gray-800 mt-2">
                     {section}
                   </h4>
                   <ul className="space-y-1 text-gray-600 text-sm">
                     {items.map((item) => (
                       <li key={item.title}>
-                        <Link
-                          to={item.path}
-                          onClick={() => setOpenMenu(false)}
-                        >
+                        <Link to={item.path} onClick={() => setOpenMenu(false)}>
                           {item.title}
                         </Link>
                       </li>
@@ -481,20 +469,14 @@ const Header = () => {
             </summary>
             <div className="pl-4 pt-2">
               {Object.entries(blogNavigations).map(([section, items]) => (
-                <div
-                  key={section}
-                  className="mb-4"
-                >
+                <div key={section} className="mb-4">
                   <h4 className="font-semibold text-gray-800 mt-2">
                     {section}
                   </h4>
                   <ul className="space-y-1 text-gray-600 text-sm">
                     {items.map((item) => (
                       <li key={item.title}>
-                        <Link
-                          to={item.path}
-                          onClick={() => setOpenMenu(false)}
-                        >
+                        <Link to={item.path} onClick={() => setOpenMenu(false)}>
                           {item.title}
                         </Link>
                       </li>
@@ -520,25 +502,57 @@ const Header = () => {
           </Link>
 
           {isAuthenticated ? (
-            <details className="py-2 border-b">
-              <summary className="text-lg font-semibold cursor-pointer">
-                My Account
-              </summary>
-              <div className="pl-4 pt-2">
-                <ul className="space-y-1 text-gray-600 text-sm">
-                  {dashboardLinks.map((item) => (
-                    <li key={item.name}>
-                      <Link
-                        to={item.path}
-                        onClick={() => setOpenMenu(false)}
-                      >
-                        {item.name}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
+            <>
+              <details className="py-2 border-b">
+                <summary className="text-lg font-semibold cursor-pointer">
+                  My Account
+                </summary>
+                <div className="pl-4 pt-2">
+                  <ul className="space-y-1 text-gray-600 text-sm">
+                    {dashboardLinks.map((item) => (
+                      <li key={item.name}>
+                        <Link to={item.path} onClick={() => setOpenMenu(false)}>
+                          {item.name}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </details>
+
+              <div className="flex flex-col gap-4 mt-4">
+                <Link
+                  to={"/account/wishlist"}
+                  className="flex items-center gap-2 text-gray-700 hover:text-black relative"
+                  onClick={() => setOpenMenu(false)}
+                >
+                  <Heart style={{ width: "20px", height: "20px" }} /> Wishlist
+                  <span className="absolute left-4 top-0 bg-red-500 text-white text-xs w-4 h-4 flex items-center justify-center rounded-full">
+                    {userData?.wishlist_products?.length}
+                  </span>
+                </Link>
+                <Link
+                  to={"/account/cart"}
+                  className="flex items-center gap-2 text-gray-700 hover:text-black relative"
+                  onClick={() => setOpenMenu(false)}
+                >
+                  <ShoppingCart style={{ width: "20px", height: "20px" }} />{" "}
+                  Cart
+                  <span className="absolute left-4 top-0 bg-red-500 text-white text-xs w-4 h-4 flex items-center justify-center rounded-full">
+                    {totalQuantity}
+                  </span>
+                </Link>
+                {isAuthenticated && (
+                  <Link
+                    to={"/account"}
+                    className="flex items-center gap-2 text-gray-700 hover:text-black"
+                    onClick={() => setOpenMenu(false)}
+                  >
+                    <CgProfile size={24} /> Profile
+                  </Link>
+                )}
               </div>
-            </details>
+            </>
           ) : (
             <Link
               className="text-lg font-semibold py-2 border-b"
@@ -548,38 +562,6 @@ const Header = () => {
               Login
             </Link>
           )}
-
-          <div className="flex flex-col gap-4 mt-4">
-            <Link
-              to={"/account/wishlist"}
-              className="flex items-center gap-2 text-gray-700 hover:text-black relative"
-              onClick={() => setOpenMenu(false)}
-            >
-              <Heart style={{ width: "20px", height: "20px" }} /> Wishlist
-              <span className="absolute left-4 top-0 bg-red-500 text-white text-xs w-4 h-4 flex items-center justify-center rounded-full">
-                {userData?.wishlist_products?.length}
-              </span>
-            </Link>
-            <Link
-              to={"/account/cart"}
-              className="flex items-center gap-2 text-gray-700 hover:text-black relative"
-              onClick={() => setOpenMenu(false)}
-            >
-              <ShoppingCart style={{ width: "20px", height: "20px" }} /> Cart
-              <span className="absolute left-4 top-0 bg-red-500 text-white text-xs w-4 h-4 flex items-center justify-center rounded-full">
-                {totalQuantity}
-              </span>
-            </Link>
-            {isAuthenticated && (
-              <Link
-                to={"/account"}
-                className="flex items-center gap-2 text-gray-700 hover:text-black"
-                onClick={() => setOpenMenu(false)}
-              >
-                <CgProfile size={24} /> Profile
-              </Link>
-            )}
-          </div>
         </nav>
       </div>
     </div>

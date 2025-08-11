@@ -35,18 +35,15 @@ const chartData = [
 
 const Dashboard = () => {
   const { userData, isAuthenticated } = useSelector((state) => state.auth);
-  const { orders } = useSelector(state => state.order)
+  const { orders } = useSelector((state) => state.order);
   const dispatch = useDispatch();
 
-  const pendingOrders = orders?.filter(order => order.status === 'pending')
-  console.log("pendingOrders", pendingOrders);
-  
+  const pendingOrders = orders?.filter((order) => order.status === "pending");
+  // // connsole.log("pendingOrders", pendingOrders);
 
   const handleLogout = () => {
     dispatch(logout());
   };
-
-
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -89,7 +86,11 @@ const Dashboard = () => {
 
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
         <Card icon="🛒" title="Total Order" value={orders?.length} />
-        <Card icon="🚚" title="Total Pending Order" value={pendingOrders?.length} />
+        <Card
+          icon="🚚"
+          title="Total Pending Order"
+          value={pendingOrders?.length}
+        />
         <Card icon="⚙️" title="Total Wishlist" value="31576" />
       </div>
 

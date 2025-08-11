@@ -35,30 +35,32 @@ const ReviewCard = ({ review }) => {
             />
           ))}
         </div>
-        <p className="text-sm text-gray-700 mt-2 font-semibold">{description}</p>
+        <p className="text-sm text-gray-700 mt-2 font-semibold">
+          {description}
+        </p>
       </div>
     </div>
   );
 };
 
 const Reviews = () => {
-  const [reviews, setReviews] = useState([])
-  const { userData, isAuthenticated } = useSelector(state => state.auth)
+  const [reviews, setReviews] = useState([]);
+  const { userData, isAuthenticated } = useSelector((state) => state.auth);
 
   const fetchReviews = async () => {
-    const response = await getUserReviews(userData?._id)
-    if(response){
-      console.log("Review Response: ", response);
-      
-      setReviews(response)
-    }
-  }
+    const response = await getUserReviews(userData?._id);
+    if (response) {
+      // connsole.log("Review Response: ", response);
 
-  useEffect(()=>{
-    if(isAuthenticated){
-      fetchReviews()
+      setReviews(response);
     }
-  }, [isAuthenticated])
+  };
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      fetchReviews();
+    }
+  }, [isAuthenticated]);
 
   return (
     <div className="w-full">

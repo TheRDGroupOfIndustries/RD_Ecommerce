@@ -15,13 +15,11 @@ export const login = createAsyncThunk(
   async (credentials, { rejectWithValue }) => {
     try {
       const response = await api.post("/login", credentials);
-      console.log("login response:", response.data);
-      
+      // // connsole.log("login response:", response.data);
+
       return response.data;
     } catch (error) {
-      return rejectWithValue(
-        error.response?.data || { message: "Login failed" }
-      );
+      return rejectWithValue({ message: "Login failed" });
     }
   }
 );
@@ -35,12 +33,10 @@ export const signUp = createAsyncThunk(
           "Content-Type": "application/json",
         },
       });
-      console.log(response.data);
+      // connsole.log(response.data);
       return response.data;
     } catch (error) {
-      return rejectWithValue(
-        error.response?.data || { message: "Registration failed" }
-      );
+      return rejectWithValue({ message: "Registration failed" });
     }
   }
 );
@@ -49,7 +45,7 @@ export const getTokenData = createAsyncThunk(
   "auth/validate",
   async (token, { rejectWithValue }) => {
     try {
-      // console.log("getting details...", token);
+      // // connsole.log("getting details...", token);
 
       const response = await api.get("/details", {
         headers: {
@@ -57,12 +53,10 @@ export const getTokenData = createAsyncThunk(
           "Content-Type": "application/json",
         },
       });
-        // console.log(response.data);
+      // // connsole.log(response.data);
       return response.data;
     } catch (error) {
-      return rejectWithValue(
-        error.response?.data || { message: "Token not valid" }
-      );
+      return rejectWithValue({ message: "Token not valid" });
     }
   }
 );
@@ -71,39 +65,48 @@ export const addToWishlist = createAsyncThunk(
   "auth/addToWishlist",
   async (productId, { rejectWithValue, getState }) => {
     try {
-      const { userData } = getState().auth;
-      const response = await axios.put(`${import.meta.env.VITE_SERVER_BASE_URL}/api/wishlist/add-to-wishlist`, {
-        userId: userData._id,
-        productId: productId
-      })
+      const { userData, isAuthenticated } = getState().auth;
+      if (!isAuthenticated) {
+        return rejectWithValue({
+          message: "Please login to add items to Wishlist.",
+        });
+      }
+      const response = await axios.put(
+        `${import.meta.env.VITE_SERVER_BASE_URL}/api/wishlist/add-to-wishlist`,
+        {
+          userId: userData._id,
+          productId: productId,
+        }
+      );
 
-      return response.data
+      return response.data;
     } catch (error) {
-      return rejectWithValue(error.response?.data || { message: "Failed to add to wishlist" });
-      
+      return rejectWithValue({ message: "Failed to add to wishlist" });
     }
   }
-)
+);
 
 export const removeFromWishlist = createAsyncThunk(
   "auth/removeFromWishlist",
   async (productId, { rejectWithValue, getState }) => {
     try {
       const { userData } = getState().auth;
-      const response = await axios.put(`${import.meta.env.VITE_SERVER_BASE_URL}/api/wishlist/remove-from-wishlist`, {
-        userId: userData._id,
-        productId: productId
-      })
+      const response = await axios.put(
+        `${
+          import.meta.env.VITE_SERVER_BASE_URL
+        }/api/wishlist/remove-from-wishlist`,
+        {
+          userId: userData._id,
+          productId: productId,
+        }
+      );
 
-      return response.data
+      return response.data;
     } catch (error) {
-      return rejectWithValue(error.response?.data || { message: "Failed to add to wishlist" });
-      
+      return rejectWithValue({ message: "Failed to add to wishlist" });
     }
   }
-)
-
-
+);
 
 const authSlice = createSlice({
   name: "auth",
@@ -149,7 +152,7 @@ const authSlice = createSlice({
         state.loading = true;
       })
       .addCase(signUp.fulfilled, (state, action) => {
-        // console.log("payload", action.payload);
+        // // connsole.log("payload", action.payload);
         state.loading = false;
         toast.success(action.payload);
       })
@@ -177,15 +180,15 @@ const authSlice = createSlice({
         toast.success("Product Added To Your Wishlist");
       })
       .addCase(addToWishlist.rejected, (state, action) => {
-        toast.error("Something went wrong");
+        toast.error(action.payload.message);
       })
       .addCase(removeFromWishlist.fulfilled, (state, action) => {
         state.userData = action.payload.user;
-        toast.success("Product Added To Your Wishlist");
+        toast.success("Product Removed From Your Wishlist");
       })
       .addCase(removeFromWishlist.rejected, (state, action) => {
-        toast.error("Something went wrong");
-      })
+        toast.error(action.payload.message);
+      });
   },
 });
 

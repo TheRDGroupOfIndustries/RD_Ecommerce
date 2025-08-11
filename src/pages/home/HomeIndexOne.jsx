@@ -97,7 +97,6 @@ const featuredCategoriesData = [
   { image: "/jeans.webp", title: "jeans" },
 ];
 
-
 const featuredItems = [
   {
     title: "Cozy Knit Cardigan Sweater",
@@ -269,7 +268,7 @@ const HomeIndexOne = () => {
   const fetchBlockbusterDeals = async () => {
     const res = await getBlockbusterDeals();
     if (res) {
-      console.log("Blockbuster Deals: ---", res);
+      // connsole.log("Blockbuster Deals: ---", res);
 
       setBlockbusterDeals(res);
     } else {
@@ -307,40 +306,23 @@ const HomeIndexOne = () => {
                 className="text-center space-y-10"
               >
                 <img src={item.image} alt={item.title} className="h-[180px] " />
-                <button className="capitalize rounded-full border-[1px] border-black px-4 py-2 bg-white cursor-pointer ">
+                <Link
+                  to="/shop-standard"
+                  className="capitalize rounded-full border-[1px] border-black px-4 py-2 bg-white cursor-pointer "
+                >
                   {item.title}
-                </button>
+                </Link>
               </div>
             ))}
           </div>
         </div>
         <div className="w-full hidden md:block lg:w-[30%] bg-black relative">
-          {/* <div className="rotating-circle bg-white rounded-full hidden lg:block absolute top-1/2 -translate-1/2 left-0 ">
-            <svg viewBox="0 0 200 200" className="rotating-text font-semibold">
-              <defs>
-                <path
-                  id="circlePath"
-                  d="M100,100 m-75,0 a75,75 0 1,1 150,0 a75,75 0 1,1 -150,0"
-                />
-              </defs>
-              <text font-size="16" fill="black" letter-spacing="4">
-                <textPath href="#circlePath" startOffset="0%" className="">
-                  MORE COLLECTION • MORE COLLECTION •
-                </textPath>
-              </text>
-            </svg>
-
-            <div className="center-arrow">
-              <span className=""><FaArrowLeftLong/></span>
-            </div>
-          </div> */}
-
           <div className="p-10 lg:p-28 space-y-4">
             <h1 className="text-3xl font-semibold text-white ">
               Featured Categories
             </h1>
             <p className="text-sm text-white">
-              Discover the most trending products in Pixio.
+              Discover the most trending products in Neeraya.
             </p>
             <div className="">
               <button variant={"link"}>
@@ -362,7 +344,10 @@ const HomeIndexOne = () => {
             alt="Woman Fashion"
             className="w-full h-full object-cover"
           />
-          <Link to={"/shop-standard"} className="absolute bottom-4 left-4 px-6 py-2 bg-white border border-black rounded-full font-semibold text-black shadow">
+          <Link
+            to={"/shop-standard"}
+            className="absolute bottom-4 left-4 px-6 py-2 bg-white border border-black rounded-full font-semibold text-black shadow"
+          >
             Woman Collection
           </Link>
         </div>
@@ -389,7 +374,10 @@ const HomeIndexOne = () => {
                 alt="Child Fashion"
                 className="w-full h-full object-cover"
               />
-              <Link to={"/shop-standard"}  className="absolute bottom-4 left-4 px-5 py-2 bg-white border border-black rounded-full font-semibold text-black shadow">
+              <Link
+                to={"/shop-standard"}
+                className="absolute bottom-4 left-4 px-5 py-2 bg-white border border-black rounded-full font-semibold text-black shadow"
+              >
                 Child Fashion
               </Link>
             </div>
@@ -405,7 +393,10 @@ const HomeIndexOne = () => {
               <div className="absolute top-3 right-3 bg-[#FEEB9D] text-black font-semibold px-4 py-1 rounded-full shadow-md text-sm z-10">
                 50% Sale
               </div>
-              <Link to={"/shop-standard"}  className="absolute bottom-4 left-4 px-5 py-2 bg-white border border-black rounded-full font-semibold text-black shadow">
+              <Link
+                to={"/shop-standard"}
+                className="absolute bottom-4 left-4 px-5 py-2 bg-white border border-black rounded-full font-semibold text-black shadow"
+              >
                 Man Collection
               </Link>
             </div>
@@ -474,7 +465,10 @@ const HomeIndexOne = () => {
               <p className="mt-2 text-sm text-center">
                 Up To 60% Off + Up To ₹107 CashBACK
               </p>
-              <Link to={"/shop-standard"}  className="bg-white text-black font-semibold px-10 py-2 mt-5 rounded-md">
+              <Link
+                to={"/shop-standard"}
+                className="bg-white text-black font-semibold px-10 py-2 mt-5 rounded-md"
+              >
                 SEE ALL
               </Link>
             </div>
@@ -486,7 +480,10 @@ const HomeIndexOne = () => {
       <section className="bg-[#fdf7ef] px-4 md:px-20 py-10">
         <div className="flex items-center justify-between">
           <h2 className="text-2xl font-bold">Blockbuster Deals</h2>
-          <Link to={"/shop-standard"}  className="text-sm font-medium hover:underline flex items-center gap-1">
+          <Link
+            to={"/shop-standard"}
+            className="text-sm font-medium hover:underline flex items-center gap-1"
+          >
             See All Deals <span>➜</span>
           </Link>
         </div>
@@ -510,7 +507,10 @@ const HomeIndexOne = () => {
       <section className="bg-[#fdf7ef] px-4 md:px-10 lg:px-20 py-10">
         <div className="flex items-center justify-between mb-6">
           <h2 className="text-2xl font-bold">Featured Offer For You</h2>
-          <Link to={"/shop-standard"}  className="text-sm font-medium hover:underline flex items-center gap-1">
+          <Link
+            to={"/shop-standard"}
+            className="text-sm font-medium hover:underline flex items-center gap-1"
+          >
             See All <span>➜</span>
           </Link>
         </div>
@@ -533,7 +533,10 @@ const HomeIndexOne = () => {
                   <h3 className="text-3xl font-bold leading-tight mb-4">
                     {item.title}
                   </h3>
-                  <Link to={"/shop-standard"} className="border-2 border-black px-4 py-2 rounded-full font-semibold hover:bg-black hover:text-white transition">
+                  <Link
+                    to={"/shop-standard"}
+                    className="border-2 border-black px-4 py-2 rounded-full font-semibold hover:bg-black hover:text-white transition"
+                  >
                     Collect Now
                   </Link>
                 </div>
@@ -546,7 +549,10 @@ const HomeIndexOne = () => {
       <section className="bg-[#fdf7ef] px-4 md:px-10 lg:px-20 py-10">
         <div className="flex justify-between items-center mb-6">
           <h2 className="text-2xl font-bold">Featured Now</h2>
-          <Link to={"/shop-standard"}  className="text-sm font-medium hover:underline flex items-center gap-1">
+          <Link
+            to={"/shop-standard"}
+            className="text-sm font-medium hover:underline flex items-center gap-1"
+          >
             See All <span>➜</span>
           </Link>
         </div>
@@ -605,7 +611,10 @@ const HomeIndexOne = () => {
               <p className="mt-2 text-sm text-center">
                 Up To 60% Off + Up To ₹107 CashBACK
               </p>
-              <Link to={"/shop-standard"}  className="bg-white text-black font-semibold px-10 py-2 mt-5 rounded-md">
+              <Link
+                to={"/shop-standard"}
+                className="bg-white text-black font-semibold px-10 py-2 mt-5 rounded-md"
+              >
                 SEE ALL
               </Link>
             </div>
@@ -658,7 +667,7 @@ const HomeIndexOne = () => {
         <div className=" mx-auto">
           <div className="flex justify-between items-start mb-12">
             <h2 className="text-5xl font-bold text-gray-900 leading-tight">
-              Discover The Most Trending Post In Pixio.
+              Discover The Most Trending Post In Neeraya.
             </h2>
           </div>
 
@@ -680,7 +689,10 @@ const HomeIndexOne = () => {
                     <h3 className="text-xl font-semibold mb-2 leading-snug">
                       {post.title}
                     </h3>
-                    <Link to={"/shop-standard"}  className="absolute bottom-6 right-6 p-3 rounded-full bg-white text-gray-800 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1">
+                    <Link
+                      to={"/shop-standard"}
+                      className="absolute bottom-6 right-6 p-3 rounded-full bg-white text-gray-800 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1"
+                    >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         className="h-5 w-5"
@@ -745,7 +757,10 @@ const HomeIndexOne = () => {
           <h2 className="text-3xl sm:text-4xl lg:text-6xl font-bold text-gray-900 leading-tight mb-8">
             Upgrade Your Style With Our Top-Notch Collection.
           </h2>
-          <Link to={"/shop-standard"}  className="bg-black text-white px-8 py-4 rounded-full text-lg font-medium hover:bg-gray-800 transition duration-300">
+          <Link
+            to={"/shop-standard"}
+            className="bg-black text-white px-8 py-4 rounded-full text-lg font-medium hover:bg-gray-800 transition duration-300"
+          >
             All Collections
           </Link>
         </div>

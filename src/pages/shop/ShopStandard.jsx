@@ -64,13 +64,20 @@ const ShopStandard = ({ viewMode, categorySection = false }) => {
   const [tag, setTag] = useState("");
 
   useEffect(() => {
-    const filter = { color, size, category, tag, sortBy, limit: productsPerPage };
-    // console.log("Filter", filter);
+    const filter = {
+      color,
+      size,
+      category,
+      tag,
+      sortBy,
+      limit: productsPerPage,
+    };
+    // // connsole.log("Filter", filter);
     fetchProducts(filter);
   }, [color, size, category, tag, sortBy, productsPerPage]);
 
   const handleReset = () => {
-    // console.log("Reset...");
+    // // connsole.log("Reset...");
 
     setColor("");
     setSize("");
@@ -242,7 +249,6 @@ const ShopStandard = ({ viewMode, categorySection = false }) => {
                   ))}
                 </div>
               </div>
-
             </div>
           </div>
 

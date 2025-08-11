@@ -22,7 +22,7 @@ const AboutUs = () => {
         <div className="order-2 md:order-1">
           <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Our Founding Story</h2>
           <p className="text-gray-600 leading-relaxed">
-            Pixio was born out of a simple idea: to make high-quality, fashionable clothing accessible to everyone. Our founder, Jane Doe, started the company from her small apartment, designing and hand-making pieces for friends. The passion for style and commitment to quality quickly resonated, leading to the launch of our first online store.
+            Neeraya was born out of a simple idea: to make high-quality, fashionable clothing accessible to everyone. Our founder, Jane Doe, started the company from her small apartment, designing and hand-making pieces for friends. The passion for style and commitment to quality quickly resonated, leading to the launch of our first online store.
           </p>
         </div>
         <div className="order-1 md:order-2">
@@ -124,7 +124,7 @@ const AboutUs = () => {
               <Calendar size={16} />
             </div>
             <h3 className="text-xl font-semibold text-gray-800 mb-1">2018: Founded</h3>
-            <p className="text-gray-600">Pixio is founded by Jane Doe as a small-scale online boutique.</p>
+            <p className="text-gray-600">Neeraya is founded by Jane Doe as a small-scale online boutique.</p>
           </div>
           {/* Timeline Item 2 */}
           <div className="relative">

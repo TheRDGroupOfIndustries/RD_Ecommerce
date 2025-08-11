@@ -4,22 +4,16 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { addProductToCart } from "../store/cartSlice";
 import BtnLoader from "./BtnLoader";
+import { addToWishlist } from "../store/authSlice";
 
 const LongProductCard = ({ product }) => {
   const colors = ["bg-black", "bg-gray-500", "bg-green-500"];
-  const { isAuthenticated }= useSelector(state => state.auth)
-  const { loading } = useSelector(state => state.cart);
-  const [quantity, setQuantity] = useState(1)
-  const dispatch = useDispatch()
+  const { isAuthenticated } = useSelector((state) => state.auth);
+  const { loading } = useSelector((state) => state.cart);
+  const [quantity, setQuantity] = useState(1);
+  const dispatch = useDispatch();
 
 
-  const handleAddToCart = () => {
-    if (!isAuthenticated) {
-      toast.error("Please login to add items to cart");
-      return;
-    }
-    dispatch(addProductToCart({ productId: product._id, quantity }));
-  };
   return (
     <div className=" mx-auto bg-[#fdf7ef] rounded-2xl flex flex-col md:flex-row gap-4 md:gap-6 shadow-md mb-5 p-4 md:p-0">
       {/* Image */}
@@ -35,7 +29,10 @@ const LongProductCard = ({ product }) => {
       <div className="w-full md:w-2/3 flex flex-col justify-between p-0 md:p-4">
         {/* Top section */}
         <div>
-          <Link to={`/product-default/${product?._id}`} className="text-xl md:text-2xl font-semibold mb-1">
+          <Link
+            to={`/product-default/${product?._id}`}
+            className="text-xl md:text-2xl font-semibold mb-1"
+          >
             {product.title}
           </Link>
           <p className="text-xs md:text-sm text-gray-500 mb-2">
@@ -51,9 +48,7 @@ const LongProductCard = ({ product }) => {
               <span className="text-gray-400">★</span>
               <span className="text-gray-400">★</span>
             </div>
-            <span className="text-xs md:text-sm text-gray-600">
-              370 Review
-            </span>
+            <span className="text-xs md:text-sm text-gray-600">370 Review</span>
           </div>
 
           {/* Description */}
@@ -73,7 +68,9 @@ const LongProductCard = ({ product }) => {
           <div className="flex items-center gap-6 md:gap-10">
             <div>
               <p className="text-sm text-gray-500">Price</p>
-              <p className="text-lg md:text-xl font-bold">Rs. {product?.salePrice}</p>
+              <p className="text-lg md:text-xl font-bold">
+                Rs. {product?.salePrice}
+              </p>
             </div>
             {/* <div>
               <p className="text-sm text-gray-500">Color</p>
@@ -94,12 +91,17 @@ const LongProductCard = ({ product }) => {
 
           {/* Buttons */}
           <div className="flex items-center gap-3">
-            <button onClick={handleAddToCart} className="bg-black text-white px-5 py-2 rounded-lg text-sm font-medium hover:bg-gray-800 transition cursor-pointer">
-            {"Add To Cart"}
+            <button
+              onClick={() => {
+                dispatch(addToWishlist(product?._id));
+              }}
+              className="bg-black text-white px-5 py-2 rounded-lg text-sm font-medium hover:bg-gray-800 transition cursor-pointer"
+            >
+              {"Add To Cart"}
             </button>
-            <button className="border border-black p-2 rounded-lg hover:bg-gray-100">
+            {/* <button className="border border-black p-2 rounded-lg hover:bg-gray-100">
               <Heart className="w-5 h-5" />
-            </button>
+            </button> */}
           </div>
         </div>
       </div>

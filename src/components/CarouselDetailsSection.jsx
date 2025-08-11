@@ -3,6 +3,9 @@ import Slider from "react-slick";
 import { Minus, Plus } from "lucide-react";
 import { LuTruck, LuRotateCcw } from "react-icons/lu";
 import { MdArrowBackIos, MdArrowForwardIos } from "react-icons/md";
+import { addProductToCart } from "../store/cartSlice";
+import { addToWishlist } from "../store/authSlice";
+import { useDispatch } from "react-redux";
 
 const images = [
   "/details/product1.webp",
@@ -59,6 +62,7 @@ const CarouselDetailsSection = ({ product, reviews }) => {
   const [quantity, setQuantity] = useState(1);
   const [selectedSize, setSelectedSize] = useState("S");
   const [selectedColor, setSelectedColor] = useState("gray");
+  const dispatch = useDispatch()
   const averageRating =
     reviews.reduce((sum, r) => sum + r.rating, 0) / reviews.length;
   const productPrice = 999;
@@ -225,10 +229,18 @@ const CarouselDetailsSection = ({ product, reviews }) => {
 
         {/* Add to Cart / Wishlist Buttons */}
         <div className="flex flex-col sm:flex-row gap-4 w-full pt-6 pb-6 border-b border-gray-200">
-          <button className="w-full px-6 py-3 font-bold bg-blue-600 text-white rounded-lg uppercase hover:bg-blue-700 transition-colors duration-200 shadow-md">
+        <button
+            onClick={() => {
+              dispatch(addProductToCart({ productId: product._id, quantity }));
+            }}
+            className="w-full px-6 py-3 font-bold bg-blue-600 text-white rounded-lg uppercase hover:bg-blue-700 transition-colors duration-200 shadow-md cursor-pointer"
+          >
             Add To Cart
           </button>
-          <button className="w-full px-6 py-3 font-bold border border-gray-300 text-gray-800 rounded-lg uppercase hover:bg-gray-100 transition-colors duration-200 shadow-sm">
+          <button
+            onClick={() => dispatch(addToWishlist(product?._id))}
+            className="w-full px-6 py-3 font-bold border border-gray-300 text-gray-800 rounded-lg uppercase hover:bg-gray-100 transition-colors duration-200 shadow-sm cursor-pointer"
+          >
             Add To Wishlist
           </button>
         </div>

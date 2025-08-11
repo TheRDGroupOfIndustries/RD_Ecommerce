@@ -6,9 +6,9 @@ const Footer = () => {
       <div className="max-w-screen-xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-10">
         {/* Brand & Contact */}
         <div className="space-y-4">
-          <img src="/logo.svg" alt="Pixio Logo" className="h-10" />
+          <img src="/website-logo-1.jpg" alt="Neeraya Logo" className="h-10" />
           <p>Address : Varanasi, Uttar Pradesh, India</p>
-          <p>E-mail : contact@pixio.com</p>
+          <p>E-mail : contact@neeraya.com</p>
           <p>Phone : +91 8117994713</p>
           <div>
             <p className="font-semibold mt-4 mb-2">
@@ -109,7 +109,7 @@ const Footer = () => {
       {/* Bottom Bar */}
       <div className="mt-12 border-t border-gray-300 py-6 text-sm flex flex-col md:flex-row justify-between items-center max-w-screen-xl mx-auto px-6 gap-4">
         <p>
-          © 2025 <span className="text-red-600 font-semibold">Pixio</span>{" "}
+          © 2025 <span className="text-red-600 font-semibold">Neeraya</span>{" "}
           All Rights Reserved.
         </p>
         <div className="flex items-center gap-2">

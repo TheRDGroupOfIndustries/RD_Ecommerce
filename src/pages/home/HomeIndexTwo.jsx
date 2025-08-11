@@ -334,7 +334,7 @@ const HomeIndexTwo = () => {
               What's trending now
             </h2>
             <p className="text-base sm:text-xl text-gray-700 text-center sm:text-left">
-              Discover the most trending products in Pixio.
+              Discover the most trending products in Neeraya.
             </p>
           </div>
           <button className="px-6 py-3 rounded-md bg-black text-white text-base font-medium hover:bg-gray-800 transition-colors duration-300 shadow-md">
@@ -474,7 +474,7 @@ const HomeIndexTwo = () => {
               Latest Post
             </h2>
             <p className="text-base sm:text-xl text-gray-700 text-center sm:text-left">
-              Discover the most trending products in Pixio.
+              Discover the most trending products in Neeraya.
             </p>
           </div>
           <button className="px-6 py-3 rounded-md bg-black text-white text-base font-medium hover:bg-gray-800 transition-colors duration-300 shadow-md">
@@ -545,7 +545,7 @@ const HomeIndexTwo = () => {
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20">
             <button className="px-6 py-3 sm:px-10 sm:py-4 bg-white rounded-md flex items-center gap-2 text-base sm:text-lg cursor-pointer shadow-lg hover:bg-gray-100 transition-colors duration-300">
               <Instagram size={24} />
-              Follow @Pixio
+              Follow @Neeraya
             </button>
           </div>
         </div>

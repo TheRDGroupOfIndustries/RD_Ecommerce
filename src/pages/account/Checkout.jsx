@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllAddresses } from "../../store/addressSlice";
-import { clearCart, fetchCartItems, setAppliedCoupon } from "../../store/cartSlice";
+import {
+  clearCart,
+  fetchCartItems,
+  setAppliedCoupon,
+} from "../../store/cartSlice";
 import BtnLoader from "../../components/BtnLoader";
 import { createOrder } from "../../store/orderSlice";
 import toast from "react-hot-toast";
@@ -39,13 +43,13 @@ const Checkout = () => {
       totalPrice: Number((totalPrice - discount).toFixed(2)),
     };
 
-    appliedCoupon && (orderDetails.coupon = appliedCoupon?._id)
+    appliedCoupon && (orderDetails.coupon = appliedCoupon?._id);
 
-    console.log("orderDetails", orderDetails);
-    
+    // // connsole.log("orderDetails", orderDetails);
+
     dispatch(createOrder(orderDetails));
     dispatch(clearCart());
-    dispatch(setAppliedCoupon(null))
+    dispatch(setAppliedCoupon(null));
 
     new Promise((resolve) =>
       setTimeout(() => {
@@ -123,60 +127,72 @@ const Checkout = () => {
         ) : (
           <div className="text-gray-500">
             No address found.{" "}
-            <Link to="/account/address" className="text-blue-600 cursor-pointer">Add Address</Link>
+            <Link
+              to="/account/address"
+              className="text-blue-600 cursor-pointer"
+            >
+              Add Address
+            </Link>
           </div>
         )}
       </div>
 
       {/* Cart Items */}
-        <div className="">
-          <h3 className="text-lg font-semibold mb-4">Cart Items</h3>
-          <ul className="divide-y divide-gray-200 border rounded-lg">
-            {items.map((item) => (
-          <li key={item?.product._id} className="flex justify-between p-4 hover:bg-gray-50">
-            <div className="flex items-start space-x-4">
-              <div className="flex-shrink-0">
-            <img
-              src={item?.product.images[0]}
-              alt={item?.product.title}
-              className="w-20 h-20 object-cover rounded-md"
-            />
+      <div className="">
+        <h3 className="text-lg font-semibold mb-4">Cart Items</h3>
+        <ul className="divide-y divide-gray-200 border rounded-lg">
+          {items.map((item) => (
+            <li
+              key={item?.product._id}
+              className="flex justify-between p-4 hover:bg-gray-50"
+            >
+              <div className="flex items-start space-x-4">
+                <div className="flex-shrink-0">
+                  <img
+                    src={item?.product.images[0]}
+                    alt={item?.product.title}
+                    className="w-20 h-20 object-cover rounded-md"
+                  />
+                </div>
+                <div className="flex-1">
+                  <p className="font-medium text-gray-900">
+                    {item?.product.title}
+                  </p>
+                  <p className="text-sm text-gray-600 mt-1">
+                    Qty: {item?.quantity}
+                  </p>
+                </div>
               </div>
-              <div className="flex-1">
-            <p className="font-medium text-gray-900">{item?.product.title}</p>
-            <p className="text-sm text-gray-600 mt-1">
-              Qty: {item?.quantity}
-            </p>
+              <div className="text-right font-medium text-gray-900">
+                ₹{item?.product.salePrice * item?.quantity}
               </div>
-            </div>
-            <div className="text-right font-medium text-gray-900">
-              ₹{item?.product.salePrice * item?.quantity}
-            </div>
-          </li>
-            ))}
-          </ul>
-          
-          <div className="mt-6 space-y-4">
-            <div className="flex justify-between items-center py-2">
-          <span className="text-gray-600">Subtotal:</span>
-          <span className="text-lg font-medium">₹{totalPrice}</span>
-            </div>
+            </li>
+          ))}
+        </ul>
 
-            {appliedCoupon && (
-          <div className="flex justify-between items-center py-2 text-green-600">
-            <span>Discount Applied:</span>
-            <span>-₹{discount}</span>
+        <div className="mt-6 space-y-4">
+          <div className="flex justify-between items-center py-2">
+            <span className="text-gray-600">Subtotal:</span>
+            <span className="text-lg font-medium">₹{totalPrice}</span>
           </div>
-            )}
 
-            <div className="flex justify-between items-center pt-4 border-t border-gray-200">
-          <span className="text-lg font-bold">Total:</span>
-          <span className="text-xl font-bold text-blue-600">₹{(totalPrice - discount).toFixed(2)}</span>
+          {appliedCoupon && (
+            <div className="flex justify-between items-center py-2 text-green-600">
+              <span>Discount Applied:</span>
+              <span>-₹{discount}</span>
             </div>
+          )}
+
+          <div className="flex justify-between items-center pt-4 border-t border-gray-200">
+            <span className="text-lg font-bold">Total:</span>
+            <span className="text-xl font-bold text-blue-600">
+              ₹{(totalPrice - discount).toFixed(2)}
+            </span>
           </div>
         </div>
+      </div>
 
-        {/* Billing Method */}
+      {/* Billing Method */}
       <div>
         <h3 className="text-lg font-semibold mb-2">Billing Method</h3>
         <div className="space-x-4">

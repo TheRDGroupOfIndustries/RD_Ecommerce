@@ -10,7 +10,7 @@ const api = axios.create({
 export const getCategories = async () => {
   try {
     const response = await api.get("/api/categories/all-categories");
-    // console.log("response category: ", response.data);
+    // // connsole.log("response category: ", response.data);
 
     return response.data;
   } catch (error) {
@@ -19,24 +19,22 @@ export const getCategories = async () => {
   }
 };
 
-
 export const getProducts = async (query) => {
   try {
-    // console.log("fetching products ... : ", query);
+    // // connsole.log("fetching products ... : ", query);
 
-    let filter = {}
-    query.color && (filter.color = query.color)
-    query.tag && (filter.tag = query.tag)
-    query.size && (filter.size = query.size)
-    query.category && (filter.category = query.category)
-    query.sortBy && (filter.sortBy = query.sortBy)
-    query.limit && (filter.limit = query.limit)
+    let filter = {};
+    query.color && (filter.color = query.color);
+    query.tag && (filter.tag = query.tag);
+    query.size && (filter.size = query.size);
+    query.category && (filter.category = query.category);
+    query.sortBy && (filter.sortBy = query.sortBy);
+    query.limit && (filter.limit = query.limit);
 
-    
-    const response = await api.get("/api/products/get/get-all-products",{
-      params: filter
+    const response = await api.get("/api/products/get/get-all-products", {
+      params: filter,
     });
-    // console.log("response products: ", response.data);
+    // // connsole.log("response products: ", response.data);
 
     return response.data.data;
   } catch (error) {
@@ -52,7 +50,7 @@ export const searchProducts = async (query) => {
         search: query,
       },
     });
-    // console.log("response search: ", response.data);
+    // // connsole.log("response search: ", response.data);
 
     return response.data;
   } catch (error) {
@@ -64,7 +62,7 @@ export const searchProducts = async (query) => {
 export const getProductDetails = async (id) => {
   try {
     const response = await api.get(`/api/products/get/${id}`);
-    // console.log("response products: ", response.data);
+    // // connsole.log("response products: ", response.data);
 
     return response.data;
   } catch (error) {
@@ -75,8 +73,10 @@ export const getProductDetails = async (id) => {
 
 export const getBlockbusterDeals = async () => {
   try {
-    const response = await api.get("/api/products/get/get-all-products?tag=Blockbuster");
-    // console.log("response Blockcuster: ", response.data.data);
+    const response = await api.get(
+      "/api/products/get/get-all-products?tag=Blockbuster"
+    );
+    // // connsole.log("response Blockcuster: ", response.data.data);
 
     return response.data.data;
   } catch (error) {
@@ -85,15 +85,16 @@ export const getBlockbusterDeals = async () => {
   }
 };
 
-
 export const getHomeBanners = async () => {
   try {
-    const response = await api.get("/api/products/get/get-all-products?tag=banner");
-    // console.log("response Home Banners: ", response.data.data);
+    const response = await api.get(
+      "/api/products/get/get-all-products?tag=banner"
+    );
+    // // connsole.log("response Home Banners: ", response.data.data);
 
     return response.data.data;
   } catch (error) {
     console.log(error);
     return null;
   }
-}
+};

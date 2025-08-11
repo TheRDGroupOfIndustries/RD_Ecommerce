@@ -13,7 +13,12 @@ export const addProductToCart = createAsyncThunk(
   "cart/addToCart",
   async ({ productId, quantity }, { rejectWithValue, getState }) => {
     try {
-      const { userData } = getState().auth;
+      const { userData, isAuthenticated } = getState().auth;
+      if (!isAuthenticated) {
+        return rejectWithValue({
+          message: "Please login to add items to cart.",
+        });
+      }
       const response = await api.post("/cart/add-to-cart", {
         user: userData._id,
         product: {
@@ -24,9 +29,7 @@ export const addProductToCart = createAsyncThunk(
       return response.data;
     } catch (error) {
       console.error("Error adding product to cart:", error);
-      return rejectWithValue(
-        error.response?.data || { message: "Failed to add item to cart" }
-      );
+      return rejectWithValue({ message: "Failed to add item to cart" });
     }
   }
 );
@@ -39,9 +42,7 @@ export const fetchCartItems = createAsyncThunk(
       const response = await api.get(`/cart?user=${userData._id}`);
       return response.data;
     } catch (error) {
-      return rejectWithValue(
-        error.response?.data || { message: "Failed to fetch cart items" }
-      );
+      return rejectWithValue({ message: "Failed to fetch cart items" });
     }
   }
 );
@@ -59,9 +60,7 @@ export const updateQuantity = createAsyncThunk(
       return response.data;
     } catch (error) {
       console.error("Error updating quantity:", error);
-      return rejectWithValue(
-        error.response?.data || { message: "Failed to update quantity" }
-      );
+      return rejectWithValue({ message: "Failed to update quantity" });
     }
   }
 );
@@ -77,9 +76,7 @@ export const deleteCartItem = createAsyncThunk(
       return response.data;
     } catch (error) {
       console.error("Error deleting cart item:", error);
-      return rejectWithValue(
-        error.response?.data || { message: "Failed to delete cart item" }
-      );
+      return rejectWithValue({ message: "Failed to delete cart item" });
     }
   }
 );
@@ -92,10 +89,8 @@ export const clearCart = createAsyncThunk(
       const response = await api.delete(`/cart/delete-all/${userData._id}`);
       return response.data;
     } catch (error) {
-      console.log("Error clearing Cart!", error);
-      return rejectWithValue(
-        error.response?.data || { message: "Failed to clear cart" }
-      );
+      // connsole.log("Error clearing Cart!", error);
+      return rejectWithValue({ message: "Failed to clear cart" });
     }
   }
 );
@@ -125,7 +120,7 @@ const cartSlice = createSlice({
           ? (coupon?.discountValue / 100) * state.totalPrice
           : coupon?.discountValue
         : 0;
-        state.discount = discount.toFixed(2)
+      state.discount = discount.toFixed(2);
     },
   },
   extraReducers: (builder) => {
@@ -145,7 +140,7 @@ const cartSlice = createSlice({
       .addCase(addProductToCart.rejected, (state, action) => {
         state.loading = false;
         console.error("Failed to add product to cart:", action.payload);
-        // toast.error(action.payload.message || "Failed to add product to cart");
+        toast.error(action.payload.message || "Failed to add product to cart");
       })
       .addCase(fetchCartItems.pending, (state) => {
         state.loading = true;
