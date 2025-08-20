@@ -104,7 +104,7 @@ const orderSlice  = createSlice({
             .addCase(getAllOrders.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.payload;
-                toast.error(action.payload.message || "Failed to fetch orders");
+                // toast.error(action.payload.message || "Failed to fetch orders");
             });
     }
 })

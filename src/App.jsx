@@ -2,9 +2,10 @@ import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { Footer, Header } from "./components";
 import { Toaster } from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { getTokenData } from "./store/authSlice";
 import { fetchCartItems } from "./store/cartSlice";
+import { authApi } from "./authentication/auth";
 
 function App() {
   const { pathname } = useLocation();
@@ -21,6 +22,15 @@ function App() {
     }
   }, [isAuthenticated]);
 
+  const [session, setSession] = useState(null);
+
+  // useEffect(() => {
+  //   authApi.getSession().then((s) => {
+  //     setSession(s)
+  //     console.log("Session:", s);
+      
+  //   });
+  // }, []);
 
 
 

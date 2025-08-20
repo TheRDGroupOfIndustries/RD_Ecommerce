@@ -114,14 +114,18 @@ const authSlice = createSlice({
     isAuthenticated: false,
     userData: null,
     loading: false,
-    token: localStorage.getItem("token"),
+    token: localStorage.getItem("neeraya-auth-token"),
   },
   reducers: {
     logout: (state) => {
       state.isAuthenticated = false;
       state.userData = null;
-      localStorage.removeItem("token");
+      localStorage.removeItem("neeraya-auth-token");
       state.token = null;
+    },
+    loginUser: (state, action) => {
+      state.isAuthenticated = true;
+      state.userData = action.payload;
     },
     validateToken: (state, action) => {
       state.isAuthenticated = true;
@@ -139,7 +143,7 @@ const authSlice = createSlice({
       .addCase(login.fulfilled, (state, action) => {
         state.userData = action.payload.user;
         state.token = action.payload.token;
-        localStorage.setItem("token", action.payload.token);
+        localStorage.setItem("neeraya-auth-token", action.payload.token);
         state.isAuthenticated = true;
         state.loading = false;
         toast.success(action.payload.message);
@@ -169,7 +173,7 @@ const authSlice = createSlice({
         state.loading = false;
       })
       .addCase(getTokenData.rejected, (state, action) => {
-        localStorage.removeItem("token");
+        localStorage.removeItem("neeraya-auth-token");
         state.isAuthenticated = false;
         state.token = null;
         state.loading = false;
@@ -192,5 +196,5 @@ const authSlice = createSlice({
   },
 });
 
-export const { validateToken, setToken, logout } = authSlice.actions;
+export const { validateToken, setToken, logout, loginUser } = authSlice.actions;
 export default authSlice.reducer;

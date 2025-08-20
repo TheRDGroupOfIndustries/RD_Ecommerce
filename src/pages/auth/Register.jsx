@@ -21,6 +21,12 @@ const Register = () => {
     dispatch(signUp(data));
   };
 
+  const googleLogin = () => {
+    window.location.href = `${
+      import.meta.env.VITE_SERVER_BASE_URL
+    }/api/auth/google`;
+  };
+
   return (
     <div className="flex items-center justify-center p-6 md:p-12">
       <div className="w-full  rounded-2xl border p-8">
@@ -113,7 +119,7 @@ const Register = () => {
           )}
 
           {/* Remember + Forgot */}
-          <div className="flex items-center justify-between text-sm mt-3">
+          {/* <div className="flex items-center justify-between text-sm mt-3">
             <label className="flex items-center gap-2">
               <input
                 type="checkbox"
@@ -125,7 +131,7 @@ const Register = () => {
             <a href="#" className="text-red-500 hover:underline">
               Forgot Password
             </a>
-          </div>
+          </div> */}
 
           {/* Buttons */}
           <div className="flex gap-4 mt-6">
@@ -134,6 +140,15 @@ const Register = () => {
               className="bg-black text-white px-6 py-2 rounded-md w-full cursor-pointer"
             >
               {loading ? <BtnLoader /> : "SIGN UP"}
+            </button>
+          </div>
+          <div className="flex gap-4 mt-6">
+            <button
+              type="button"
+              onClick={googleLogin}
+              className="w-full flex items-center justify-center bg-white border border-gray-300 text-gray-700 font-semibold py-2 rounded-md hover:bg-gray-50 transition duration-300"
+            >
+              Sign Up with Google
             </button>
           </div>
         </form>

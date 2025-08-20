@@ -17,6 +17,8 @@ import Register from "./pages/auth/Register.jsx";
 import { Provider } from "react-redux";
 import store from "./store/store.js";
 import { AboutUs, ContactUs } from "./pages";
+import NextLogin from "./pages/auth/NextLogin.jsx";
+import AuthCallback from "./pages/auth/AuthCallback.jsx";
 
 const router = createBrowserRouter([
   {
@@ -53,6 +55,10 @@ const router = createBrowserRouter([
           {
             path: "login",
             element: <Login />,
+          },
+          {
+            path: "callback",
+            element: <AuthCallback />,
           },
           {
             path: "register",
