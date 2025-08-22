@@ -14,8 +14,8 @@ const navItems = [
       "Orders",
       "Cart",
       "Wishlist",
-      "Downloads",
-      "Return request",
+      // "Downloads",
+      // "Return request",
     ],
   },
   {

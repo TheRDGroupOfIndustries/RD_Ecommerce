@@ -361,13 +361,13 @@ const Header = () => {
                 className="relative hidden lg:block"
               >
                 <div className="absolute -right-3 -top-3 rounded-full bg-red-500 text-white text-xs w-4 h-4 flex items-center justify-center">
-                  {userData?.wishlist_products?.length}
+                  {userData?.wishlist_products?.length || 0}
                 </div>
                 <Heart style={{ width: "20px", height: "20px" }} />
               </Link>
               <Link to={"/account/cart"} className="relative hidden lg:block">
                 <div className="absolute -right-3 -top-3 rounded-full bg-red-500 text-white text-xs w-4 h-4 flex items-center justify-center">
-                  {totalQuantity}
+                  {totalQuantity || 0}
                 </div>
                 <ShoppingCart style={{ width: "20px", height: "20px" }} />
               </Link>
@@ -528,7 +528,7 @@ const Header = () => {
                 >
                   <Heart style={{ width: "20px", height: "20px" }} /> Wishlist
                   <span className="absolute left-4 top-0 bg-red-500 text-white text-xs w-4 h-4 flex items-center justify-center rounded-full">
-                    {userData?.wishlist_products?.length}
+                    {userData?.wishlist_products?.length || 0}
                   </span>
                 </Link>
                 <Link
@@ -539,7 +539,7 @@ const Header = () => {
                   <ShoppingCart style={{ width: "20px", height: "20px" }} />{" "}
                   Cart
                   <span className="absolute left-4 top-0 bg-red-500 text-white text-xs w-4 h-4 flex items-center justify-center rounded-full">
-                    {totalQuantity}
+                    {totalQuantity || 0}
                   </span>
                 </Link>
                 {isAuthenticated && (

@@ -116,7 +116,7 @@ const Login = () => {
             <button
               type="button"
               onClick={googleLogin}
-              className="w-full flex items-center justify-center bg-white border border-gray-300 text-gray-700 font-semibold py-2 rounded-md hover:bg-gray-50 transition duration-300"
+              className="w-full flex items-center justify-center bg-white border border-gray-300 text-gray-700 font-semibold py-2 rounded-md hover:bg-gray-50 transition duration-300 cursor-pointer"
             >
               Login with Google
             </button>

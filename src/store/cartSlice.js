@@ -148,14 +148,14 @@ const cartSlice = createSlice({
       .addCase(fetchCartItems.fulfilled, (state, action) => {
         const { products } = action.payload;
 
-        state.items = products;
-        state.totalQuantity = products.length;
+        state.items = products || [];
+        state.totalQuantity = products?.length;
 
-        const totalPrice = products.reduce((acc, item) => {
+        const totalPrice = products?.reduce((acc, item) => {
           return acc + item.product.salePrice * item.quantity;
         }, 0);
 
-        state.totalPrice = totalPrice.toFixed(2);
+        state.totalPrice = totalPrice?.toFixed(2);
         state.loading = false;
       })
       .addCase(fetchCartItems.rejected, (state, action) => {

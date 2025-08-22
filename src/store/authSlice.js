@@ -19,7 +19,7 @@ export const login = createAsyncThunk(
 
       return response.data;
     } catch (error) {
-      return rejectWithValue({ message: "Login failed" });
+      return rejectWithValue(error.response.data);
     }
   }
 );
@@ -36,7 +36,9 @@ export const signUp = createAsyncThunk(
       // connsole.log(response.data);
       return response.data;
     } catch (error) {
-      return rejectWithValue({ message: "Registration failed" });
+      console.log(error);
+      
+      return rejectWithValue(error.response.data);
     }
   }
 );
@@ -150,7 +152,7 @@ const authSlice = createSlice({
       })
       .addCase(login.rejected, (state, action) => {
         state.loading = false;
-        toast.error(action.payload.message);
+        toast.error(action.payload);
       })
       .addCase(signUp.pending, (state) => {
         state.loading = true;
@@ -162,7 +164,7 @@ const authSlice = createSlice({
       })
       .addCase(signUp.rejected, (state, action) => {
         state.loading = false;
-        toast.error(action.payload.message);
+        toast.error(action.payload);
       })
       .addCase(getTokenData.pending, (state) => {
         state.loading = true;

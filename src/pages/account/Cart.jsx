@@ -117,7 +117,7 @@ const Cart = () => {
           <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-gray-900"></div>
         </div>
       ) : items?.length === 0 ? (
-        <p className="text-center text-gray-600 py-10">Your cart is empty.</p>
+        <p className="text-lg font-semibold text-center">Your cart is empty.</p>
       ) : (
         <>
           {/* Cart Items - Desktop Table Layout */}

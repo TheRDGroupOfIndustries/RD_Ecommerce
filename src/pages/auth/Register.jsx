@@ -2,7 +2,7 @@ import { Eye, EyeOff } from "lucide-react";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { signUp } from "../../store/authSlice";
 import { BtnLoader } from "../../components";
 
@@ -10,15 +10,22 @@ const Register = () => {
   const [showPassword, setShowPassword] = useState(false);
   const dispatch = useDispatch();
   const { loading } = useSelector((state) => state.auth);
+  const navigate = useNavigate();
 
   const {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm();
 
   const onSubmit = (data) => {
-    dispatch(signUp(data));
+    dispatch(signUp(data)).unwrap().then(() => {
+      reset();
+      navigate("/auth/login");
+    }).catch((error) => {
+      // Handle registration error
+    });
   };
 
   const googleLogin = () => {
@@ -146,7 +153,7 @@ const Register = () => {
             <button
               type="button"
               onClick={googleLogin}
-              className="w-full flex items-center justify-center bg-white border border-gray-300 text-gray-700 font-semibold py-2 rounded-md hover:bg-gray-50 transition duration-300"
+              className="w-full flex items-center justify-center bg-white border border-gray-300 text-gray-700 font-semibold py-2 rounded-md hover:bg-gray-50 transition duration-300 cursor-pointer"
             >
               Sign Up with Google
             </button>

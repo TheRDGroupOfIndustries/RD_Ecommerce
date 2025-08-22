@@ -85,13 +85,13 @@ const Dashboard = () => {
       </p>
 
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
-        <Card icon="🛒" title="Total Order" value={orders?.length} />
+        <Card icon="🛒" title="Total Order" value={orders?.length || 0} />
         <Card
           icon="🚚"
           title="Total Pending Order"
-          value={pendingOrders?.length}
+          value={pendingOrders?.length || 0}
         />
-        <Card icon="⚙️" title="Total Wishlist" value="31576" />
+        <Card icon="⚙️" title="Total Wishlist" value={userData?.wishlist_products?.length || 0} />
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
