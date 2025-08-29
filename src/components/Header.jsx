@@ -38,18 +38,21 @@ const homeNavigations = [
 ];
 
 const shopNavigations = {
-  "Shop Structure": [
-    { title: "Standard", path: "/shop-standard" },
-    { title: "List", path: "/shop-list" },
-    // { title: "With Category", path: "/shop-with-category" },
-    { title: "Style 1", path: "/shop-style-1" },
-    { title: "Style 2", path: "/shop-style-2" },
+  "Man's": [
+    { title: "T-Shirt", path: "/shop-standard?gender=man&category=t-shirt" },
+    { title: "Jeans", path: "/shop-standard?gender=man&category=jeans" },
+    { title: "Shirts", path: "/shop-standard?gender=man&category=shirts" },
+    { title: "Hoodies", path: "/shop-standard?gender=man&category=hoodies" },
   ],
-  "Product Structure": [
-    { title: "Default", path: "/product-default" },
-    { title: "Thumbnail", path: "/product-thumbnail" },
-    { title: "Grid Media", path: "/product-grid-media" },
-    { title: "Carousel", path: "/product-carousel" },
+  "Woman's": [
+    { title: "T-Shirt", path: "/shop-standard?gender=woman&category=t-shirt" },
+    { title: "Jeans", path: "/shop-standard?gender=woman&category=jeans" },
+    { title: "Dresses", path: "/shop-standard?gender=woman&category=dresses" },
+    { title: "Hoodies", path: "/shop-standard?gender=woman&category=hoodies" },
+    // { title: "Default", path: "/product-default?gender=female" },
+    // { title: "Thumbnail", path: "/product-thumbnail?gender=female" },
+    // { title: "Grid Media", path: "/product-grid-media?gender=female" },
+    // { title: "Carousel", path: "/product-carousel" },
     // { title: "Full Width", path: "/product-full-width" },
   ],
   // "Shop Pages": [
@@ -191,7 +194,7 @@ const Header = () => {
               <div className="space-y-10">
                 <div className="flex flex-col md:flex-row flex-nowrap gap-5 md:gap-10">
                   {Object.entries(shopNavigations).map(([section, items]) => (
-                    <div key={section}>
+                    <div key={section} className="min-w-[100px]">
                       <h3 className="text-lg font-semibold mb-3 whitespace-nowrap">
                         {section}
                       </h3>
@@ -261,14 +264,14 @@ const Header = () => {
           </ContentWrapper>
         </div>
         <div className="group">
-          <li className="px-4 py-2 font-semibold cursor-pointer list-none flex items-center gap-1 group">
+          <Link to={'/blog'} className="px-4 py-2 font-semibold cursor-pointer list-none flex items-center gap-1 group">
             Blog{" "}
-            <MdKeyboardArrowDown
+            {/* <MdKeyboardArrowDown
               size={20}
               className="group-hover:rotate-180 duration-150"
-            />
-          </li>
-          <ContentWrapper>
+            /> */}
+          </Link>
+          {/* <ContentWrapper>
             <div className="bg-white p-6 md:p-10 flex flex-col md:flex-row flex-nowrap gap-5 md:gap-10 shadow rounded-sm">
               <div className="w-full md:w-3xl grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-10 whitespace-nowrap">
                 {Object.entries(blogNavigations).map(([section, items]) => (
@@ -311,7 +314,7 @@ const Header = () => {
                 </div>
               </div>
             </div>
-          </ContentWrapper>
+          </ContentWrapper> */}
         </div>
 
         <Link to="/about-us" className="px-4 py-2 font-semibold cursor-pointer">
@@ -404,7 +407,11 @@ const Header = () => {
       >
         <div className="flex justify-between items-center p-4 border-b">
           <Link to="/">
-            <img src="/website-logo-1.jpg" alt="logo" className="cursor-pointer h-8" />
+            <img
+              src="/website-logo-1.jpg"
+              alt="logo"
+              className="cursor-pointer h-8"
+            />
           </Link>
           <button onClick={() => setOpenMenu(false)} className="text-2xl">
             &times;

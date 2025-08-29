@@ -19,6 +19,9 @@ import store from "./store/store.js";
 import { AboutUs, ContactUs } from "./pages";
 import NextLogin from "./pages/auth/NextLogin.jsx";
 import AuthCallback from "./pages/auth/AuthCallback.jsx";
+import TermsAndConditions from "./pages/TermsAndConditions.jsx";
+import PrivacyPolicy from "./pages/PrivacyPolicy.jsx";
+import BlogDetails from "./pages/BlogDetails.jsx";
 
 const router = createBrowserRouter([
   {
@@ -41,12 +44,24 @@ const router = createBrowserRouter([
         element: <AboutUs />,
       },
       {
+        path: "terms-and-conditions",
+        element: <TermsAndConditions />,
+      },
+      {
+        path: "privacy-policy",
+        element: <PrivacyPolicy />,
+      },
+      {
         path: "contact-us",
         element: <ContactUs />,
       },
       {
         path: "checkout",
         element: <Checkout />,
+      },
+      {
+        path: "blog/:slug",
+        element: <BlogDetails />,
       },
       {
         path: "auth",

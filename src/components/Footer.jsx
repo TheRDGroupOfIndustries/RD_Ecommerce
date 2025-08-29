@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 const Footer = () => {
   return (
     <footer className="bg-[#fff9f1] text-[#111] pt-16 px-6">
-      <div className="max-w-screen-xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-10">
+      <div className="max-w-screen-xl mx-auto flex justify-between flex-wrap gap-10">
         {/* Brand & Contact */}
         <div className="space-y-4">
           <img src="/website-logo-1.jpg" alt="Neeraya Logo" className="h-10" />
@@ -25,6 +25,29 @@ const Footer = () => {
           </div>
         </div>
 
+
+        {/* Useful Links */}
+        <div>
+          <h3 className="font-semibold text-lg mb-4">Useful Links</h3>
+          <ul className="space-y-2 text-sm text-gray-700">
+            {[
+              "Privacy Policy",
+              "Terms & Conditions",
+              "Contact Us",
+              "Blog",
+              "About Us",
+            ].map((link) => (
+              <li
+                key={link}
+                className="text-gray-600 hover:text-black capitalize font-semibold"
+              >
+                <Link to={link.toLowerCase().replaceAll(" ", "-").replaceAll("&", "and")}>{link}</Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        
         {/* Recent Posts */}
         <div>
           <h3 className="font-semibold text-lg mb-4">Recent Posts</h3>
@@ -61,31 +84,8 @@ const Footer = () => {
           </ul>
         </div>
 
-
-        {/* Useful Links */}
-        <div>
-          <h3 className="font-semibold text-lg mb-4">Useful Links</h3>
-          <ul className="space-y-2 text-sm text-gray-700">
-            {[
-              "Privacy Policy",
-              "Returns",
-              "Terms & Conditions",
-              "Contact Us",
-              "Latest News",
-              "Our Sitemap",
-            ].map((link) => (
-              <li
-                key={link}
-                className="text-gray-600 hover:text-black capitalize font-semibold"
-              >
-                <Link to={link === 'Contact Us' ? "contact-us": "#"}>{link}</Link>
-              </li>
-            ))}
-          </ul>
-        </div>
-
         {/* Footer Menu */}
-        <div>
+        {/* <div>
           <h3 className="font-semibold text-lg mb-4">Footer Menu</h3>
           <ul className="space-y-2 text-sm text-gray-700">
             {[
@@ -103,7 +103,7 @@ const Footer = () => {
               </li>
             ))}
           </ul>
-        </div>
+        </div> */}
       </div>
 
       {/* Bottom Bar */}

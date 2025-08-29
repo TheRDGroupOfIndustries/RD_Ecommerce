@@ -47,7 +47,7 @@ export {
 };
 export const blogRoutes = [
   {
-    path: "blog-dark-2-colomn",
+    path: "blog",
     element: (
       <BlogLayout>
         <BlogDark2Col />

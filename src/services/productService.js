@@ -27,6 +27,7 @@ export const getProducts = async (query) => {
     query.color && (filter.color = query.color);
     query.tag && (filter.tag = query.tag);
     query.size && (filter.size = query.size);
+    query.gender && (filter.gender = query.gender);
     query.category && (filter.category = query.category);
     query.sortBy && (filter.sortBy = query.sortBy);
     query.limit && (filter.limit = query.limit);

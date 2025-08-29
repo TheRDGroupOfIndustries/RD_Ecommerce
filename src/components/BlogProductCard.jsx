@@ -2,12 +2,11 @@ import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 
 export default function BlogProductCard({
-  item,
+  blog,
   infoWidth,
   theme = "dark",
   className = "",
 }) {
-  const { slug, title, date, image, description } = item;
 
   return (
     <article
@@ -18,14 +17,14 @@ export default function BlogProductCard({
       ].join(" ")}
     >
       <Link
-        to={`/blog/${slug}`}
-        aria-label={title}
+        to={`/blog/${blog?.slug.current}`}
+        aria-label={blog?.title}
         className="block h-full w-full focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
       >
         {/* Image */}
         <img
-          src={image}
-          alt={title}
+          src={blog?.coverImage.asset.url}
+          alt={blog?.title}
           loading="lazy"
           className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
         />
@@ -49,12 +48,12 @@ export default function BlogProductCard({
                 theme === "dark" ? "bg-white text-black" : "bg-black text-white"
               }`}
             >
-              {date}
+              {new Date(blog?.date).toDateString()}
             </span>
 
             {/* Title */}
             <h3 className="text-lg font-semibold leading-tight sm:text-xl md:text-xl">
-              {title}
+              {blog?.title}
             </h3>
 
             {/* Read More link */}
