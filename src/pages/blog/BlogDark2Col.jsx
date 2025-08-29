@@ -10,11 +10,11 @@ const BlogDark2Col = () => {
    const fetchPosts = async () => {
     try {
       const response = await getPosts();
-      console.log("Sanity posts: ", response);
+      // console.log("Sanity posts: ", response);
       setBlogs(response);
       return response;
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       return null;
     }
   };

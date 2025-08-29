@@ -8,7 +8,7 @@ export default function NextLogin() {
   const handleLogin = async () => {
    try {
       const res = await authApi.loginWithCredentials(email, password);
-      console.log("Login success:", res);
+      // console.log("Login success:", res);
       window.location.href = "/dashboard";
     } catch (err) {
       console.error("Login failed:", err);

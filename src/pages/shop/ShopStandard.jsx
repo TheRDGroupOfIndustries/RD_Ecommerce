@@ -52,7 +52,7 @@ const ShopStandard = ({ viewMode, categorySection = false }) => {
 
     setGender(genderParam);
     setCategory(categoryParam);
-    console.log("Query", { genderParam, categoryParam });
+    // console.log("Query", { genderParam, categoryParam });
   }, [search]);
 
   useEffect(() => {
@@ -72,12 +72,12 @@ const ShopStandard = ({ viewMode, categorySection = false }) => {
   };
 
   const fetchProducts = async (filter) => {
-    console.log("Fetching products with filter:", filter);
+    // console.log("Fetching products with filter:", filter);
 
     const res = await getProducts(filter);
     if (res) {
       setProducts(res);
-      console.log("Fetched products:", res);
+      // console.log("Fetched products:", res);
     } else {
       toast.error("Failed to fetch products");
     }

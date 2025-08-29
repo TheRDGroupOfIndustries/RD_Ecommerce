@@ -9,13 +9,13 @@ function BlogDetails() {
 
   const fetchPosts = async () => {
     try {
-      console.log("Fetching blog post with slug:", slug);
+      // console.log("Fetching blog post with slug:", slug);
       const response = await getPost(slug);
-      console.log("Sanity post:", response);
+      // console.log("Sanity post:", response);
       setBlog(response);
       return response;
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       return null;
     }
   };
