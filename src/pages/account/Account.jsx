@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, Outlet } from "react-router-dom";
+import { Link, Outlet, useNavigate } from "react-router-dom";
 import ShopTopBanner from "../../components/ShopTopBanner";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../store/authSlice";
@@ -26,17 +26,23 @@ const navItems = [
 
 const Account = () => {
   const { userData } = useSelector((state) => state.auth);
+  const navigate = useNavigate();
+
   const TextImage =
-    userData && userData?.first_name ?
-    (
-      userData?.first_name?.slice(0, 1) + userData?.last_name?.slice(0, 1)
-    )?.toUpperCase() : userData?.name ? userData?.name.charAt(0).toUpperCase() : "";
+    userData && userData?.first_name
+      ? (
+          userData?.first_name?.slice(0, 1) + userData?.last_name?.slice(0, 1)
+        )?.toUpperCase()
+      : userData?.name
+      ? userData?.name.charAt(0).toUpperCase()
+      : "";
 
   const dispatch = useDispatch();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   const handleLogout = () => {
     dispatch(logout());
+    navigate("/");
   };
 
   return (
@@ -78,7 +84,9 @@ const Account = () => {
                 }}
               />
               <h2 className="mt-3 font-semibold text-lg sm:text-xl capitalize text-gray-900">
-                {userData?.name? userData?.name : userData?.first_name + " " + userData?.last_name}
+                {userData?.name
+                  ? userData?.name
+                  : userData?.first_name + " " + userData?.last_name}
               </h2>
               <p className="text-blue-600 text-sm sm:text-base">
                 {userData?.email}

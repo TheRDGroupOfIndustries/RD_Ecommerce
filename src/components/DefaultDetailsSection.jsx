@@ -33,8 +33,8 @@ const colorClasses = {
 
 const DefaultDetailsSection = ({ product, reviews }) => {
   const [quantity, setQuantity] = useState(1);
-  const [selectedSize, setSelectedSize] = useState("S");
-  const [selectedColor, setSelectedColor] = useState("gray");
+  const [selectedSize, setSelectedSize] = useState("");
+  const [selectedColor, setSelectedColor] = useState("");
   const { isAuthenticated } = useSelector((state) => state.auth);
   const { loading } = useSelector((state) => state.cart);
   const dispatch = useDispatch();
@@ -70,13 +70,29 @@ const DefaultDetailsSection = ({ product, reviews }) => {
       ? reviews.reduce((sum, r) => sum + r.rating, 0) / reviews.length
       : 0;
 
-  // const handleAddToCart = () => {
-  //   if (!isAuthenticated) {
-  //     toast.error("Please login to add items to cart");
-  //     return;
-  //   }
-  //   dispatch(addProductToCart({ productId: product._id, quantity }));
-  // };
+  const handleAddToCart = () => {
+    if (!isAuthenticated) {
+      toast.error("Please login to add items to cart");
+      return;
+    }
+    if (!selectedSize) {
+      toast.error("Please select a size");
+      return;
+    }
+    if (!selectedColor) {
+      toast.error("Please select a color");
+      return;
+    }
+    dispatch(
+      addProductToCart({
+        productId: product._id,
+        quantity,
+        color: selectedColor,
+        size: selectedSize,
+      })
+    );
+  };
+
   return (
     <section className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-10 p-4 md:p-8 lg:p-10  mx-auto mt-6">
       {/* Images Section */}
@@ -292,9 +308,7 @@ const DefaultDetailsSection = ({ product, reviews }) => {
             Add To Wishlist
           </button>
           <button
-            onClick={() =>
-              dispatch(addProductToCart({ productId: product._id, quantity }))
-            }
+            onClick={handleAddToCart}
             className="w-full bg-blue-600 text-white font-semibold py-3 rounded-lg hover:bg-blue-700 transition-colors duration-200 "
           >
             {loading ? <BtnLoader /> : "Add To Cart"}

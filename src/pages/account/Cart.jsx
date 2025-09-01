@@ -81,12 +81,13 @@ const Cart = () => {
     }
   }, []);
 
-  const handleQuantityChange = (id, delta) => {
-    dispatch(updateQuantity({ productId: id, quantity: delta }));
+  const handleQuantityChange = (id, delta, color, size) => {
+    dispatch(updateQuantity({ productId: id, quantity: delta, color, size }));
   };
 
-  const handleRemoveItem = (id) => {
-    dispatch(deleteCartItem(id));
+  const handleRemoveItem = (id, color, size) => {
+    // console.log(id, color, size);
+    dispatch(deleteCartItem({id, color, size}));
   };
 
   const applyCoupon = async (code) => {
@@ -131,6 +132,12 @@ const Cart = () => {
                   Price
                 </th>
                 <th className="p-4 text-sm font-semibold text-gray-700">
+                  Color
+                </th>
+                <th className="p-4 text-sm font-semibold text-gray-700">
+                  Size
+                </th>
+                <th className="p-4 text-sm font-semibold text-gray-700">
                   Quantity
                 </th>
                 <th className="p-4 text-sm font-semibold text-gray-700">
@@ -144,7 +151,7 @@ const Cart = () => {
             <tbody>
               {items.map((item) => (
                 <tr
-                  key={item.product._id}
+                  key={item.product._id + item.color + item.size}
                   className="border-t border-gray-100 hover:bg-gray-50"
                 >
                   <td className="p-4 flex items-center gap-4">
@@ -181,7 +188,7 @@ const Cart = () => {
                       </span>
                       <button
                         onClick={() =>
-                          handleQuantityChange(item.product._id, 1)
+                          handleQuantityChange(item.product._id, 1, item.color, item.size)
                         }
                         className="bg-gray-200 text-gray-700 w-8 h-8 rounded-full flex items-center justify-center hover:bg-gray-300 transition-colors duration-200 text-sm"
                         aria-label="Increase quantity"
@@ -193,9 +200,15 @@ const Cart = () => {
                   <td className="p-4 font-semibold text-gray-900">
                     Rs. {(item.product.salePrice * item.quantity).toFixed(2)}
                   </td>
+                  <td className="p-4 font-semibold text-gray-900">
+                    {item.color}
+                  </td>
+                  <td className="p-4 font-semibold text-gray-900">
+                    {item.size}
+                  </td>
                   <td className="p-4">
                     <button
-                      onClick={() => handleRemoveItem(item.product._id)}
+                      onClick={() => handleRemoveItem(item.product._id, item.color, item.size)}
                       className="text-gray-400 hover:text-red-500 transition-colors duration-200"
                       aria-label="Remove item"
                     >
@@ -209,9 +222,9 @@ const Cart = () => {
 
           {/* Cart Items - Mobile Card Layout */}
           <div className="md:hidden space-y-4">
-            {items.map((item) => (
+            {items.map((item, idx) => (
               <div
-                key={item.product._id}
+                key={item.product._id + item.color + item.size + idx}
                 className="flex flex-col border border-gray-200 rounded-lg p-4 shadow-sm"
               >
                 <div className="flex items-start justify-between mb-3">
@@ -236,7 +249,7 @@ const Cart = () => {
                     </div>
                   </div>
                   <button
-                    onClick={() => handleRemoveItem(item.product._id)}
+                    onClick={() => handleRemoveItem(item.product._id, item.color, item.size)}
                     className="text-gray-400 hover:text-red-500 transition-colors duration-200"
                     aria-label="Remove item"
                   >

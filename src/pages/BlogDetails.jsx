@@ -22,6 +22,11 @@ function BlogDetails() {
 
   useEffect(() => {
     fetchPosts();
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "smooth",
+    });
   }, []);
 
   return (
@@ -42,9 +47,12 @@ function BlogDetails() {
             <h5 className="uppercase tracking-wide text-gray-900 text-sm md:text-base">
               {blog?.tag}
             </h5>
-            <h1 className="font-bold text-gray-900 text-4xl md:text-5xl lg:text-6xl max-w-4xl leading-tight" style={{
+            <h1
+              className="font-bold text-gray-900 text-4xl md:text-5xl lg:text-6xl max-w-4xl leading-tight"
+              style={{
                 textShadow: "2px 2px 10px white",
-            }}>
+              }}
+            >
               {blog?.title}
             </h1>
           </div>
@@ -71,9 +79,13 @@ function BlogDetails() {
               }
               if (block.listItem === "bullet") {
                 return (
-                  <ul key={block._key} className="list-disc list-inside pl-4 mb-4">
+                  <ul
+                    key={block._key}
+                    className="list-disc list-inside pl-4 mb-4"
+                  >
                     <li className="text-gray-700 leading-relaxed font-semibold flex gap-2">
-                      <ArrowBigRight/> {block.children.map((child) => child.text).join("")}
+                      <ArrowBigRight />{" "}
+                      {block.children.map((child) => child.text).join("")}
                     </li>
                   </ul>
                 );

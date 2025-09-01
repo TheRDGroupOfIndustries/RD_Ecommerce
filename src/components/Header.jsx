@@ -220,12 +220,12 @@ const Header = () => {
                       Yes! Send me exclusive offers, personalized, and unique
                       gift ideas, tips for shopping on Neeraya
                     </p>
-                    <button className="text-blue-500 font-medium hover:underline mb-4">
+                    <Link to={"/shop-standard"} className="text-blue-500 font-medium hover:underline mb-4">
                       View All Products
-                    </button>
+                    </Link>
                   </div>
 
-                  <div className="flex justify-center gap-2 md:gap-3 text-sm font-medium text-center">
+                  {/* <div className="flex justify-center gap-2 md:gap-3 text-sm font-medium text-center">
                     <div className="">
                       <div className="bg-gray-300 p-2 rounded-sm text-xl">
                         179
@@ -250,7 +250,7 @@ const Header = () => {
                       </div>
                       <p className="font-bold">SECOND</p>
                     </div>
-                  </div>
+                  </div> */}
                 </div>
               </div>
               <div className=" w-full flex gap-10 ">

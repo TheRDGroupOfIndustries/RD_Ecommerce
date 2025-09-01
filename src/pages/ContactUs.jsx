@@ -1,7 +1,14 @@
 import { Mail, MapPin, Phone } from 'lucide-react'
-import React from 'react'
+import React, { useEffect } from 'react'
 
 const ContactUs = () => {
+    useEffect(() => {
+      window.scrollTo({
+        top: 0,
+        left: 0,
+        behavior: "smooth",
+      });
+    }, []);
   return (
     <div className="space-y-12 p-4 md:p-10 lg:p-20">
       {/* Contact Us Hero Section */}

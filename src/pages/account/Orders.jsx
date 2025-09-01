@@ -27,6 +27,7 @@ const OrderDetails = ({ orderId, setOpenDetailsPannel }) => {
     try {
       const response = await getOrderDetails(orderId);
       setOrder(response);
+      // console.log(response)
     } catch (error) {
       console.error("Failed to fetch order details:", error);
       toast.error("Failed to fetch order details");
@@ -55,7 +56,7 @@ const OrderDetails = ({ orderId, setOpenDetailsPannel }) => {
               <div>
                 <h3 className="text-lg font-semibold mb-4">Ordered Items</h3>
                 <div className="space-y-4">
-                  {order.items.map(({ product, quantity, _id }) => (
+                  {order.items.map(({ product, quantity, _id, color, size }) => (
                     <div
                       key={_id}
                       className="flex flex-col sm:flex-row sm:items-center gap-4 rounded-lg p-4 bg-white shadow-sm"
@@ -70,8 +71,8 @@ const OrderDetails = ({ orderId, setOpenDetailsPannel }) => {
                         <p className="text-sm text-gray-600">
                           {product.description}
                         </p>
-                        <p className="text-sm text-gray-500 mt-1">
-                          Brand: {product.brand} | Qty: {quantity}
+                        <p className="text-sm text-gray-500 mt-1 capitalize">
+                          Brand: {product.brand} | Qty: {quantity} | Color: {color} | Size: {size}
                         </p>
                         <p className="mt-1 text-sm text-green-600">
                           ₹{product.salePrice.toFixed(2)}{" "}
@@ -148,15 +149,15 @@ const OrderDetails = ({ orderId, setOpenDetailsPannel }) => {
 const Orders = () => {
   const [openDetailsPannel, setOpenDetailsPannel] = useState(false);
   const [selectedOrderId, setSelectedOrderId] = useState(null);
-  const { isAuthenticated } = useSelector((state) => state.auth);
+  const {userData, isAuthenticated } = useSelector((state) => state.auth);
   const { orders } = useSelector((state) => state.order);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (isAuthenticated) {
+    if (userData && isAuthenticated) {
       dispatch(getAllOrders());
     }
-  }, [isAuthenticated]);
+  }, [userData && isAuthenticated]);
 
   return (
     <div className="px-2 sm:px-4 py-6">

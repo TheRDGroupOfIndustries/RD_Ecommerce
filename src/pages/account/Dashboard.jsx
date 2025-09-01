@@ -11,6 +11,7 @@ import {
 } from "recharts";
 import { logout } from "../../store/authSlice";
 import { getAllOrders } from "../../store/orderSlice";
+import { useNavigate } from "react-router-dom";
 
 // Sample Data
 const countries = [
@@ -37,19 +38,21 @@ const Dashboard = () => {
   const { userData, isAuthenticated } = useSelector((state) => state.auth);
   const { orders } = useSelector((state) => state.order);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const pendingOrders = orders?.filter((order) => order.status === "pending");
   // // connsole.log("pendingOrders", pendingOrders);
 
   const handleLogout = () => {
     dispatch(logout());
+    navigate("/");
   };
 
   useEffect(() => {
-    if (isAuthenticated) {
+    if (userData && isAuthenticated) {
       dispatch(getAllOrders());
     }
-  }, [isAuthenticated]);
+  }, [userData && isAuthenticated]);
 
   return (
     <div className=" md:p-6">
@@ -91,7 +94,11 @@ const Dashboard = () => {
           title="Total Pending Order"
           value={pendingOrders?.length || 0}
         />
-        <Card icon="⚙️" title="Total Wishlist" value={userData?.wishlist_products?.length || 0} />
+        <Card
+          icon="⚙️"
+          title="Total Wishlist"
+          value={userData?.wishlist_products?.length || 0}
+        />
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">

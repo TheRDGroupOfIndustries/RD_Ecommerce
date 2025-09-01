@@ -38,6 +38,8 @@ const Checkout = () => {
       items: items.map((item) => ({
         product: item.product._id,
         quantity: item.quantity,
+        color: item.color,
+        size: item.size,
       })),
       billingMethod,
       totalPrice: Number((totalPrice - discount).toFixed(2)),

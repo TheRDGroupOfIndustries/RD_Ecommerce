@@ -3,7 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 import { useDispatch } from "react-redux";
 import { RiLoader3Fill } from "react-icons/ri";
-import { getTokenData, loginUser } from "../../store/authSlice";
+import { getTokenData, loginUser, setToken } from "../../store/authSlice";
 
 export default function AuthCallback() {
   const navigate = useNavigate();
@@ -18,6 +18,7 @@ export default function AuthCallback() {
       // console.log("Logged in user:", user);
       localStorage.setItem("neeraya-auth-token", token);
       dispatch(loginUser(user));
+      dispatch(setToken(token))
       navigate("/");
     } else {
       navigate("/auth/login");
@@ -28,7 +29,7 @@ export default function AuthCallback() {
     <div className="min-h-[90vh] flex flex-col items-center justify-center bg-gray-50 p-6 font-inter">
       <div className="bg-white rounded-lg shadow-xl p-10 flex flex-col items-center justify-center text-center max-w-md w-full">
         <h2 className="text-4xl font-bold font-serif-custom text-gray-800 mb-6 animate-pulse">
-          CHLOE'S VENTURE
+          Neeraya
         </h2>
         <div className="flex items-center justify-center space-x-4 mb-8">
           {/* Simple pulsing circle animation */}

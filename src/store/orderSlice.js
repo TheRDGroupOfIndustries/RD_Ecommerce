@@ -39,6 +39,9 @@ export const getAllOrders = createAsyncThunk(
     async (_, { rejectWithValue, getState }) => {
         try {
             const { userData } = getState().auth;
+            if (!userData || !userData._id) {
+                return rejectWithValue({ message: "Invalid user ID" });
+            }
             const response = await api.get(`/order/get/user/${userData._id}`);
             // // connsole.log("Fetched orders successfully:", response.data);
             return response.data;
@@ -55,6 +58,9 @@ export const getOrderDetails = createAsyncThunk(
     async (orderId, { rejectWithValue, getState }) => {
         try {
             const { userData } = getState().auth;
+            if (!userData || !userData._id) {
+                return rejectWithValue({ message: "Invalid user ID" });
+            }
             const response = await api.get(`/order/get/user/${userData._id}/${orderId}`);
             return response.data;
         } catch (error) {

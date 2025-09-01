@@ -74,18 +74,26 @@ const ProductDetails = ({ route }) => {
     fetchReviews();
   }, [id, pathname]);
 
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "smooth",
+    });
+  }, []);
+
   return (
     <>
       {route === "default" ? (
         <DefaultDetailsSection product={product} reviews={reviews} />
       ) : route === "thumbnail" ? (
-        <ThumbnailDetailsSection product={product} reviews={reviews}  />
+        <ThumbnailDetailsSection product={product} reviews={reviews} />
       ) : route === "grid-media" ? (
-        <GridMediaDetailsSection product={product} reviews={reviews}  />
+        <GridMediaDetailsSection product={product} reviews={reviews} />
       ) : route === "carousel" ? (
-        <CarouselDetailsSection product={product} reviews={reviews}  />
+        <CarouselDetailsSection product={product} reviews={reviews} />
       ) : route === "full-width" ? (
-        <FullWidthDetailsSection product={product} reviews={reviews}  />
+        <FullWidthDetailsSection product={product} reviews={reviews} />
       ) : null}
 
       <section className="px-4 py-8 md:px-8 lg:px-20 lg:py-12 mx-auto my-8">

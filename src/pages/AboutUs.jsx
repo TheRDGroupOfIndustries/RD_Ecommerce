@@ -1,7 +1,14 @@
 import { Award, Calendar, CheckCircle, Mail, MapPin, Users } from 'lucide-react'
-import React from 'react'
+import React, { useEffect } from 'react'
 
 const AboutUs = () => {
+    useEffect(() => {
+      window.scrollTo({
+        top: 0,
+        left: 0,
+        behavior: "smooth",
+      });
+    }, []);
   return (
     <div className="space-y-12 p-4 md:p-10 lg:p-20">
       {/* About Us Hero Section */}

@@ -6,8 +6,7 @@ import { getPosts } from "../../services/SanityServices";
 const BlogDark2Col = () => {
   const [blogs, setBlogs] = React.useState([]);
 
-
-   const fetchPosts = async () => {
+  const fetchPosts = async () => {
     try {
       const response = await getPosts();
       // console.log("Sanity posts: ", response);
@@ -21,12 +20,22 @@ const BlogDark2Col = () => {
 
   useEffect(() => {
     fetchPosts();
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "smooth",
+    });
   }, []);
 
   return (
     <div className="w-full px-4 md:px-10 lg:px-20 xl:px-40 py-20 grid grid-cols-1 md:grid-cols-2 gap-10">
       {blogs.slice(0, 4).map((blog) => (
-        <BlogProductCard key={blog.title} theme="dark" infoWidth={"70%"} blog={blog} />
+        <BlogProductCard
+          key={blog.title}
+          theme="dark"
+          infoWidth={"70%"}
+          blog={blog}
+        />
       ))}
 
       {/* <div className="col-span-full flex items-center justify-center py-10">

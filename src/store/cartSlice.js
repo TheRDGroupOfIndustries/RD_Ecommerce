@@ -11,7 +11,7 @@ const api = axios.create({
 
 export const addProductToCart = createAsyncThunk(
   "cart/addToCart",
-  async ({ productId, quantity }, { rejectWithValue, getState }) => {
+  async ({ productId, quantity, color, size }, { rejectWithValue, getState }) => {
     try {
       const { userData, isAuthenticated } = getState().auth;
       if (!isAuthenticated) {
@@ -23,7 +23,9 @@ export const addProductToCart = createAsyncThunk(
         user: userData._id,
         product: {
           id: productId,
-          quantity: quantity,
+          quantity,
+          color,
+          size,
         },
       });
       return response.data;
@@ -49,13 +51,15 @@ export const fetchCartItems = createAsyncThunk(
 
 export const updateQuantity = createAsyncThunk(
   "cart/updateQuantity",
-  async ({ productId, quantity }, { rejectWithValue, getState }) => {
+  async ({ productId, quantity, color, size }, { rejectWithValue, getState }) => {
     try {
       const { userData } = getState().auth;
       const response = await api.put(`/cart/update-quantity`, {
         user: userData._id,
         product: productId,
-        quantity: quantity,
+        quantity,
+        color,
+        size,
       });
       return response.data;
     } catch (error) {
@@ -67,11 +71,12 @@ export const updateQuantity = createAsyncThunk(
 
 export const deleteCartItem = createAsyncThunk(
   "cart/deleteCartItem",
-  async (productId, { rejectWithValue, getState }) => {
+  async ({id, color, size}, { rejectWithValue, getState }) => {
     try {
+      // console.log({id, color, size});
       const { userData } = getState().auth;
       const response = await api.delete(
-        `/cart/delete-item/${userData._id}/${productId}`
+        `/cart/delete-item/${userData._id}/${id}/${color}/${size}`
       );
       return response.data;
     } catch (error) {
@@ -191,9 +196,9 @@ const cartSlice = createSlice({
         state.items = products || [];
         state.totalQuantity = products?.length;
 
-        const totalPrice = products?.reduce((acc, item) => {
+        const totalPrice = products?.length ? products.reduce((acc, item) => {
           return acc + item.product.salePrice * item.quantity;
-        }, 0);
+        }, 0) : 0;
 
         state.totalPrice = totalPrice.toFixed(2);
       })

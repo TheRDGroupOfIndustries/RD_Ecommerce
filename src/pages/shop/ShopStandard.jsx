@@ -25,7 +25,16 @@ const colorFilters = [
 
 const sizeOptions = ["s", "m", "l", "xl", "xxl", "xxxl"];
 const categoryOptions = ["T-Shirt", "Dresses", "Jeans", "Shirts", "Hoodie"];
-const tags = ["Vintage", "Wedding", "Cotton", "Linen", "Navy", "Urban", "Business Meeting", "Formal"];
+const tags = [
+  "Vintage",
+  "Wedding",
+  "Cotton",
+  "Linen",
+  "Navy",
+  "Urban",
+  "Business Meeting",
+  "Formal",
+];
 
 const ShopStandard = ({ viewMode, categorySection = false }) => {
   // const [priceRange, setPriceRange] = useState([40, 350]);
@@ -38,7 +47,7 @@ const ShopStandard = ({ viewMode, categorySection = false }) => {
   const [color, setColor] = useState("");
   const [size, setSize] = useState("");
   const [category, setCategory] = useState("");
-  const [gender, setGender] = useState("")
+  const [gender, setGender] = useState("");
   const [tag, setTag] = useState("");
 
   const [isFilterOpen, setIsFilterOpen] = useState(false); // mobile filter toggle
@@ -56,7 +65,15 @@ const ShopStandard = ({ viewMode, categorySection = false }) => {
   }, [search]);
 
   useEffect(() => {
-    const filter = { color, size, category, tag, sortBy, limit: productsPerPage, gender };
+    const filter = {
+      color,
+      size,
+      category,
+      tag,
+      sortBy,
+      limit: productsPerPage,
+      gender,
+    };
     fetchProducts(filter);
   }, [color, size, category, tag, sortBy, productsPerPage, gender]);
 
@@ -82,6 +99,13 @@ const ShopStandard = ({ viewMode, categorySection = false }) => {
       toast.error("Failed to fetch products");
     }
   };
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "smooth",
+    });
+  }, []);
 
   // useEffect(() => {
   //   fetchProducts({});
@@ -168,7 +192,10 @@ const ShopStandard = ({ viewMode, categorySection = false }) => {
               <div className="flex flex-wrap items-end gap-4">
                 {/* Sort Select */}
                 <div>
-                  <label htmlFor="sort" className="block text-sm font-medium text-gray-700">
+                  <label
+                    htmlFor="sort"
+                    className="block text-sm font-medium text-gray-700"
+                  >
                     Sort By
                   </label>
                   <select
@@ -186,7 +213,10 @@ const ShopStandard = ({ viewMode, categorySection = false }) => {
 
                 {/* Products Per Page */}
                 <div>
-                  <label htmlFor="perPage" className="block text-sm font-medium text-gray-700">
+                  <label
+                    htmlFor="perPage"
+                    className="block text-sm font-medium text-gray-700"
+                  >
                     Show
                   </label>
                   <select
@@ -206,13 +236,17 @@ const ShopStandard = ({ viewMode, categorySection = false }) => {
                 <div className="flex items-center border border-gray-200 rounded">
                   <button
                     onClick={() => navigate("/shop-standard")}
-                    className={`p-2 ${viewMode === "grid" ? "bg-gray-100" : ""}`}
+                    className={`p-2 ${
+                      viewMode === "grid" ? "bg-gray-100" : ""
+                    }`}
                   >
                     <Grid className="w-4 h-4" />
                   </button>
                   <button
                     onClick={() => navigate("/shop-list")}
-                    className={`p-2 ${viewMode === "list" ? "bg-gray-100" : ""}`}
+                    className={`p-2 ${
+                      viewMode === "list" ? "bg-gray-100" : ""
+                    }`}
                   >
                     <List className="w-4 h-4" />
                   </button>
@@ -293,7 +327,9 @@ const SidebarFilters = ({
           {colorFilters.map((colorItem) => (
             <label
               key={colorItem.name}
-              className={`w-8 h-8 rounded-full ${colorItem.color} cursor-pointer hover:scale-110 transition ${
+              className={`w-8 h-8 rounded-full ${
+                colorItem.color
+              } cursor-pointer hover:scale-110 transition ${
                 color === colorItem.name ? "border-2 border-black" : ""
               }`}
             >
